@@ -27,7 +27,7 @@ public:
         return cells[index - 1];
     }
 
-    size_t size() const {
+    [[nodiscard]] size_t size() const {
         return cells.size() + 1;
     }
 
