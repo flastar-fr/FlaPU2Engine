@@ -94,6 +94,14 @@ public:
         return this->value == operand;
     }
 
+    bool operator!=(const uint8_t operand) const {
+        return !(*this == operand);
+    }
+
+    bool operator!=(const MemoryCell& operand) const {
+        return !(*this == operand);
+    }
+
     friend std::ostream& operator<<(std::ostream & lhs, const MemoryCell & m) {
         lhs << static_cast<int>(m.value);
         return lhs;
