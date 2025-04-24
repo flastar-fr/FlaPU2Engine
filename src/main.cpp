@@ -1,12 +1,9 @@
 #include <iostream>
 
-int main() {
-    auto lang = "C++";
-    std::cout << "Hello and welcome to " << lang << "!\n";
+#include "Engine.hpp"
+#include "MemoryCellNull.hpp"
 
-    for (int i = 1; i <= 5; i++) {
-        std::cout << "i = " << i << std::endl;
-    }
+int main() {
 
     return 0;
 }
