@@ -6,7 +6,7 @@
 #include "instructions/ADDInstruction.hpp"
 #include "instructions/HLTInstruction.hpp"
 #include "instructions/NOPInstruction.hpp"
-#include "instructions/LODInstruction.hpp"
+#include "instructions/LDIInstruction.hpp"
 #include "utils/string_verifications.hpp"
 
 
@@ -14,7 +14,7 @@ std::unordered_map<std::string, std::function<std::unique_ptr<Instruction>(const
     {"NOP", [](const std::vector<Token>& operands) { return std::make_unique<NOPInstruction>(operands); }},
     {"ADD", [](const std::vector<Token>& operands) { return std::make_unique<ADDInstruction>(operands); }},
     {"HLT", [](const std::vector<Token>& operands) { return std::make_unique<HLTInstruction>(operands); }},
-    {"LOD", [](const std::vector<Token>& operands) { return std::make_unique<LODInstruction>(operands); }}
+    {"LDI", [](const std::vector<Token>& operands) { return std::make_unique<LDIInstruction>(operands); }}
 };
 
 

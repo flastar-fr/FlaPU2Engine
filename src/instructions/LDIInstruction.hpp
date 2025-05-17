@@ -2,15 +2,15 @@
 #define LODINSTRUCTION_HPP
 #include "Instruction.hpp"
 
-class LODInstruction final : public Instruction {
+class LDIInstruction final : public Instruction {
 public:
-    explicit LODInstruction(const std::vector<Token>& operands): Instruction(operands) {
-        name = "LOD";
+    explicit LDIInstruction(const std::vector<Token>& operands): Instruction(operands) {
+        name = "LDI";
         amount_operands = 3;
     }
-    LODInstruction(): LODInstruction(std::vector<Token>()) {};
+    LDIInstruction(): LDIInstruction(std::vector<Token>()) {};
 
-    ~LODInstruction() override = default;
+    ~LDIInstruction() override = default;
 
     void execute(Engine& engine) const override {
         if (!isCorrect()) {
