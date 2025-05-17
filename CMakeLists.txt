@@ -12,6 +12,7 @@ add_executable(BatPU2Engine "")
 set_target_properties(BatPU2Engine PROPERTIES OUTPUT_NAME "BatPU2Engine")
 set_target_properties(BatPU2Engine PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/linux/x86_64/release")
 target_include_directories(BatPU2Engine PRIVATE
+    src
     build/.gens/BatPU2Engine/linux/x86_64/release/platform/windows/idl
 )
 target_include_directories(BatPU2Engine INTERFACE
@@ -41,12 +42,16 @@ target_link_options(BatPU2Engine PRIVATE
     -m64
 )
 target_sources(BatPU2Engine PRIVATE
+    src/io_manipulations.cpp
+    src/instructions/Instruction.cpp
     src/main.cpp
+    src/parser.cpp
+    src/config.cpp
+    src/utils/string_verifications.cpp
 )
 
 # target
-add_executable(tests ""
-        tests/test_memory.cpp)
+add_executable(tests "")
 set_target_properties(tests PROPERTIES OUTPUT_NAME "tests")
 set_target_properties(tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/linux/x86_64/release")
 target_include_directories(tests PRIVATE
@@ -90,6 +95,7 @@ target_sources(tests PRIVATE
     tests/test_memory_cell_null.cpp
     tests/test_engine.cpp
     tests/test_registers.cpp
+    tests/test_memory.cpp
     tests/main.cpp
     tests/common.cpp
     tests/test_memory_cell.cpp

@@ -1,8 +1,8 @@
-#include <MemoryCellNull.hpp>
+#include <code_hardware/MemoryCellNull.hpp>
 #include <gtest/gtest.h>
 
 #include "common.hpp"
-#include "MemoryCell.hpp"
+#include "code_hardware/MemoryCell.hpp"
 
 
 TEST(MemoryCellNullTest, Constructor) {

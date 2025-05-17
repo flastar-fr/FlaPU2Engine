@@ -3,6 +3,6 @@
 #include <string>
 #include <vector>
 
-std::vector<std::string> read_file(const std::string& file_name);
+bool read_file(const std::string& file_name, std::vector<std::string>& result);
 
 #endif //IO_MANIPULATIONS_HPP

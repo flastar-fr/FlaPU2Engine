@@ -11,8 +11,8 @@ public:
     : registerAmount(DEFAULT_SIZE_REGISTERS), memoryAmount(memoryAmount), registers(Registers()), memory(Memory(memoryAmount)) {}
     Engine() : Engine(DEFAULT_SIZE_MEMORY) {}
 
-    Registers getRegisters() { return registers; }
-    Memory getMemory() { return memory; }
+    Registers& getRegisters() { return registers; }
+    Memory& getMemory() { return memory; }
 
 private:
     int registerAmount;

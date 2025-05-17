@@ -8,12 +8,7 @@ inline constexpr size_t DEFAULT_SIZE_MEMORY = 255;
 
 class Memory {
 public:
-    explicit Memory(const int memoryAmount) {
-        memory.reserve(memoryAmount);
-        for (int i = 0; i < memoryAmount; ++i) {
-            memory.emplace_back();
-        }
-    }
+    explicit Memory(const int memoryAmount): memory(memoryAmount) {}
 
     Memory(): Memory(DEFAULT_SIZE_MEMORY) {}
 
