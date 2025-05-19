@@ -1,5 +1,5 @@
 NOP
 LDI r1 255
 LDI r2 2
-SUB r2 r1 r3
+ADI r2 2
 HLT
