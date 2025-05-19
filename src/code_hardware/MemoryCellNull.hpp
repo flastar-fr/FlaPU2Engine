@@ -1,8 +1,6 @@
 #ifndef MEMORYCELLNULL_HPP
 #define MEMORYCELLNULL_HPP
 
-#include <iostream>
-
 #include "MemoryCell.hpp"
 
 

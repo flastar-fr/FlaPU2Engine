@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <functional>
+#include <iostream>
 
 #include "instructions/ADDInstruction.hpp"
 #include "instructions/SUBInstruction.hpp"
@@ -9,6 +10,10 @@
 #include "instructions/NOPInstruction.hpp"
 #include "instructions/LDIInstruction.hpp"
 #include "instructions/ADIInstruction.hpp"
+#include "instructions/NORInstruction.hpp"
+#include "instructions/XORInstruction.hpp"
+#include "instructions/ANDInstruction.hpp"
+#include "instructions/RSHInstruction.hpp"
 #include "utils/string_verifications.hpp"
 
 
@@ -18,7 +23,11 @@ std::unordered_map<std::string, std::function<std::unique_ptr<Instruction>(const
     {"SUB", [](const std::vector<Token>& operands) { return std::make_unique<SUBInstruction>(operands); }},
     {"HLT", [](const std::vector<Token>& operands) { return std::make_unique<HLTInstruction>(operands); }},
     {"LDI", [](const std::vector<Token>& operands) { return std::make_unique<LDIInstruction>(operands); }},
-    {"ADI", [](const std::vector<Token>& operands) { return std::make_unique<ADIInstruction>(operands); }}
+    {"ADI", [](const std::vector<Token>& operands) { return std::make_unique<ADIInstruction>(operands); }},
+    {"NOR", [](const std::vector<Token>& operands) { return std::make_unique<NORInstruction>(operands); }},
+    {"XOR", [](const std::vector<Token>& operands) { return std::make_unique<XORInstruction>(operands); }},
+    {"AND", [](const std::vector<Token>& operands) { return std::make_unique<ANDInstruction>(operands); }},
+    {"RSH", [](const std::vector<Token>& operands) { return std::make_unique<RSHInstruction>(operands); }}
 };
 
 
@@ -54,7 +63,6 @@ void fill_empty(std::vector<std::unique_ptr<Instruction>>& instructions, const i
         instructions.push_back(parse_line("NOP"));
     }
 }
-
 
 std::vector<Token> extract_operands(const std::string& line) {
     std::vector<Token> tokens;

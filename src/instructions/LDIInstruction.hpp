@@ -6,7 +6,7 @@ class LDIInstruction final : public Instruction {
 public:
     explicit LDIInstruction(const std::vector<Token>& operands): Instruction(operands) {
         name = "LDI";
-        amount_operands = 3;
+        amount_operands = 2;
     }
     LDIInstruction(): LDIInstruction(std::vector<Token>()) {};
 
@@ -24,7 +24,7 @@ public:
     }
 
     [[nodiscard]] bool isCorrect() const override {
-        if (operands.size() != 2) return false;
+        if (operands.size() != amount_operands) return false;
         const bool first_is_register = operands[0].value_type == ValueType::REGISTER;
         const bool second_is_immediate = operands[1].value_type == ValueType::IMMEDIATE_VALUE;
         return first_is_register && second_is_immediate;

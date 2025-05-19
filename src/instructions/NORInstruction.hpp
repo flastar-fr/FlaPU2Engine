@@ -1,18 +1,19 @@
-#ifndef SUBINSTRUCTION_HPP
-#define SUBINSTRUCTION_HPP
+#ifndef NORINSTRUCTION_HPP
+#define NORINSTRUCTION_HPP
 #include <algorithm>
 
 #include "Instruction.hpp"
 
-class SUBInstruction final : public Instruction {
+class NORInstruction final : public Instruction {
 public:
-    explicit SUBInstruction(const std::vector<Token>& operands): Instruction(operands) {
-        name = "SUB";
+    explicit NORInstruction(const std::vector<Token>& operands): Instruction(operands) {
+        name = "NOR";
         amount_operands = 3;
     }
-    SUBInstruction(): SUBInstruction(std::vector<Token>()) {};
 
-    ~SUBInstruction() override = default;
+    NORInstruction(): NORInstruction(std::vector<Token>()) {};
+
+    ~NORInstruction() override = default;
 
     void execute(Engine& engine) const override {
         if (!isCorrect()) {
@@ -20,11 +21,13 @@ public:
         }
 
         Registers& registers = engine.getRegisters();
-        const uint8_t first_register_to_add = operands[0].value;
-        const uint8_t second_register_to_add = operands[1].value;
+        const uint8_t first_register_to_nor = operands[0].value;
+        const uint8_t second_register_to_nor = operands[1].value;
         const uint8_t register_result = operands[2].value;
 
-        registers[register_result] = registers[first_register_to_add] - registers[second_register_to_add];
+        const uint8_t result_nor = registers[first_register_to_nor].getValue() | registers[second_register_to_nor].getValue();
+
+        registers[register_result] = !result_nor;
     }
 
     [[nodiscard]] bool isCorrect() const override {
@@ -37,4 +40,4 @@ public:
     }
 };
 
-#endif //SUBINSTRUCTION_HPP
+#endif //NORINSTRUCTION_HPP

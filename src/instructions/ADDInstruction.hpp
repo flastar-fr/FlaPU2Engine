@@ -28,7 +28,7 @@ public:
     }
 
     [[nodiscard]] bool isCorrect() const override {
-        if (operands.size() != 3) return false;
+        if (operands.size() != amount_operands) return false;
         return std::all_of(
             operands.begin(),
             operands.end(),
