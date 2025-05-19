@@ -4,6 +4,7 @@
 #include <functional>
 
 #include "instructions/ADDInstruction.hpp"
+#include "instructions/SUBInstruction.hpp"
 #include "instructions/HLTInstruction.hpp"
 #include "instructions/NOPInstruction.hpp"
 #include "instructions/LDIInstruction.hpp"
@@ -13,6 +14,7 @@
 std::unordered_map<std::string, std::function<std::unique_ptr<Instruction>(const std::vector<Token>&)>> instruction_factories = {
     {"NOP", [](const std::vector<Token>& operands) { return std::make_unique<NOPInstruction>(operands); }},
     {"ADD", [](const std::vector<Token>& operands) { return std::make_unique<ADDInstruction>(operands); }},
+    {"SUB", [](const std::vector<Token>& operands) { return std::make_unique<SUBInstruction>(operands); }},
     {"HLT", [](const std::vector<Token>& operands) { return std::make_unique<HLTInstruction>(operands); }},
     {"LDI", [](const std::vector<Token>& operands) { return std::make_unique<LDIInstruction>(operands); }}
 };
