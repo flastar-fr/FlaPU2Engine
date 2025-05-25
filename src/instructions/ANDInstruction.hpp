@@ -25,7 +25,7 @@ public:
         const uint8_t second_register_to_and = operands[1].value;
         const uint8_t register_result = operands[2].value;
 
-        const uint8_t result_and = registers[first_register_to_and].getValue() & registers[second_register_to_and].getValue();
+        const auto result_and = registers[first_register_to_and] & registers[second_register_to_and];
 
         registers[register_result] = result_and;
     }

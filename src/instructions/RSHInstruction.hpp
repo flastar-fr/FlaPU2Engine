@@ -24,7 +24,7 @@ public:
         const uint8_t register_to_nor = operands[0].value;
         const uint8_t register_result = operands[1].value;
 
-        registers[register_result] = registers[register_to_nor].getValue() >> 1;
+        registers[register_result] = registers[register_to_nor] >> 1;
     }
 
     [[nodiscard]] bool isCorrect() const override {

@@ -25,7 +25,7 @@ public:
         const uint8_t second_register_to_nor = operands[1].value;
         const uint8_t register_result = operands[2].value;
 
-        const uint8_t result_nor = registers[first_register_to_nor].getValue() | registers[second_register_to_nor].getValue();
+        const auto result_nor = registers[first_register_to_nor] | registers[second_register_to_nor];
 
         registers[register_result] = !result_nor;
     }
