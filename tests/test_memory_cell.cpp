@@ -118,7 +118,6 @@ TEST(MemoryCellTest, StreamOutput) {
     EXPECT_EQ(stream_alternative.str(), std::to_string(ALTERNATIVE_TEST_VALUE));
 }
 
-
 TEST(MemoryCellTest, IsNull) {
     const auto cell = MemoryCell();
 
@@ -136,4 +135,94 @@ TEST(MemoryCellTest, UnitarySubstraction) {
     const auto cell = MemoryCell(ALTERNATIVE_TEST_VALUE);
 
     EXPECT_EQ(-cell, -ALTERNATIVE_TEST_VALUE);
+}
+
+TEST(MemoryCellTest, OtherAND) {
+    auto cell_int = MemoryCell();
+
+    cell_int = cell_int & ALTERNATIVE_TEST_VALUE;
+
+    EXPECT_EQ(cell_int, DEFAULT_VALUE & ALTERNATIVE_TEST_VALUE);
+
+    auto cell_other_cell = MemoryCell();
+
+    cell_other_cell = cell_other_cell & MemoryCell(ALTERNATIVE_TEST_VALUE);
+
+    EXPECT_EQ(cell_other_cell, DEFAULT_VALUE & ALTERNATIVE_TEST_VALUE);
+}
+
+TEST(MemoryCellTest, OtherOR) {
+    auto cell_int = MemoryCell();
+
+    cell_int = cell_int | ALTERNATIVE_TEST_VALUE;
+
+    EXPECT_EQ(cell_int, DEFAULT_VALUE | ALTERNATIVE_TEST_VALUE);
+
+    auto cell_other_cell = MemoryCell();
+
+    cell_other_cell = cell_other_cell | MemoryCell(ALTERNATIVE_TEST_VALUE);
+
+    EXPECT_EQ(cell_other_cell, DEFAULT_VALUE | ALTERNATIVE_TEST_VALUE);
+}
+
+TEST(MemoryCellTest, OtherXOR) {
+    auto cell_int = MemoryCell();
+
+    cell_int = cell_int ^ ALTERNATIVE_TEST_VALUE;
+
+    EXPECT_EQ(cell_int, DEFAULT_VALUE ^ ALTERNATIVE_TEST_VALUE);
+
+    auto cell_other_cell = MemoryCell();
+
+    cell_other_cell = cell_other_cell ^ MemoryCell(ALTERNATIVE_TEST_VALUE);
+
+    EXPECT_EQ(cell_other_cell, DEFAULT_VALUE ^ ALTERNATIVE_TEST_VALUE);
+}
+
+TEST(MemoryCellTest, OtherRSH) {
+    auto cell_int = MemoryCell();
+
+    cell_int = cell_int >> 1;
+
+    EXPECT_EQ(cell_int, DEFAULT_VALUE >> 1);
+
+    auto cell_other_cell = MemoryCell(ALTERNATIVE_TEST_VALUE);
+
+    cell_other_cell = cell_other_cell >> 1;
+
+    EXPECT_EQ(cell_other_cell, ALTERNATIVE_TEST_VALUE >> 1);
+}
+
+TEST(MemoryCellTest, OtherROL) {
+    auto cell_int = MemoryCell();
+
+    cell_int = ROL(cell_int, 1);
+
+    EXPECT_EQ(cell_int, ROL(DEFAULT_VALUE, 1));
+
+    auto cell_other_cell = MemoryCell(ALTERNATIVE_TEST_VALUE);
+
+    cell_other_cell = ROL(cell_other_cell, 1);
+
+    EXPECT_EQ(cell_other_cell, ROL(ALTERNATIVE_TEST_VALUE, 1));
+}
+
+TEST(MemoryCellTest, OtherROR) {
+    auto cell_int = MemoryCell();
+
+    cell_int = ROR(cell_int, 1);
+
+    EXPECT_EQ(cell_int, ROR(DEFAULT_VALUE, 1));
+
+    auto cell_other_cell = MemoryCell(ALTERNATIVE_TEST_VALUE);
+
+    cell_other_cell = ROR(cell_other_cell, 1);
+
+    EXPECT_EQ(cell_other_cell, ROR(ALTERNATIVE_TEST_VALUE, 1));
+}
+
+TEST(MemoryCellTest, UnitaryNOT) {
+    const auto cell = MemoryCell(ALTERNATIVE_TEST_VALUE);
+
+    EXPECT_EQ(!cell, !ALTERNATIVE_TEST_VALUE);
 }

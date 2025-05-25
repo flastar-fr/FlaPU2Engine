@@ -4,6 +4,18 @@
 #include <ostream>
 
 
+inline uint8_t ROR(uint8_t operand, const int i) {
+    const int shift = i % 8;
+    operand = operand >> shift | operand << 8 - shift;
+    return operand;
+}
+
+inline uint8_t ROL(uint8_t operand, const int i) {
+    const int shift = i % 8;
+    operand = operand << shift | operand >> 8 - shift;
+    return operand;
+}
+
 class MemoryCell {
 public:
     explicit MemoryCell(const uint8_t value): value(value) {}
@@ -86,6 +98,39 @@ public:
         return MemoryCell(new_value);
     }
 
+    virtual MemoryCell operator!() const {
+        const auto new_value = static_cast<uint8_t>(!this->value);
+        return MemoryCell(new_value);
+    }
+
+    virtual MemoryCell& operator&(const uint8_t operand) {
+        this->value = static_cast<uint8_t>(this->value & operand);
+        return *this;
+    }
+
+    virtual MemoryCell operator|(const uint8_t operand) {
+        return MemoryCell(this->value | operand);
+    }
+
+    virtual MemoryCell operator^(const uint8_t operand) {
+        return MemoryCell(this->value ^ operand);
+    }
+
+    virtual MemoryCell operator&(const MemoryCell& operand) {
+        return MemoryCell(this->value & operand.value);
+    }
+
+    virtual MemoryCell operator|(const MemoryCell& operand) {
+        return MemoryCell(this->value | operand.value);
+    }
+    virtual MemoryCell operator^(const MemoryCell& operand) {
+        return MemoryCell(this->value ^ operand.value);
+    }
+
+    virtual MemoryCell operator>>(const int i) const {
+        return MemoryCell(this->value >> i);
+    }
+
     bool operator==(const MemoryCell& operand) const {
         return this->value == operand.value;
     }
@@ -105,6 +150,14 @@ public:
     friend std::ostream& operator<<(std::ostream & lhs, const MemoryCell & m) {
         lhs << static_cast<int>(m.value);
         return lhs;
+    }
+
+    friend MemoryCell ROR(const MemoryCell& cell, const int i) {
+        return MemoryCell(ROR(cell.value, i));
+    }
+
+    friend MemoryCell ROL(const MemoryCell& cell, const int i) {
+        return MemoryCell(ROL(cell.value, i));
     }
 
     [[nodiscard]] virtual bool isNull() const noexcept {
