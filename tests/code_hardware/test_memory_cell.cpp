@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "common.hpp"
+#include "../common.hpp"
 #include "code_hardware/MemoryCell.hpp"
 
 uint8_t DEFAULT_VALUE = 0;

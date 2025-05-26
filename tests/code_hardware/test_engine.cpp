@@ -1,7 +1,7 @@
 #include <code_hardware/Engine.hpp>
 #include <gtest/gtest.h>
 
-#include "common.hpp"
+#include "../common.hpp"
 
 TEST(EngineTest, DefaultConstructor) {
     auto engine = Engine();

@@ -1,7 +1,7 @@
 #include <code_hardware/Registers.hpp>
 #include <gtest/gtest.h>
 
-#include "common.hpp"
+#include "../common.hpp"
 
 TEST(RegistersTest, Constructor) {
     const auto registers = Registers();

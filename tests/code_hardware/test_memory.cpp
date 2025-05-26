@@ -1,7 +1,7 @@
 #include <code_hardware/Memory.hpp>
 #include <gtest/gtest.h>
 
-#include "common.hpp"
+#include "../common.hpp"
 
 TEST(MemoryTest, DefaultConstructor) {
     const auto memory = Memory();

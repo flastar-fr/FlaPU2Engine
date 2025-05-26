@@ -92,12 +92,12 @@ target_link_options(tests PRIVATE
     -m64
 )
 target_sources(tests PRIVATE
-    tests/test_memory_cell_null.cpp
-    tests/test_engine.cpp
-    tests/test_registers.cpp
-    tests/test_memory.cpp
+        tests/code_hardware/test_memory_cell_null.cpp
+        tests/code_hardware/test_engine.cpp
+        tests/code_hardware/test_registers.cpp
+        tests/code_hardware/test_memory.cpp
     tests/main.cpp
     tests/common.cpp
-    tests/test_memory_cell.cpp
+        tests/code_hardware/test_memory_cell.cpp
 )
 

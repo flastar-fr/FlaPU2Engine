@@ -1,7 +1,7 @@
 #include <code_hardware/MemoryCellNull.hpp>
 #include <gtest/gtest.h>
 
-#include "common.hpp"
+#include "../common.hpp"
 #include "code_hardware/MemoryCell.hpp"
 
 
