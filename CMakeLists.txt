@@ -8,7 +8,8 @@ cmake_policy(SET CMP0091 NEW)
 project(BatPU2Engine LANGUAGES CXX)
 
 # target
-add_executable(BatPU2Engine "")
+add_executable(BatPU2Engine ""
+        tests/instructions/test_addinstruction.cpp)
 set_target_properties(BatPU2Engine PROPERTIES OUTPUT_NAME "BatPU2Engine")
 set_target_properties(BatPU2Engine PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/linux/x86_64/release")
 target_include_directories(BatPU2Engine PRIVATE
