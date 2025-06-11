@@ -8,24 +8,32 @@ cmake_policy(SET CMP0091 NEW)
 project(BatPU2Engine LANGUAGES CXX)
 
 # target
-add_executable(BatPU2Engine ""
-        tests/instructions/test_addinstruction.cpp)
+add_executable(BatPU2Engine "")
 set_target_properties(BatPU2Engine PROPERTIES OUTPUT_NAME "BatPU2Engine")
-set_target_properties(BatPU2Engine PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/linux/x86_64/release")
+set_target_properties(BatPU2Engine PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/windows/x64/release")
 target_include_directories(BatPU2Engine PRIVATE
     src
-    build/.gens/BatPU2Engine/linux/x86_64/release/platform/windows/idl
+    build/.gens/BatPU2Engine/windows/x64/release/platform/windows/idl
 )
 target_include_directories(BatPU2Engine INTERFACE
-    build/.gens/BatPU2Engine/linux/x86_64/release/platform/windows/idl
+    src
+    build/.gens/BatPU2Engine/windows/x64/release/platform/windows/idl
 )
 target_compile_options(BatPU2Engine PRIVATE
-    $<$<COMPILE_LANGUAGE:C>:-m64>
-    $<$<COMPILE_LANGUAGE:CXX>:-m64>
     $<$<COMPILE_LANGUAGE:C>:-DNDEBUG>
     $<$<COMPILE_LANGUAGE:CXX>:-DNDEBUG>
     $<$<COMPILE_LANGUAGE:CUDA>:-DNDEBUG>
 )
+if(MSVC)
+    target_compile_options(BatPU2Engine PRIVATE /EHsc)
+elseif(Clang)
+    target_compile_options(BatPU2Engine PRIVATE -fexceptions)
+    target_compile_options(BatPU2Engine PRIVATE -fcxx-exceptions)
+elseif(Gcc)
+    target_compile_options(BatPU2Engine PRIVATE -fexceptions)
+endif()
+set_target_properties(BatPU2Engine PROPERTIES CXX_EXTENSIONS OFF)
+target_compile_features(BatPU2Engine PRIVATE cxx_std_17)
 if(MSVC)
     target_compile_options(BatPU2Engine PRIVATE $<$<CONFIG:Release>:-O2>)
 else()
@@ -39,40 +47,46 @@ if(MSVC)
     set_property(TARGET BatPU2Engine PROPERTY
         MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
-target_link_options(BatPU2Engine PRIVATE
-    -m64
-)
 target_sources(BatPU2Engine PRIVATE
-    src/io_manipulations.cpp
+    src/config.cpp
     src/instructions/Instruction.cpp
+    src/io_manipulations.cpp
     src/main.cpp
     src/parser.cpp
-    src/config.cpp
     src/utils/string_verifications.cpp
 )
 
 # target
 add_executable(tests "")
 set_target_properties(tests PROPERTIES OUTPUT_NAME "tests")
-set_target_properties(tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/linux/x86_64/release")
+set_target_properties(tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/windows/x64/release")
 target_include_directories(tests PRIVATE
     src
-    build/.gens/tests/linux/x86_64/release/platform/windows/idl
+    tests
+    build/.gens/tests/windows/x64/release/platform/windows/idl
 )
 target_include_directories(tests INTERFACE
     src
-    build/.gens/tests/linux/x86_64/release/platform/windows/idl
+    build/.gens/tests/windows/x64/release/platform/windows/idl
 )
-target_compile_definitions(tests PRIVATE
-    GTEST_HAS_PTHREAD=1
+target_include_directories(tests SYSTEM PRIVATE
+    C:/Users/flastar/AppData/Local/.xmake/packages/g/gtest/v1.16.0/51e8f9ba50ff4208b65b4e8dc6cd93e4/include
 )
 target_compile_options(tests PRIVATE
-    $<$<COMPILE_LANGUAGE:C>:-m64>
-    $<$<COMPILE_LANGUAGE:CXX>:-m64>
     $<$<COMPILE_LANGUAGE:C>:-DNDEBUG>
     $<$<COMPILE_LANGUAGE:CXX>:-DNDEBUG>
     $<$<COMPILE_LANGUAGE:CUDA>:-DNDEBUG>
 )
+if(MSVC)
+    target_compile_options(tests PRIVATE /EHsc)
+elseif(Clang)
+    target_compile_options(tests PRIVATE -fexceptions)
+    target_compile_options(tests PRIVATE -fcxx-exceptions)
+elseif(Gcc)
+    target_compile_options(tests PRIVATE -fexceptions)
+endif()
+set_target_properties(tests PROPERTIES CXX_EXTENSIONS OFF)
+target_compile_features(tests PRIVATE cxx_std_17)
 if(MSVC)
     target_compile_options(tests PRIVATE $<$<CONFIG:Release>:-O2>)
 else()
@@ -87,18 +101,20 @@ if(MSVC)
         MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
 target_link_libraries(tests PRIVATE
+    gmock
     gtest
 )
-target_link_options(tests PRIVATE
-    -m64
+target_link_directories(tests PRIVATE
+    C:/Users/flastar/AppData/Local/.xmake/packages/g/gtest/v1.16.0/51e8f9ba50ff4208b65b4e8dc6cd93e4/lib
 )
 target_sources(tests PRIVATE
-        tests/code_hardware/test_memory_cell_null.cpp
-        tests/code_hardware/test_engine.cpp
-        tests/code_hardware/test_registers.cpp
-        tests/code_hardware/test_memory.cpp
-    tests/main.cpp
+    tests/code_hardware/test_engine.cpp
+    tests/code_hardware/test_memory.cpp
+    tests/code_hardware/test_memory_cell.cpp
+    tests/code_hardware/test_memory_cell_null.cpp
+    tests/code_hardware/test_registers.cpp
     tests/common.cpp
-        tests/code_hardware/test_memory_cell.cpp
+    tests/instructions/test_addinstruction.cpp
+    tests/main.cpp
 )
 
