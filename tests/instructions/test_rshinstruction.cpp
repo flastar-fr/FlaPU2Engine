@@ -4,54 +4,54 @@
 #include "common.hpp"
 
 TEST(RshInstructionTest, DefaultConstructorNoOperands) {
-    const auto add = RSHInstruction();
+    const auto rsh = RSHInstruction();
 
-    EXPECT_EQ(false, add.isCorrect());
-    EXPECT_EQ("RSH", add.getName());
+    EXPECT_EQ(false, rsh.isCorrect());
+    EXPECT_EQ("RSH", rsh.getName());
 }
 
 TEST(RshInstructionTest, DefaultConstructorOperandsTokens) {
-    const auto add = RSHInstruction(VALID_OPERANDS_2_REGISTERS_CLASSIC);
+    const auto rsh = RSHInstruction(VALID_OPERANDS_2_REGISTERS_CLASSIC);
 
-    EXPECT_EQ(true, add.isCorrect());
-    EXPECT_EQ("RSH", add.getName());
+    EXPECT_EQ(true, rsh.isCorrect());
+    EXPECT_EQ("RSH", rsh.getName());
 }
 
 TEST(RshInstructionTest, ExecuteValidState) {
-    const auto add = RSHInstruction(VALID_OPERANDS_2_REGISTERS_CLASSIC);
+    const auto rsh = RSHInstruction(VALID_OPERANDS_2_REGISTERS_CLASSIC);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
 
     registers[VALID_OPERANDS_2_REGISTERS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
     registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
 
-    add.execute(engine);
+    rsh.execute(engine);
 
-    EXPECT_EQ(registers[REGISTER_RESULT], ALTERNATIVE_TEST_VALUE >> 1);
+    EXPECT_EQ(registers[REGISTER_RESULT], ALTERNATIVE_TEST_VALUE / 2);
 }
 
 TEST(RshInstructionTest, ExecuteValidState0RegisterResult) {
-    const auto add = RSHInstruction(VALID_OPERANDS_2_REGISTERS_0_RESULT);
+    const auto rsh = RSHInstruction(VALID_OPERANDS_2_REGISTERS_0_RESULT);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
 
     registers[VALID_OPERANDS_2_REGISTERS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
     registers[VALID_OPERANDS_2_REGISTERS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
 
-    add.execute(engine);
+    rsh.execute(engine);
 
     EXPECT_EQ(registers[FIRST_REGISTER], NULL_VALUE);
 }
 
 TEST(RshInstructionTest, ExecuteValidState0RegisterOperand) {
-    const auto add = RSHInstruction(VALID_OPERANDS_2_REGISTERS_0_OPERAND);
+    const auto rsh = RSHInstruction(VALID_OPERANDS_2_REGISTERS_0_OPERAND);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
 
     registers[VALID_OPERANDS_2_REGISTERS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
     registers[VALID_OPERANDS_2_REGISTERS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
 
-    add.execute(engine);
+    rsh.execute(engine);
 
     EXPECT_EQ(registers[REGISTER_RESULT], NULL_VALUE);
 }
