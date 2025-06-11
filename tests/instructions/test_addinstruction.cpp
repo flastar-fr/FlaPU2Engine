@@ -11,19 +11,19 @@ TEST(AddInstructionTest, DefaultConstructorNoOperands) {
 }
 
 TEST(AddInstructionTest, DefaultConstructorOperandsTokens) {
-    const auto add = ADDInstruction(VALID_OPERANDS_CLASSIC);
+    const auto add = ADDInstruction(VALID_OPERANDS_3_REGISTERS_CLASSIC);
 
     EXPECT_EQ(true, add.isCorrect());
     EXPECT_EQ("ADD", add.getName());
 }
 
 TEST(AddInstructionTest, ExecuteValidState) {
-    const auto add = ADDInstruction(VALID_OPERANDS_CLASSIC);
+    const auto add = ADDInstruction(VALID_OPERANDS_3_REGISTERS_CLASSIC);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
 
-    registers[VALID_OPERANDS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
-    registers[VALID_OPERANDS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
 
     add.execute(engine);
 
@@ -31,12 +31,12 @@ TEST(AddInstructionTest, ExecuteValidState) {
 }
 
 TEST(AddInstructionTest, ExecuteValidState0RegisterResult) {
-    const auto add = ADDInstruction(VALID_OPERANDS_0_RESULT);
+    const auto add = ADDInstruction(VALID_OPERANDS_3_REGISTERS_0_RESULT);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
 
-    registers[VALID_OPERANDS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
-    registers[VALID_OPERANDS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
 
     add.execute(engine);
 
@@ -44,12 +44,12 @@ TEST(AddInstructionTest, ExecuteValidState0RegisterResult) {
 }
 
 TEST(AddInstructionTest, ExecuteValidState0RegisterOperandRight) {
-    const auto add = ADDInstruction(VALID_OPERANDS_0_OPERAND_RIGHT);
+    const auto add = ADDInstruction(VALID_OPERANDS_3_REGISTERS_0_OPERAND_RIGHT);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
 
-    registers[VALID_OPERANDS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
-    registers[VALID_OPERANDS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
 
     add.execute(engine);
 
@@ -57,12 +57,12 @@ TEST(AddInstructionTest, ExecuteValidState0RegisterOperandRight) {
 }
 
 TEST(AddInstructionTest, ExecuteValidState0RegisterOperandLeft) {
-    const auto add = ADDInstruction(VALID_OPERANDS_0_OPERAND_LEFT);
+    const auto add = ADDInstruction(VALID_OPERANDS_3_REGISTERS_0_OPERAND_LEFT);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
 
-    registers[VALID_OPERANDS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
-    registers[VALID_OPERANDS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
 
     add.execute(engine);
 

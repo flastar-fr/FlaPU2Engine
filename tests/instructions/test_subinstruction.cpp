@@ -12,19 +12,19 @@ TEST(SubInstructionTest, DefaultConstructorNoOperands) {
 }
 
 TEST(SubInstructionTest, DefaultConstructorOperandsTokens) {
-    const auto sub = SUBInstruction(VALID_OPERANDS_CLASSIC);
+    const auto sub = SUBInstruction(VALID_OPERANDS_3_REGISTERS_CLASSIC);
 
     EXPECT_EQ(true, sub.isCorrect());
     EXPECT_EQ("SUB", sub.getName());
 }
 
 TEST(SubInstructionTest, ExecuteValidState) {
-    const auto sub = SUBInstruction(VALID_OPERANDS_CLASSIC);
+    const auto sub = SUBInstruction(VALID_OPERANDS_3_REGISTERS_CLASSIC);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
 
-    registers[VALID_OPERANDS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
-    registers[VALID_OPERANDS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
 
     sub.execute(engine);
 
@@ -32,12 +32,12 @@ TEST(SubInstructionTest, ExecuteValidState) {
 }
 
 TEST(SubInstructionTest, ExecuteValidState0RegisterResult) {
-    const auto sub = SUBInstruction(VALID_OPERANDS_0_RESULT);
+    const auto sub = SUBInstruction(VALID_OPERANDS_3_REGISTERS_0_RESULT);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
 
-    registers[VALID_OPERANDS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
-    registers[VALID_OPERANDS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
 
     sub.execute(engine);
 
@@ -45,12 +45,12 @@ TEST(SubInstructionTest, ExecuteValidState0RegisterResult) {
 }
 
 TEST(SubInstructionTest, ExecuteValidState0RegisterOperandLeft) {
-    const auto sub = SUBInstruction(VALID_OPERANDS_0_OPERAND_LEFT);
+    const auto sub = SUBInstruction(VALID_OPERANDS_3_REGISTERS_0_OPERAND_LEFT);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
 
-    registers[VALID_OPERANDS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
-    registers[VALID_OPERANDS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
 
     sub.execute(engine);
 
@@ -58,12 +58,12 @@ TEST(SubInstructionTest, ExecuteValidState0RegisterOperandLeft) {
 }
 
 TEST(SubInstructionTest, ExecuteValidState0RegisterOperandRight) {
-    const auto sub = SUBInstruction(VALID_OPERANDS_0_OPERAND_RIGHT);
+    const auto sub = SUBInstruction(VALID_OPERANDS_3_REGISTERS_0_OPERAND_RIGHT);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
 
-    registers[VALID_OPERANDS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
-    registers[VALID_OPERANDS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_3_REGISTERS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
 
     sub.execute(engine);
 
