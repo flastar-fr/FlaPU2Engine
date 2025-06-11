@@ -44,7 +44,7 @@ TEST(SubInstructionTest, ExecuteValidState0RegisterResult) {
     EXPECT_EQ(registers[FIRST_REGISTER], NULL_VALUE);
 }
 
-TEST(SubInstructionTest, ExecuteValidState0RegisterOperand1) {
+TEST(SubInstructionTest, ExecuteValidState0RegisterOperandLeft) {
     const auto sub = SUBInstruction(VALID_OPERANDS_0_OPERAND_LEFT);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
@@ -57,7 +57,7 @@ TEST(SubInstructionTest, ExecuteValidState0RegisterOperand1) {
     EXPECT_EQ(registers[REGISTER_RESULT], -ALTERNATIVE_TEST_VALUE);
 }
 
-TEST(SubInstructionTest, ExecuteValidState0RegisterOperand2) {
+TEST(SubInstructionTest, ExecuteValidState0RegisterOperandRight) {
     const auto sub = SUBInstruction(VALID_OPERANDS_0_OPERAND_RIGHT);
     auto engine = Engine();
     auto& registers = engine.getRegisters();

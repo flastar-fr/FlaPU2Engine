@@ -43,8 +43,21 @@ TEST(AddInstructionTest, ExecuteValidState0RegisterResult) {
     EXPECT_EQ(registers[FIRST_REGISTER], NULL_VALUE);
 }
 
-TEST(AddInstructionTest, ExecuteValidState0RegisterOperand) {
+TEST(AddInstructionTest, ExecuteValidState0RegisterOperandRight) {
     const auto add = ADDInstruction(VALID_OPERANDS_0_OPERAND_RIGHT);
+    auto engine = Engine();
+    auto& registers = engine.getRegisters();
+
+    registers[VALID_OPERANDS_0_RESULT[0].value] = ALTERNATIVE_TEST_VALUE;
+    registers[VALID_OPERANDS_0_RESULT[1].value] = ALTERNATIVE_TEST_VALUE;
+
+    add.execute(engine);
+
+    EXPECT_EQ(registers[REGISTER_RESULT], ALTERNATIVE_TEST_VALUE);
+}
+
+TEST(AddInstructionTest, ExecuteValidState0RegisterOperandLeft) {
+    const auto add = ADDInstruction(VALID_OPERANDS_0_OPERAND_LEFT);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
 
