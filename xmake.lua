@@ -5,7 +5,7 @@ add_requires("gtest", {configs = {main = false}, system = false})
 
 add_includedirs("src", {public = true})
 
-target("BatPU2Engine")
+target("FlaPU2Engine")
     set_kind("binary")
     add_files("src/**.cpp")
     after_build(function (target)

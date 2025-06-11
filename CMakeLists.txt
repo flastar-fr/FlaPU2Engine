@@ -5,49 +5,49 @@
 # project
 cmake_minimum_required(VERSION 3.15.0)
 cmake_policy(SET CMP0091 NEW)
-project(BatPU2Engine LANGUAGES CXX)
+project(FlaPU2Engine LANGUAGES CXX)
 
 # target
-add_executable(BatPU2Engine "")
-set_target_properties(BatPU2Engine PROPERTIES OUTPUT_NAME "BatPU2Engine")
-set_target_properties(BatPU2Engine PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/windows/x64/release")
-target_include_directories(BatPU2Engine PRIVATE
+add_executable(FlaPU2Engine "")
+set_target_properties(FlaPU2Engine PROPERTIES OUTPUT_NAME "FlaPU2Engine")
+set_target_properties(FlaPU2Engine PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/windows/x64/release")
+target_include_directories(FlaPU2Engine PRIVATE
     src
-    build/.gens/BatPU2Engine/windows/x64/release/platform/windows/idl
+    build/.gens/FlaPU2Engine/windows/x64/release/platform/windows/idl
 )
-target_include_directories(BatPU2Engine INTERFACE
+target_include_directories(FlaPU2Engine INTERFACE
     src
-    build/.gens/BatPU2Engine/windows/x64/release/platform/windows/idl
+    build/.gens/FlaPU2Engine/windows/x64/release/platform/windows/idl
 )
-target_compile_options(BatPU2Engine PRIVATE
+target_compile_options(FlaPU2Engine PRIVATE
     $<$<COMPILE_LANGUAGE:C>:-DNDEBUG>
     $<$<COMPILE_LANGUAGE:CXX>:-DNDEBUG>
     $<$<COMPILE_LANGUAGE:CUDA>:-DNDEBUG>
 )
 if(MSVC)
-    target_compile_options(BatPU2Engine PRIVATE /EHsc)
+    target_compile_options(FlaPU2Engine PRIVATE /EHsc)
 elseif(Clang)
-    target_compile_options(BatPU2Engine PRIVATE -fexceptions)
-    target_compile_options(BatPU2Engine PRIVATE -fcxx-exceptions)
+    target_compile_options(FlaPU2Engine PRIVATE -fexceptions)
+    target_compile_options(FlaPU2Engine PRIVATE -fcxx-exceptions)
 elseif(Gcc)
-    target_compile_options(BatPU2Engine PRIVATE -fexceptions)
+    target_compile_options(FlaPU2Engine PRIVATE -fexceptions)
 endif()
-set_target_properties(BatPU2Engine PROPERTIES CXX_EXTENSIONS OFF)
-target_compile_features(BatPU2Engine PRIVATE cxx_std_17)
+set_target_properties(FlaPU2Engine PROPERTIES CXX_EXTENSIONS OFF)
+target_compile_features(FlaPU2Engine PRIVATE cxx_std_17)
 if(MSVC)
-    target_compile_options(BatPU2Engine PRIVATE $<$<CONFIG:Release>:-O2>)
+    target_compile_options(FlaPU2Engine PRIVATE $<$<CONFIG:Release>:-O2>)
 else()
-    target_compile_options(BatPU2Engine PRIVATE -O3)
+    target_compile_options(FlaPU2Engine PRIVATE -O3)
 endif()
 if(MSVC)
 else()
-    target_compile_options(BatPU2Engine PRIVATE -fvisibility=hidden)
+    target_compile_options(FlaPU2Engine PRIVATE -fvisibility=hidden)
 endif()
 if(MSVC)
-    set_property(TARGET BatPU2Engine PROPERTY
+    set_property(TARGET FlaPU2Engine PROPERTY
         MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
-target_sources(BatPU2Engine PRIVATE
+target_sources(FlaPU2Engine PRIVATE
     src/config.cpp
     src/instructions/Instruction.cpp
     src/io_manipulations.cpp
@@ -57,8 +57,7 @@ target_sources(BatPU2Engine PRIVATE
 )
 
 # target
-add_executable(tests ""
-        tests/instructions/test_subinstruction.cpp)
+add_executable(tests "")
 set_target_properties(tests PROPERTIES OUTPUT_NAME "tests")
 set_target_properties(tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/windows/x64/release")
 target_include_directories(tests PRIVATE
@@ -116,6 +115,11 @@ target_sources(tests PRIVATE
     tests/code_hardware/test_registers.cpp
     tests/common.cpp
     tests/instructions/test_addinstruction.cpp
-        tests/main.cpp
+    tests/instructions/test_andinstruction.cpp
+    tests/instructions/test_norinstruction.cpp
+    tests/instructions/test_rshinstruction.cpp
+    tests/instructions/test_subinstruction.cpp
+    tests/instructions/test_xorinstruction.cpp
+    tests/main.cpp
 )
 
