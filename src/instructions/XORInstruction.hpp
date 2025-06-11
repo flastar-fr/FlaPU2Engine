@@ -27,7 +27,7 @@ public:
 
         const auto result_xor = registers[first_register_to_xor] ^ registers[second_register_to_xor];
 
-        registers[register_result] = !result_xor;
+        registers[register_result] = result_xor;
     }
 
     [[nodiscard]] bool isCorrect() const override {
