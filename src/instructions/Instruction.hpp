@@ -10,10 +10,10 @@ class Instruction {
 public:
     explicit Instruction(const std::vector<Token>& operands): operands(operands) {}
     Instruction(): operands({}) {}
-    virtual ~Instruction();
+    virtual ~Instruction() = default;
 
-    virtual void execute(Engine& engine) const;
-    [[nodiscard]] virtual bool isCorrect() const;
+    virtual void execute(Engine& engine) const = 0;
+    [[nodiscard]] virtual bool isCorrect() const = 0;
 
     [[nodiscard]] std::string getName() const {
         return name;
