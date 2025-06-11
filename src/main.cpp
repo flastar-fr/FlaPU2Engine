@@ -2,7 +2,6 @@
 #include <ostream>
 #include "parser.hpp"
 #include <string>
-#include <instructions/ADDInstruction.hpp>
 #include <instructions/HLTInstruction.hpp>
 
 #include "io_manipulations.hpp"
