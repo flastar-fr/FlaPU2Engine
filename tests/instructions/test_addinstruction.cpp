@@ -3,23 +3,6 @@
 
 #include "common.hpp"
 
-constexpr uint8_t FIRST_REGISTER_TO_ADD = 1;
-constexpr uint8_t SECOND_REGISTER_TO_ADD = 2;
-constexpr uint8_t REGISTER_RESULT = 3;
-constexpr uint8_t FIRST_REGISTER = 0;
-
-std::vector VALID_OPERANDS_CLASSIC = {Token(FIRST_REGISTER_TO_ADD, ValueType::REGISTER),
-    Token(SECOND_REGISTER_TO_ADD, ValueType::REGISTER),
-    Token(REGISTER_RESULT, ValueType::REGISTER)};
-
-std::vector VALID_OPERANDS_0_RESULT = {Token(FIRST_REGISTER_TO_ADD, ValueType::REGISTER),
-    Token(SECOND_REGISTER_TO_ADD, ValueType::REGISTER),
-    Token(FIRST_REGISTER, ValueType::REGISTER)};
-
-std::vector VALID_OPERANDS_0_OPERAND = {Token(FIRST_REGISTER_TO_ADD, ValueType::REGISTER),
-    Token(FIRST_REGISTER, ValueType::REGISTER),
-    Token(REGISTER_RESULT, ValueType::REGISTER)};
-
 TEST(AddInstructionTest, DefaultConstructorNoOperands) {
     const auto add = ADDInstruction();
 
@@ -61,7 +44,7 @@ TEST(AddInstructionTest, ExecuteValidState0RegisterResult) {
 }
 
 TEST(AddInstructionTest, ExecuteValidState0RegisterOperand) {
-    const auto add = ADDInstruction(VALID_OPERANDS_0_OPERAND);
+    const auto add = ADDInstruction(VALID_OPERANDS_0_OPERAND_RIGHT);
     auto engine = Engine();
     auto& registers = engine.getRegisters();
 

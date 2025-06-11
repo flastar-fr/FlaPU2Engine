@@ -57,7 +57,8 @@ target_sources(BatPU2Engine PRIVATE
 )
 
 # target
-add_executable(tests "")
+add_executable(tests ""
+        tests/instructions/test_subinstruction.cpp)
 set_target_properties(tests PROPERTIES OUTPUT_NAME "tests")
 set_target_properties(tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/windows/x64/release")
 target_include_directories(tests PRIVATE
@@ -115,6 +116,6 @@ target_sources(tests PRIVATE
     tests/code_hardware/test_registers.cpp
     tests/common.cpp
     tests/instructions/test_addinstruction.cpp
-    tests/main.cpp
+        tests/main.cpp
 )
 
