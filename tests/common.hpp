@@ -1,5 +1,4 @@
 #pragma once
-#include <cstdint>
 #include <vector>
 
 #include "Token.hpp"
@@ -20,3 +19,7 @@ extern std::vector<Token> VALID_OPERANDS_3_REGISTERS_0_OPERAND_LEFT;
 extern std::vector<Token> VALID_OPERANDS_2_REGISTERS_CLASSIC;
 extern std::vector<Token> VALID_OPERANDS_2_REGISTERS_0_RESULT;
 extern std::vector<Token> VALID_OPERANDS_2_REGISTERS_0_OPERAND;
+
+extern std::vector<Token> VALID_OPERANDS_2_REGISTER_IMM_CLASSIC;
+extern std::vector<Token> VALID_OPERANDS_2_REGISTER_IMM_0_REGISTER;
+extern std::vector<Token> VALID_OPERANDS_2_REGISTER_IMM_0_OPERAND;
