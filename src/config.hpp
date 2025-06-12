@@ -10,8 +10,12 @@ struct Token;
 
 enum class ValueType {
     IMMEDIATE_VALUE,
-    REGISTER
+    REGISTER,
+    REGISTER_VALUE
 };
+
+std::ostream& operator<<(std::ostream & lhs, ValueType rhs);
+
 
 extern std::unordered_map<std::string, std::function<std::unique_ptr<Instruction>(const std::vector<Token>&)>> instruction_factories;
 

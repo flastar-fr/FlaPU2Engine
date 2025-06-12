@@ -1,6 +1,5 @@
 #ifndef TOKEN_HPP
 #define TOKEN_HPP
-#include <cstdint>
 #include <ostream>
 
 #include "config.hpp"
@@ -15,7 +14,11 @@ struct Token {
     ValueType value_type;
 
     friend std::ostream& operator<<(std::ostream & lhs, const Token & t) {
+        lhs << "Token(";
+        lhs << t.value_type;
+        lhs << " : ";
         lhs << static_cast<int>(t.value);
+        lhs << ")";
         return lhs;
     }
 };

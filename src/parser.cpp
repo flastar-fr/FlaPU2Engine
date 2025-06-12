@@ -28,7 +28,7 @@ bool parse_lines(std::vector<std::unique_ptr<Instruction>>& instructions, const 
         if (const std::unique_ptr<Instruction> instruction = parse_line(line); !instruction->isCorrect()) {
             std::cerr << "Error parsing instruction : " << line << std::endl;
             return false;
-        };
+        }
         instructions.push_back(parse_line(line));
     }
     return true;
@@ -69,6 +69,7 @@ std::vector<Token> extract_operands(const std::string& line) {
 ValueType determine_operand_type(const std::string& operand) {
     if (is_digits(operand)) {return ValueType::IMMEDIATE_VALUE;}
     if (is_register(operand)) {return ValueType::REGISTER;}
+    if (is_register_value(operand)) {return ValueType::REGISTER_VALUE;}
     throw std::runtime_error("Unrecognized type: " + operand);
 }
 
@@ -78,6 +79,10 @@ uint8_t determine_operand_value(const std::string& operand, const ValueType& typ
         case ValueType::REGISTER: {
             const std::string value_part = operand.substr(1);
             return static_cast<uint8_t>(std::stoi(value_part));
+        }
+        case ValueType::REGISTER_VALUE: {
+          const std::string value_part = operand.substr(2, operand.size() - 2);
+          return static_cast<uint8_t>(std::stoi(value_part));
         }
         default: throw std::runtime_error("Unknown type");
     }

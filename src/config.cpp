@@ -13,6 +13,27 @@
 #include "instructions/Instruction.hpp"
 #include "Token.hpp"
 
+std::ostream& operator<<(std::ostream & lhs, const ValueType rhs) {
+    std::string value_string;
+    switch (rhs) {
+    case ValueType::IMMEDIATE_VALUE: {
+            value_string = "IMMEDIATE_VALUE";
+            break;
+        }
+    case ValueType::REGISTER: {
+            value_string = "REGISTER";
+            break;
+        }
+    case ValueType::REGISTER_VALUE: {
+            value_string = "REGISTER_VALUE";
+            break;
+        }
+    }
+
+    lhs << value_string;
+    return lhs;
+}
+
 std::unordered_map<std::string, std::function<std::unique_ptr<Instruction>(const std::vector<Token>&)>> instruction_factories = {
     {"NOP", [](const std::vector<Token>& operands) { return std::make_unique<NOPInstruction>(operands); }},
     {"ADD", [](const std::vector<Token>& operands) { return std::make_unique<ADDInstruction>(operands); }},
