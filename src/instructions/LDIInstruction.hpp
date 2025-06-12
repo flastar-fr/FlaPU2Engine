@@ -21,7 +21,7 @@ public:
         const bool first_is_register = operands[0].value_type == ValueType::REGISTER;
         const uint8_t register_value = first_is_register ? operands[0].value : registers[operands[0].value].getValue();
         const uint8_t value_to_set = operands[1].value;
-        registers[register_value] = value_to_set;
+        if (register_value < registers.size()) registers[register_value] = value_to_set;
     }
 
     [[nodiscard]] bool isCorrect() const override {
