@@ -12,7 +12,11 @@ public:
 
     ~HLTInstruction() override = default;
 
-    void execute(Engine& engine) const override {}
+    void execute(Engine& engine) const override {
+        if (!isCorrect()) {
+            throw std::invalid_argument("Invalid instruction");
+        }
+    }
 
     [[nodiscard]] bool isCorrect() const override {
         return operands.empty();
