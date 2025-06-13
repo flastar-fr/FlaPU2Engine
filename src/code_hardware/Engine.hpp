@@ -17,8 +17,7 @@ public:
     [[nodiscard]] size_t getProgramCounter() const { return programCounter; }
 
     void incrementProgramCounter() {
-        ++programCounter;
-        if (programCounter >= MAX_AMOUNT_INSTRUCTIONS) programCounter = 0;
+        programCounter = ++programCounter % MAX_AMOUNT_INSTRUCTIONS;
     }
 
     void jump(const int newAddress) {
