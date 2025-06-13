@@ -36,3 +36,17 @@ TEST(EngineTest, RegistersManipulation) {
     registers[1] = registers[0] + ALTERNATIVE_TEST_VALUE;
     EXPECT_EQ(registers[1], ALTERNATIVE_TEST_VALUE);
 }
+
+TEST(EngineTest, ProgramCounterManipulation) {
+    auto engine = Engine();
+
+    EXPECT_EQ(engine.getProgramCounter(), NULL_VALUE);
+    engine.incrementProgramCounter();
+    EXPECT_EQ(engine.getProgramCounter(), NULL_VALUE + 1);
+    engine.jump(ALTERNATIVE_TEST_VALUE);
+    EXPECT_EQ(engine.getProgramCounter(), ALTERNATIVE_TEST_VALUE);
+    engine.jump(MAX_AMOUNT_INSTRUCTIONS - 1);
+    EXPECT_EQ(engine.getProgramCounter(), MAX_AMOUNT_INSTRUCTIONS - 1);
+    engine.incrementProgramCounter();
+    EXPECT_EQ(engine.getProgramCounter(), NULL_VALUE);
+}

@@ -10,8 +10,7 @@
 constexpr int MAX_INSTRUCTION_AMOUNT = 1024;
 
 void execute_instructions(std::vector<std::unique_ptr<Instruction>>& instructions, Engine& engine) {
-    int i = 0;
-    std::unique_ptr<Instruction> instruction = std::move(instructions[i]);
+    std::unique_ptr<Instruction> instruction = std::move(instructions[engine.getProgramCounter()]);
     bool is_in_the_range = true;
     bool is_end_program = dynamic_cast<HLTInstruction*>(instruction.get()) != nullptr;
 
@@ -19,9 +18,9 @@ void execute_instructions(std::vector<std::unique_ptr<Instruction>>& instruction
         std::cout << *instruction << std::endl;
         instruction->execute(engine);
 
-        ++i;
-        instruction = std::move(instructions[i]);
-        is_in_the_range = i < MAX_INSTRUCTION_AMOUNT;
+        engine.incrementProgramCounter();
+        instruction = std::move(instructions[engine.getProgramCounter()]);
+        is_in_the_range = engine.getProgramCounter() < MAX_INSTRUCTION_AMOUNT;
         is_end_program = dynamic_cast<HLTInstruction*>(instruction.get()) != nullptr;
     }
 

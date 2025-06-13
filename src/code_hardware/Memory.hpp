@@ -2,9 +2,8 @@
 #define MEMORY_HPP
 #include <vector>
 
+#include "config.hpp"
 #include "MemoryCell.hpp"
-
-inline constexpr size_t DEFAULT_SIZE_MEMORY = 255;
 
 class Memory {
 public:
