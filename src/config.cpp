@@ -12,6 +12,7 @@
 #include "instructions/ROLInstruction.hpp"
 #include "instructions/SUBInstruction.hpp"
 #include "instructions/XORInstruction.hpp"
+#include "instructions/JMPInstruction.hpp"
 #include "instructions/Instruction.hpp"
 #include "Token.hpp"
 
@@ -48,5 +49,6 @@ std::unordered_map<std::string, std::function<std::unique_ptr<Instruction>(const
     {"AND", [](const std::vector<Token>& operands) { return std::make_unique<ANDInstruction>(operands); }},
     {"RSH", [](const std::vector<Token>& operands) { return std::make_unique<RSHInstruction>(operands); }},
     {"ROR", [](const std::vector<Token>& operands) { return std::make_unique<RORInstruction>(operands); }},
-    {"ROL", [](const std::vector<Token>& operands) { return std::make_unique<ROLInstruction>(operands); }}
+    {"ROL", [](const std::vector<Token>& operands) { return std::make_unique<ROLInstruction>(operands); }},
+    {"JMP", [](const std::vector<Token>& operands) { return std::make_unique<JMPInstruction>(operands); }},
 };

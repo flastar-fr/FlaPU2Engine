@@ -22,7 +22,7 @@ public:
     }
 
     void jump(const int newAddress) {
-        programCounter = newAddress;
+        programCounter = newAddress % MAX_AMOUNT_INSTRUCTIONS;
     }
 
 private:

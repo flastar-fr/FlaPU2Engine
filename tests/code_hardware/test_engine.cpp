@@ -49,4 +49,6 @@ TEST(EngineTest, ProgramCounterManipulation) {
     EXPECT_EQ(engine.getProgramCounter(), MAX_AMOUNT_INSTRUCTIONS - 1);
     engine.incrementProgramCounter();
     EXPECT_EQ(engine.getProgramCounter(), NULL_VALUE);
+    engine.jump(MAX_AMOUNT_INSTRUCTIONS - 1 + MAX_AMOUNT_INSTRUCTIONS);
+    EXPECT_EQ(engine.getProgramCounter(), MAX_AMOUNT_INSTRUCTIONS - 1);
 }
