@@ -8,6 +8,8 @@
 #include "instructions/NOPInstruction.hpp"
 #include "instructions/NORInstruction.hpp"
 #include "instructions/RSHInstruction.hpp"
+#include "instructions/RORInstruction.hpp"
+#include "instructions/ROLInstruction.hpp"
 #include "instructions/SUBInstruction.hpp"
 #include "instructions/XORInstruction.hpp"
 #include "instructions/Instruction.hpp"
@@ -44,5 +46,7 @@ std::unordered_map<std::string, std::function<std::unique_ptr<Instruction>(const
     {"NOR", [](const std::vector<Token>& operands) { return std::make_unique<NORInstruction>(operands); }},
     {"XOR", [](const std::vector<Token>& operands) { return std::make_unique<XORInstruction>(operands); }},
     {"AND", [](const std::vector<Token>& operands) { return std::make_unique<ANDInstruction>(operands); }},
-    {"RSH", [](const std::vector<Token>& operands) { return std::make_unique<RSHInstruction>(operands); }}
+    {"RSH", [](const std::vector<Token>& operands) { return std::make_unique<RSHInstruction>(operands); }},
+    {"ROR", [](const std::vector<Token>& operands) { return std::make_unique<RORInstruction>(operands); }},
+    {"ROL", [](const std::vector<Token>& operands) { return std::make_unique<ROLInstruction>(operands); }}
 };
