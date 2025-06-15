@@ -17,6 +17,7 @@
 #include "instructions/BRHInstruction.hpp"
 #include "instructions/CALInstruction.hpp"
 #include "instructions/RETInstruction.hpp"
+#include "instructions/LODInstruction.hpp"
 #include "Token.hpp"
 
 std::ostream& operator<<(std::ostream & lhs, const ValueType rhs) {
@@ -61,4 +62,5 @@ std::unordered_map<std::string, std::function<std::unique_ptr<Instruction>(const
     {"BRH", [](const std::vector<Token>& operands) { return std::make_unique<BRHInstruction>(operands); }},
     {"CAL", [](const std::vector<Token>& operands) { return std::make_unique<CALInstruction>(operands); }},
     {"RET", [](const std::vector<Token>& operands) { return std::make_unique<RETInstruction>(operands); }},
+    {"LOD", [](const std::vector<Token>& operands) { return std::make_unique<LODInstruction>(operands); }},
 };
