@@ -19,6 +19,7 @@
 #include "instructions/RETInstruction.hpp"
 #include "instructions/LODInstruction.hpp"
 #include "Token.hpp"
+#include "instructions/STRInstruction.hpp"
 
 std::ostream& operator<<(std::ostream & lhs, const ValueType rhs) {
     std::string value_string;
@@ -63,4 +64,5 @@ std::unordered_map<std::string, std::function<std::unique_ptr<Instruction>(const
     {"CAL", [](const std::vector<Token>& operands) { return std::make_unique<CALInstruction>(operands); }},
     {"RET", [](const std::vector<Token>& operands) { return std::make_unique<RETInstruction>(operands); }},
     {"LOD", [](const std::vector<Token>& operands) { return std::make_unique<LODInstruction>(operands); }},
+    {"STR", [](const std::vector<Token>& operands) { return std::make_unique<STRInstruction>(operands); }},
 };
