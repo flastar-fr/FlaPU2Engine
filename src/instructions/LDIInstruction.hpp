@@ -1,5 +1,5 @@
-#ifndef LODINSTRUCTION_HPP
-#define LODINSTRUCTION_HPP
+#ifndef LDIINSTRUCTION_HPP
+#define LDIINSTRUCTION_HPP
 #include "Instruction.hpp"
 
 class LDIInstruction final : public Instruction {
@@ -36,4 +36,4 @@ public:
     }
 };
 
-#endif //LODINSTRUCTION_HPP
+#endif //LDIINSTRUCTION_HPP
