@@ -25,11 +25,13 @@ std::unique_ptr<Instruction> parse_line(const std::string& line) {
 
 bool parse_lines(std::vector<std::unique_ptr<Instruction>>& instructions, const std::vector<std::string>& lines) {
     for (const auto& line : lines) {
-        if (const std::unique_ptr<Instruction> instruction = parse_line(line); !instruction->isCorrect()) {
-            std::cerr << "Error parsing instruction : " << line << std::endl;
-            return false;
+        if (!line.empty()) {
+            if (const auto instruction = parse_line(line); !instruction->isCorrect()) {
+                std::cerr << "Error parsing instruction : " << line << std::endl;
+                return false;
+            }
+            instructions.push_back(parse_line(line));
         }
-        instructions.push_back(parse_line(line));
     }
     return true;
 }
