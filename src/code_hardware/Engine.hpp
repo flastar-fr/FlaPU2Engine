@@ -40,7 +40,7 @@ public:
     }
 
     void pop_stack() {
-        programCounter = stack_addresses.top();
+        jump(stack_addresses.top());
         stack_addresses.pop();
     }
 
