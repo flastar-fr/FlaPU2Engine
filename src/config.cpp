@@ -14,8 +14,10 @@
 #include "instructions/XORInstruction.hpp"
 #include "instructions/JMPInstruction.hpp"
 #include "instructions/Instruction.hpp"
-#include "Token.hpp"
 #include "instructions/BRHInstruction.hpp"
+#include "instructions/CALInstruction.hpp"
+#include "instructions/RETInstruction.hpp"
+#include "Token.hpp"
 
 std::ostream& operator<<(std::ostream & lhs, const ValueType rhs) {
     std::string value_string;
@@ -57,4 +59,6 @@ std::unordered_map<std::string, std::function<std::unique_ptr<Instruction>(const
     {"ROL", [](const std::vector<Token>& operands) { return std::make_unique<ROLInstruction>(operands); }},
     {"JMP", [](const std::vector<Token>& operands) { return std::make_unique<JMPInstruction>(operands); }},
     {"BRH", [](const std::vector<Token>& operands) { return std::make_unique<BRHInstruction>(operands); }},
+    {"CAL", [](const std::vector<Token>& operands) { return std::make_unique<CALInstruction>(operands); }},
+    {"RET", [](const std::vector<Token>& operands) { return std::make_unique<RETInstruction>(operands); }},
 };

@@ -1,9 +1,11 @@
 NOP
-SUB r0 r0 r0
-BRH = 1027
 LDI r1 255
 LDI r2 3
 LDI [r2] 5
 ADI r1 2
 ADI [r2] 2
+CAL 8
 HLT
+
+ADI r1 1
+RET
