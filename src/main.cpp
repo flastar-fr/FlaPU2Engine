@@ -6,9 +6,6 @@
 
 #include "io_manipulations.hpp"
 
-
-constexpr int MAX_INSTRUCTION_AMOUNT = 1024;
-
 void execute_instructions(std::vector<std::unique_ptr<Instruction>>& instructions, Engine& engine) {
     std::unique_ptr<Instruction> instruction = std::move(instructions[engine.getProgramCounter()]);
     bool is_in_the_range = true;
@@ -20,7 +17,7 @@ void execute_instructions(std::vector<std::unique_ptr<Instruction>>& instruction
 
         engine.incrementProgramCounter();
         instruction = std::move(instructions[engine.getProgramCounter()]);
-        is_in_the_range = engine.getProgramCounter() < MAX_INSTRUCTION_AMOUNT;
+        is_in_the_range = engine.getProgramCounter() < MAX_AMOUNT_INSTRUCTIONS;
         is_end_program = dynamic_cast<HLTInstruction*>(instruction.get()) != nullptr;
     }
 
@@ -39,12 +36,12 @@ int main() {
     }
 
     std::vector<std::unique_ptr<Instruction>> instructions;
-    instructions.reserve(MAX_INSTRUCTION_AMOUNT);
+    instructions.reserve(MAX_AMOUNT_INSTRUCTIONS);
     if (const bool all_corrects = parse_lines(instructions, result); !all_corrects) {
         return 2;
     }
 
-    fill_empty(instructions, MAX_INSTRUCTION_AMOUNT);
+    fill_empty(instructions, MAX_AMOUNT_INSTRUCTIONS);
 
     execute_instructions(instructions, engine);
 
