@@ -1,8 +1,6 @@
 #ifndef LODINSTRUCTION_HPP
 #define LODINSTRUCTION_HPP
 #include "Instruction.hpp"
-#include <ostream>
-#include <iostream>
 
 class LODInstruction final : public Instruction {
 public:
