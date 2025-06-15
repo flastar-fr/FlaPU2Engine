@@ -21,7 +21,7 @@ TEST(RetInstructionTest, ExecuteValidState) {
     const auto ret = RETInstruction();
     auto engine = Engine();
 
-    EXPECT_EQ(engine.getProgramCounter(), 0);
+    EXPECT_EQ(engine.getProgramCounter(), NULL_VALUE);
     engine.push_stack(ALTERNATIVE_TEST_VALUE);
     ret.execute(engine);
     EXPECT_EQ(engine.getProgramCounter(), ALTERNATIVE_TEST_VALUE);
