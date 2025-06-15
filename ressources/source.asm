@@ -1,5 +1,6 @@
 NOP
-JMP 1027
+SUB r0 r0 r0
+BRH = 1027
 LDI r1 255
 LDI r2 3
 LDI [r2] 5

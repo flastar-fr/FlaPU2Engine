@@ -15,20 +15,25 @@
 #include "instructions/JMPInstruction.hpp"
 #include "instructions/Instruction.hpp"
 #include "Token.hpp"
+#include "instructions/BRHInstruction.hpp"
 
 std::ostream& operator<<(std::ostream & lhs, const ValueType rhs) {
     std::string value_string;
     switch (rhs) {
-    case ValueType::IMMEDIATE_VALUE: {
-            value_string = "IMMEDIATE_VALUE";
-            break;
+        case ValueType::IMMEDIATE_VALUE: {
+                value_string = "IMMEDIATE_VALUE";
+                break;
         }
-    case ValueType::REGISTER: {
-            value_string = "REGISTER";
-            break;
+        case ValueType::REGISTER: {
+                value_string = "REGISTER";
+                break;
         }
-    case ValueType::REGISTER_VALUE: {
-            value_string = "REGISTER_VALUE";
+        case ValueType::REGISTER_VALUE: {
+                value_string = "REGISTER_VALUE";
+                break;
+        }
+        case ValueType::FLAG: {
+            value_string = "FLAG";
             break;
         }
     }
@@ -51,4 +56,5 @@ std::unordered_map<std::string, std::function<std::unique_ptr<Instruction>(const
     {"ROR", [](const std::vector<Token>& operands) { return std::make_unique<RORInstruction>(operands); }},
     {"ROL", [](const std::vector<Token>& operands) { return std::make_unique<ROLInstruction>(operands); }},
     {"JMP", [](const std::vector<Token>& operands) { return std::make_unique<JMPInstruction>(operands); }},
+    {"BRH", [](const std::vector<Token>& operands) { return std::make_unique<BRHInstruction>(operands); }},
 };

@@ -70,6 +70,7 @@ ValueType determine_operand_type(const std::string& operand) {
     if (is_digits(operand)) {return ValueType::IMMEDIATE_VALUE;}
     if (is_register(operand)) {return ValueType::REGISTER;}
     if (is_register_value(operand)) {return ValueType::REGISTER_VALUE;}
+    if (is_flag(operand)) {return ValueType::FLAG;}
     throw std::runtime_error("Unrecognized type: " + operand);
 }
 
@@ -83,6 +84,12 @@ uint8_t determine_operand_value(const std::string& operand, const ValueType& typ
         case ValueType::REGISTER_VALUE: {
           const std::string value_part = operand.substr(2, operand.size() - 2);
           return static_cast<uint8_t>(std::stoi(value_part));
+        }
+        case ValueType::FLAG: {
+           const auto finded = std::find(AVAILABLE_FLAGS.begin(), AVAILABLE_FLAGS.end(), operand);
+           if (AVAILABLE_FLAGS.end() == finded) throw std::runtime_error("Unrecognized flag: " + operand);
+           return std::distance(AVAILABLE_FLAGS.begin(), finded);
+
         }
         default: throw std::runtime_error("Unknown type");
     }

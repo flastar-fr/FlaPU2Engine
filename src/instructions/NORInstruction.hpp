@@ -28,6 +28,7 @@ public:
         const auto result_nor = registers[first_register_to_nor] | registers[second_register_to_nor];
 
         registers[register_result] = !result_nor;
+        engine.verifyFlags(registers[first_register_to_nor].getValue(), registers[second_register_to_nor].getValue());
     }
 
     [[nodiscard]] bool isCorrect() const override {

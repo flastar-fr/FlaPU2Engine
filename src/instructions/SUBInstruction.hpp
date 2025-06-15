@@ -20,11 +20,12 @@ public:
         }
 
         Registers& registers = engine.getRegisters();
-        const uint8_t first_register_to_add = operands[0].value;
-        const uint8_t second_register_to_add = operands[1].value;
+        const uint8_t first_register_to_sub = operands[0].value;
+        const uint8_t second_register_to_sub = operands[1].value;
         const uint8_t register_result = operands[2].value;
 
-        registers[register_result] = registers[first_register_to_add] - registers[second_register_to_add];
+        registers[register_result] = registers[first_register_to_sub] - registers[second_register_to_sub];
+        engine.verifyFlags(registers[first_register_to_sub].getValue(), registers[second_register_to_sub].getValue());
     }
 
     [[nodiscard]] bool isCorrect() const override {

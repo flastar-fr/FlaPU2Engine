@@ -23,6 +23,7 @@ public:
         const uint8_t immediate_value_to_add = operands[1].value;
 
         if (register_to_add_to >= registers.size()) return;
+        engine.verifyFlags(registers[register_to_add_to].getValue(), immediate_value_to_add);
         registers[register_to_add_to] = registers[register_to_add_to] + immediate_value_to_add;
     }
 
