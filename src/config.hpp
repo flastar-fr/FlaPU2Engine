@@ -28,6 +28,7 @@ std::ostream& operator<<(std::ostream & lhs, ValueType rhs);
 extern std::unordered_map<std::string, std::function<std::unique_ptr<Instruction>(const std::vector<Token>&)>> instruction_factories;
 extern constexpr size_t MAX_AMOUNT_INSTRUCTIONS = 1024;
 extern constexpr size_t DEFAULT_SIZE_MEMORY = 255;
+extern constexpr size_t MAX_STACK_MEMORY = 16;
 
 const std::array<std::string, 4> AVAILABLE_FLAGS = {"=", "!=", ">=", "<"};;
 

@@ -1,6 +1,8 @@
 #ifndef ENGINE_HPP
 #define ENGINE_HPP
 
+#include <stack>
+
 #include "config.hpp"
 #include "Memory.hpp"
 #include "Registers.hpp"
@@ -32,6 +34,16 @@ public:
         programCounter = newAddress % MAX_AMOUNT_INSTRUCTIONS;
     }
 
+    void push_stack(const uint8_t address) {
+        if (stack_addresses.size() > MAX_STACK_MEMORY) throw std::length_error("Stack overflow");
+        stack_addresses.push(address);
+    }
+
+    void pop_stack() {
+        programCounter = stack_addresses.top();
+        stack_addresses.pop();
+    }
+
 private:
     int registerAmount;
     int memoryAmount;
@@ -39,5 +51,6 @@ private:
     Memory memory;
     size_t programCounter;
     std::array<bool, 4> flag_states;
+    std::stack<uint8_t> stack_addresses;
 };
 #endif //ENGINE_HPP
