@@ -9,7 +9,7 @@ target("FlaPU2Engine")
     set_kind("binary")
     add_files("src/**.cpp")
     after_build(function (target)
-        os.cp("ressources/", path.join(target:targetdir(), "ressources/"))
+        os.cp("ressources/", path.join(target:targetdir(), "."))
     end)
 
 target("tests")

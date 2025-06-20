@@ -4,8 +4,8 @@
 #include <iostream>
 #include <ostream>
 
-bool read_file(const std::string& file_name, std::vector<std::string>& result) {
-    if (std::ifstream file("ressources/" + file_name); file.is_open()) {
+bool read_file(const std::string& file_path, std::vector<std::string>& result) {
+    if (std::ifstream file(file_path); file.is_open()) {
         std::string line;
 
         while (getline(file, line)) {

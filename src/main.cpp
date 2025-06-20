@@ -4,7 +4,7 @@
 #include <string>
 #include <instructions/HLTInstruction.hpp>
 
-#include "io_manipulations.hpp"
+#include "utils/io_manipulations.hpp"
 
 void execute_instructions(std::vector<std::unique_ptr<Instruction>>& instructions, Engine& engine) {
     std::unique_ptr<Instruction> instruction = std::move(instructions[engine.getProgramCounter()]);
