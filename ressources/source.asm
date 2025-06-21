@@ -1,4 +1,6 @@
-LDI r1 0
+define NULL_VALUE 0
+
+LDI r1 NULL_VALUE
 CAL .inc
 CAL .add_2
 CAL .add_3

@@ -30,6 +30,7 @@ extern constexpr size_t MAX_AMOUNT_INSTRUCTIONS = 1024;
 extern constexpr size_t DEFAULT_SIZE_MEMORY = 255;
 extern constexpr size_t MAX_STACK_MEMORY = 16;
 extern constexpr char FIRST_LABEL_CHAR = '.';
+inline extern const std::string DEFINITION_KEY_WORD = "define";
 
 const std::array<std::string, 4> AVAILABLE_FLAGS = {"=", "!=", ">=", "<"};;
 

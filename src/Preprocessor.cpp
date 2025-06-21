@@ -19,8 +19,16 @@ std::string extract_label(std::string& line) {
     return label;
 }
 
+std::pair<std::string, std::string> extract_definition(const std::string& line) {
+    const auto splitted_line = split(line, " ");
+    if (splitted_line.size() != 3) throw std::invalid_argument("Wrong definition format");
+
+    return {splitted_line[1], splitted_line[2]};
+}
+
 std::vector<std::string>& Preprocessor::preprocess() {
     uniformize();
+    findDefinition();
     findLabels();
     replaceLabels();
     return lines;
@@ -47,7 +55,26 @@ void Preprocessor::uniformize() {
         new_lines.push_back(trimmed_line);
     }
 
-    lines = new_lines;
+    lines = std::move(new_lines);
+}
+
+void Preprocessor::findDefinition() {
+    std::vector<std::string> new_lines = {};
+    for (auto& line : lines) {
+        if (line.size() < DEFINITION_KEY_WORD.size()) {
+            new_lines.push_back(line);
+            continue;
+        }
+
+        if (line.substr(0, DEFINITION_KEY_WORD.size()) == DEFINITION_KEY_WORD) {
+            auto [definition, value] = extract_definition(line);
+            labels_n_definitions[definition] = value;
+        } else {
+            new_lines.push_back(line);
+        }
+    }
+
+    lines = std::move(new_lines);
 }
 
 void Preprocessor::findLabels() {
@@ -57,7 +84,7 @@ void Preprocessor::findLabels() {
 
         if (trimed_line[0] == FIRST_LABEL_CHAR) {
             auto label = extract_label(trimed_line);
-            labels[label] = std::to_string(amount_line);
+            labels_n_definitions[label] = std::to_string(amount_line);
         }
 
         line = std::move(trimed_line);
@@ -67,7 +94,7 @@ void Preprocessor::findLabels() {
 
 void Preprocessor::replaceLabels() {
     for (auto& line : lines) {
-        for (auto const& [key, val] : labels) {
+        for (auto const& [key, val] : labels_n_definitions) {
             replace_all(line, key, val);
         }
     }
