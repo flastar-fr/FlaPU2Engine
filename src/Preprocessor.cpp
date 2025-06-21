@@ -21,9 +21,6 @@ std::string extract_label(std::string& line) {
 
 std::vector<std::string>& Preprocessor::preprocess() {
     uniformize();
-    for (auto& line : lines) {
-        std::cout << line << std::endl;
-    }
     findLabels();
     replaceLabels();
     return lines;
