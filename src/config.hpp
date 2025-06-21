@@ -29,6 +29,7 @@ extern std::unordered_map<std::string, std::function<std::unique_ptr<Instruction
 extern constexpr size_t MAX_AMOUNT_INSTRUCTIONS = 1024;
 extern constexpr size_t DEFAULT_SIZE_MEMORY = 255;
 extern constexpr size_t MAX_STACK_MEMORY = 16;
+extern constexpr char FIRST_LABEL_CHAR = '.';
 
 const std::array<std::string, 4> AVAILABLE_FLAGS = {"=", "!=", ">=", "<"};;
 

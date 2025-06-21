@@ -3,8 +3,8 @@
 
 #include <iostream>
 
+#include "config.hpp"
 
-char FIRST_LABEL_CHAR = '.';
 
 std::string extract_label(std::string& line) {
     const size_t first_space = line.find(' ');
