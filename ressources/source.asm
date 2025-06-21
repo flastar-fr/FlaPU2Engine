@@ -1,15 +1,22 @@
-NOP
-LDI r1 255
-LDI r2 3
-LDI [r2] 5
-ADI r1 2
-ADI [r2] 2
-STR [r2] [r1]
-STR 4 [r3]
-LOD r1 [r2]
-LOD r3 4
-CAL 12
+LDI r1 0
+CAL .inc
+CAL .add_2
+CAL .add_3
 HLT
 
-ADI r1 1
-RET
+.inc ADI r1 1
+    RET
+
+.add_2
+    ADI r1 2
+    RET
+
+.add_3
+
+
+
+
+
+
+    ADI r1 3
+    RET
