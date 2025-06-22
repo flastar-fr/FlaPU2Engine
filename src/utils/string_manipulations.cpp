@@ -21,15 +21,6 @@ std::string trim(const std::string &s) {
     return rtrim(ltrim(s));
 }
 
-void replace_all(std::string& str, const std::string& from, const std::string& to) {
-    size_t start = 0;
-    size_t pos = 0;
-    while ((pos = str.find(from, start)) != std::string::npos) {
-        str.replace(pos, from.length(), to);
-        start = pos + to.length();
-    }
-}
-
 std::vector<std::string> split(const std::string& s, const std::string& delimiter) {
     size_t pos_start = 0;
     size_t pos_end;
@@ -44,4 +35,20 @@ std::vector<std::string> split(const std::string& s, const std::string& delimite
 
     res.push_back (s.substr (pos_start));
     return res;
+}
+
+void replace_token(std::string& str, const std::string& from, const std::string& to) {
+    const std::string delimiter = " ";
+    const auto tokens = split(str, delimiter);
+    std::string new_str;
+    for (auto& token : tokens) {
+        if (token == from) {
+            new_str += to;
+            new_str += delimiter;
+        } else {
+            new_str += delimiter;
+        }
+    }
+
+    str = new_str;
 }

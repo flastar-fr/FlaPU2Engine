@@ -1,7 +1,9 @@
 #include "Preprocessor.hpp"
-#include "utils/string_manipulations.hpp"
 
 #include <iostream>
+#include <ostream>
+
+#include "utils/string_manipulations.hpp"
 
 #include "config.hpp"
 
@@ -26,6 +28,23 @@ std::pair<std::string, std::string> extract_definition(const std::string& line) 
     return {splitted_line[1], splitted_line[2]};
 }
 
+std::vector<std::string> extract_labels_and_find_next_line(std::string& trimmed_line, const std::vector<std::string>& lines, size_t& current_line) {
+    std::vector<std::string> labels_to_add = {};
+    auto label = extract_label(trimmed_line);
+    labels_to_add.push_back(label);
+    while (trimmed_line.empty() || trimmed_line[0] == FIRST_LABEL_CHAR) {
+        if (trimmed_line.empty()) {
+            ++current_line;
+            trimmed_line = trim(lines[current_line]);
+        } else {
+            label = extract_label(trimmed_line);
+            labels_to_add.push_back(label);
+        }
+    }
+
+    return labels_to_add;
+}
+
 std::vector<std::string>& Preprocessor::preprocess() {
     uniformize();
     findDefinition();
@@ -36,20 +55,21 @@ std::vector<std::string>& Preprocessor::preprocess() {
 
 void Preprocessor::uniformize() {
     std::vector<std::string> new_lines = {};
+
     for (size_t i = 0; i < lines.size(); ++i) {
         auto trimmed_line = trim(lines[i]);
 
         if (trimmed_line.empty()) continue;
 
         if (trimmed_line[0] == FIRST_LABEL_CHAR) {
-            const auto label = extract_label(trimmed_line);
-            while (trimmed_line.empty()) {
-                ++i;
-                trimmed_line = trim(lines[i]);
+            auto labels_to_add = extract_labels_and_find_next_line(trimmed_line, lines, i);
+            const auto temp_trimmed_line = trimmed_line;
+            trimmed_line.clear();
+            for (const auto& label_to_add : labels_to_add) {
+                trimmed_line += label_to_add + " ";
             }
-            auto temp_trimmed_line = trimmed_line;
-            trimmed_line = label;
-            trimmed_line.append(" " + temp_trimmed_line);
+            trimmed_line += temp_trimmed_line;
+            labels_to_add.clear();
         }
 
         new_lines.push_back(trimmed_line);
@@ -82,7 +102,7 @@ void Preprocessor::findLabels() {
     for (auto& line: lines) {
         auto trimed_line = trim(line);
 
-        if (trimed_line[0] == FIRST_LABEL_CHAR) {
+        while (trimed_line[0] == FIRST_LABEL_CHAR) {
             auto label = extract_label(trimed_line);
             labels_n_definitions[label] = std::to_string(amount_line);
         }
@@ -95,7 +115,7 @@ void Preprocessor::findLabels() {
 void Preprocessor::replaceLabels() {
     for (auto& line : lines) {
         for (auto const& [key, val] : labels_n_definitions) {
-            replace_all(line, key, val);
+            replace_token(line, key, val);
         }
     }
 }

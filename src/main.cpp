@@ -34,12 +34,15 @@ int main() {
     Engine engine;
     std::vector<std::string> result;
 
-    if (const bool is_open = read_file("ressources/source.asm", result); !is_open) {
+    if (const bool is_open = read_file("ressources/test.asm", result); !is_open) {
         return 1;
     }
 
     auto preprocessor = Preprocessor(result);
     result = preprocessor.preprocess();
+    for (auto& line : result) {
+        std::cout << line << std::endl;
+    }
 
     std::vector<std::shared_ptr<Instruction>> instructions;
     instructions.reserve(MAX_AMOUNT_INSTRUCTIONS);
