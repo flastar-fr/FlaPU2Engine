@@ -4,10 +4,11 @@
 
 #include <iostream>
 
+#include "utils/string_manipulations.hpp"
 #include "utils/string_verifications.hpp"
 
 
-std::unique_ptr<Instruction> parse_line(const std::string& line) {
+std::shared_ptr<Instruction> parse_line(const std::string& line) {
     size_t first_space = line.find_first_of(' ');
     first_space = first_space != std::string::npos ? first_space : line.size();
     const size_t start_operand = first_space == line.size() ? line.size() : first_space + 1;
@@ -36,7 +37,7 @@ bool process_line(std::vector<std::shared_ptr<Instruction>>& instructions, const
 
 bool parse_lines(std::vector<std::shared_ptr<Instruction>>& instructions, const std::vector<std::string>& lines) {
     for (const auto& line : lines) {
-        if (!process_line(instructions, line)) {
+        if (!process_line(instructions, trim(line))) {
             std::cerr << "Error parsing instruction : " << line << std::endl;
             return false;
         }

@@ -13,7 +13,7 @@ void execute_instructions(const std::vector<std::shared_ptr<Instruction>>& instr
     bool is_end_program = dynamic_cast<HLTInstruction*>(instruction.get()) != nullptr;
 
     while (is_in_the_range && !is_end_program) {
-        //std::cout << *instruction << std::endl;
+        std::cout << *instruction << std::endl;
         instruction->execute(engine);
 
         engine.incrementProgramCounter();
@@ -34,7 +34,7 @@ int main() {
     Engine engine;
     std::vector<std::string> result;
 
-    if (const bool is_open = read_file("ressources/fibonacci.asm", result); !is_open) {
+    if (const bool is_open = read_file("ressources/source.asm", result); !is_open) {
         return 1;
     }
 

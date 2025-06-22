@@ -6,7 +6,7 @@
 #include "instructions/Instruction.hpp"
 
 
-std::unique_ptr<Instruction> parse_line(const std::string& line);
+std::shared_ptr<Instruction> parse_line(const std::string& line);
 bool parse_lines(std::vector<std::shared_ptr<Instruction>>& instructions, const std::vector<std::string>& lines);
 void fill_empty(std::vector<std::shared_ptr<Instruction>>& instructions, int to_have);
 std::vector<Token> extract_operands(const std::string& line);
