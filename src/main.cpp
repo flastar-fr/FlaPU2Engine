@@ -40,9 +40,6 @@ int main() {
 
     auto preprocessor = Preprocessor(result);
     result = preprocessor.preprocess();
-    for (auto& line : result) {
-        std::cout << line << std::endl;
-    }
 
     std::vector<std::shared_ptr<Instruction>> instructions;
     instructions.reserve(MAX_AMOUNT_INSTRUCTIONS);
