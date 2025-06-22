@@ -40,11 +40,11 @@ Take a look at the [examples](#examples) for a better understanding.
 - [ ] GUI
 
 ## Examples
-Note that these programs can be optimized, it is just to give you examples of how to use my assembly language.
+Note that these programs can be hugely optimized, it is just to give you examples of how to use my assembly language.
 
 ### Fibonacci
 r1 is the register result of the program. Here : x = 13, F_x = 233
-```
+```asm
 define x 13
 
 LDI r2 x
@@ -72,7 +72,7 @@ HLT
 
 ### Division
 r3 is the register result. Here : x = 13, y = 5, x/y = 2
-```
+```asm
 define x 13
 define y 5
 
@@ -102,3 +102,27 @@ HLT
 ### Modulo
 
 ### Multiplication
+r3 is the register result. Here : x = 5, y = 13, x * y = 65
+```asm
+define x 5
+define y 13
+
+LDI r1 x
+LDI r2 y
+
+CAL .mul
+HLT
+
+.mul
+    LDI r3 0
+    LDI r4 0
+
+    .mul.start
+        SUB r2 r4 r0
+        BRH = .mul.end
+        ADD r1 r3 r3
+        ADI r4 1
+        JMP .mul.start
+
+    .mul.end RET
+```
