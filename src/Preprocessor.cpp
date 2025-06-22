@@ -1,7 +1,6 @@
 #include "Preprocessor.hpp"
 
-#include <iostream>
-#include <ostream>
+#include <stdexcept>
 
 #include "utils/string_manipulations.hpp"
 

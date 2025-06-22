@@ -36,7 +36,6 @@ bool process_line(std::vector<std::shared_ptr<Instruction>>& instructions, const
 
 bool parse_lines(std::vector<std::shared_ptr<Instruction>>& instructions, const std::vector<std::string>& lines) {
     for (const auto& line : lines) {
-        std::cout << line << std::endl;
         if (!process_line(instructions, line)) {
             std::cerr << "Error parsing instruction : " << line << std::endl;
             return false;

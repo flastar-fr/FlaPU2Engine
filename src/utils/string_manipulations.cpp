@@ -1,6 +1,7 @@
 #include <string>
 #include <algorithm>
 #include <cctype>
+#include <iostream>
 #include <vector>
 
 std::string ltrim(const std::string &s) {
@@ -38,15 +39,16 @@ std::vector<std::string> split(const std::string& s, const std::string& delimite
 }
 
 void replace_token(std::string& str, const std::string& from, const std::string& to) {
-    const std::string delimiter = " ";
-    const auto tokens = split(str, delimiter);
+    const std::string DELIMITER = " ";
+    const auto tokens = split(str, DELIMITER);
     std::string new_str;
     for (auto& token : tokens) {
         if (token == from) {
             new_str += to;
-            new_str += delimiter;
+            new_str += DELIMITER;
         } else {
-            new_str += delimiter;
+            new_str += token;
+            new_str += DELIMITER;
         }
     }
 
