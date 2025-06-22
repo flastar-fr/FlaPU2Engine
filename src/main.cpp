@@ -34,7 +34,7 @@ int main() {
     Engine engine;
     std::vector<std::string> result;
 
-    if (const bool is_open = read_file("ressources/fibonacci.asm", result); !is_open) {
+    if (const bool is_open = read_file("ressources/source.asm", result); !is_open) {
         return 1;
     }
 
