@@ -7,8 +7,8 @@
 #include "Preprocessor.hpp"
 #include "utils/io_manipulations.hpp"
 
-void execute_instructions(std::vector<std::unique_ptr<Instruction>>& instructions, Engine& engine) {
-    std::unique_ptr<Instruction> instruction = std::move(instructions[engine.getProgramCounter()]);
+void execute_instructions(const std::vector<std::shared_ptr<Instruction>>& instructions, Engine& engine) {
+    std::shared_ptr<Instruction> instruction = instructions[engine.getProgramCounter()];
     bool is_in_the_range = true;
     bool is_end_program = dynamic_cast<HLTInstruction*>(instruction.get()) != nullptr;
 
@@ -17,7 +17,7 @@ void execute_instructions(std::vector<std::unique_ptr<Instruction>>& instruction
         instruction->execute(engine);
 
         engine.incrementProgramCounter();
-        instruction = std::move(instructions[engine.getProgramCounter()]);
+        instruction = instructions[engine.getProgramCounter()];
         is_in_the_range = engine.getProgramCounter() < MAX_AMOUNT_INSTRUCTIONS;
         is_end_program = dynamic_cast<HLTInstruction*>(instruction.get()) != nullptr;
     }
@@ -26,20 +26,22 @@ void execute_instructions(std::vector<std::unique_ptr<Instruction>>& instruction
     std::cout << engine.getRegisters()[1] << std::endl;
     std::cout << engine.getRegisters()[2] << std::endl;
     std::cout << engine.getRegisters()[3] << std::endl;
+    std::cout << engine.getRegisters()[4] << std::endl;
+    std::cout << engine.getRegisters()[5] << std::endl;
 }
 
 int main() {
     Engine engine;
     std::vector<std::string> result;
 
-    if (const bool is_open = read_file("ressources/source.asm", result); !is_open) {
+    if (const bool is_open = read_file("ressources/fibonacci.asm", result); !is_open) {
         return 1;
     }
 
     auto preprocessor = Preprocessor(result);
     result = preprocessor.preprocess();
 
-    std::vector<std::unique_ptr<Instruction>> instructions;
+    std::vector<std::shared_ptr<Instruction>> instructions;
     instructions.reserve(MAX_AMOUNT_INSTRUCTIONS);
     if (const bool all_corrects = parse_lines(instructions, result); !all_corrects) {
         return 2;

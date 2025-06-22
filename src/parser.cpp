@@ -23,7 +23,7 @@ std::unique_ptr<Instruction> parse_line(const std::string& line) {
     return instruction;
 }
 
-bool process_line(std::vector<std::unique_ptr<Instruction>>& instructions, const std::string& line) {
+bool process_line(std::vector<std::shared_ptr<Instruction>>& instructions, const std::string& line) {
     if (line.empty()) return true;
 
     if (const auto instruction = parse_line(line); !instruction->isCorrect()) {
@@ -34,7 +34,7 @@ bool process_line(std::vector<std::unique_ptr<Instruction>>& instructions, const
 }
 
 
-bool parse_lines(std::vector<std::unique_ptr<Instruction>>& instructions, const std::vector<std::string>& lines) {
+bool parse_lines(std::vector<std::shared_ptr<Instruction>>& instructions, const std::vector<std::string>& lines) {
     for (const auto& line : lines) {
         if (!process_line(instructions, line)) {
             std::cerr << "Error parsing instruction : " << line << std::endl;
@@ -44,7 +44,7 @@ bool parse_lines(std::vector<std::unique_ptr<Instruction>>& instructions, const 
     return true;
 }
 
-void fill_empty(std::vector<std::unique_ptr<Instruction>>& instructions, const int to_have) {
+void fill_empty(std::vector<std::shared_ptr<Instruction>>& instructions, const int to_have) {
     while (instructions.size() < to_have) {
         instructions.push_back(parse_line("NOP"));
     }
