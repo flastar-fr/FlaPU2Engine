@@ -100,6 +100,31 @@ HLT
 ```
 
 ### Modulo
+r3 is the register result. Here : x = 13, y = 5, x % y = 3
+```asm
+define x 13
+define y 5
+
+LDI r1 x
+LDI r2 y
+
+CAL .mod
+HLT
+
+.mod
+    ADD r1 r0 r3
+
+    .mod.start
+        SUB r2 r3 r0
+        BRH = .mod.is_0
+        BRH >= .mod.end
+        SUB r3 r2 r3
+        JMP .mod.start
+
+    .mod.is_0 LDI r3 0
+
+    .mod.end RET
+```
 
 ### Multiplication
 r3 is the register result. Here : x = 5, y = 13, x * y = 65
