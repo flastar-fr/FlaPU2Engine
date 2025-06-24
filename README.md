@@ -39,6 +39,7 @@ Comments are only singleline and start with a ``#``.
 - [x] Support to labels
 - [x] Support to definitions
 - [ ] Support to ports
+- [ ] Support to interruptions
 - [ ] GUI
 
 ## Examples
