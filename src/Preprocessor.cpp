@@ -53,6 +53,19 @@ void remove_comments(std::string& line) {
     line = line.substr(0, first_space - 1);
 }
 
+void merge_labels(std::string& trimmed_line, const std::vector<std::string>& lines, size_t& i) {
+    if (trimmed_line[0] == FIRST_LABEL_CHAR) {
+        auto labels_to_add = extract_labels_and_find_next_line(trimmed_line, lines, i);
+        const auto temp_trimmed_line = trimmed_line;
+        trimmed_line.clear();
+        for (const auto& label_to_add : labels_to_add) {
+            trimmed_line += label_to_add + " ";
+        }
+        trimmed_line += temp_trimmed_line;
+        labels_to_add.clear();
+    }
+}
+
 std::vector<std::string>& Preprocessor::preprocess() {
     uniformize();
     findDefinition();
@@ -71,16 +84,7 @@ void Preprocessor::uniformize() {
 
         remove_comments(trimmed_line);
 
-        if (trimmed_line[0] == FIRST_LABEL_CHAR) {
-            auto labels_to_add = extract_labels_and_find_next_line(trimmed_line, lines, i);
-            const auto temp_trimmed_line = trimmed_line;
-            trimmed_line.clear();
-            for (const auto& label_to_add : labels_to_add) {
-                trimmed_line += label_to_add + " ";
-            }
-            trimmed_line += temp_trimmed_line;
-            labels_to_add.clear();
-        }
+        merge_labels(trimmed_line, lines, i);
 
         new_lines.push_back(trimmed_line);
     }
