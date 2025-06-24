@@ -29,11 +29,13 @@ For example : ``define NULL_VALUE 0``
 The labels always start with a dot and are placed before the instruction that you want to jump from. 
 Take a look at the [examples](#examples) for a better understanding.
 
+Comments are only singleline and start with a ``#``.
+
 ## Features
 - [x] Working structure (registers, memory, etc...)
 - [ ] Support to all instructions
   - Need ports instructions
-- [ ] Support to comments
+- [x] Support to comments
 - [x] Support to labels
 - [x] Support to definitions
 - [ ] Support to ports

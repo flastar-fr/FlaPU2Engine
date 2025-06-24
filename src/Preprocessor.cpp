@@ -44,6 +44,15 @@ std::vector<std::string> extract_labels_and_find_next_line(std::string& trimmed_
     return labels_to_add;
 }
 
+void remove_comments(std::string& line) {
+    const size_t first_space = line.find(COMMENT_PREFIX);
+    if (first_space == std::string::npos) {
+        return;
+    }
+
+    line = line.substr(0, first_space - 1);
+}
+
 std::vector<std::string>& Preprocessor::preprocess() {
     uniformize();
     findDefinition();
@@ -59,6 +68,8 @@ void Preprocessor::uniformize() {
         auto trimmed_line = trim(lines[i]);
 
         if (trimmed_line.empty()) continue;
+
+        remove_comments(trimmed_line);
 
         if (trimmed_line[0] == FIRST_LABEL_CHAR) {
             auto labels_to_add = extract_labels_and_find_next_line(trimmed_line, lines, i);

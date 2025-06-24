@@ -1,6 +1,6 @@
 define NULL_VALUE 0
 
-LDI r1 NULL_VALUE
+LDI r1 NULL_VALUE # register we will add to
 CAL .inc
 CAL .add_2
 CAL .add_3
