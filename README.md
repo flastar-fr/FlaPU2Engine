@@ -35,6 +35,8 @@ Comments are only singleline and start with a ``#``.
 - [x] Working structure (registers, memory, etc...)
 - [ ] Support to all instructions
   - Need ports instructions
+- [ ] Support to all pseudoinstructions
+  - All
 - [x] Support to comments
 - [x] Support to labels
 - [x] Support to definitions
