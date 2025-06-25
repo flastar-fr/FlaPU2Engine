@@ -19,6 +19,7 @@
 #include "instructions/RETInstruction.hpp"
 #include "instructions/LODInstruction.hpp"
 #include "Token.hpp"
+#include "instructions/CMPPseudoInstruction.hpp"
 #include "instructions/STRInstruction.hpp"
 
 std::ostream& operator<<(std::ostream & lhs, const ValueType rhs) {
@@ -65,4 +66,5 @@ std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const
     {"RET", [](const std::vector<Token>& operands) { return std::make_shared<RETInstruction>(operands); }},
     {"LOD", [](const std::vector<Token>& operands) { return std::make_shared<LODInstruction>(operands); }},
     {"STR", [](const std::vector<Token>& operands) { return std::make_shared<STRInstruction>(operands); }},
+    {"CMP", [](const std::vector<Token>& operands) { return std::make_shared<CMPPseudoInstruction>(operands); }},
 };
