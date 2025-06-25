@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include <iostream>
+#include <algorithm>
 
 #include "utils/string_manipulations.hpp"
 #include "utils/string_verifications.hpp"
