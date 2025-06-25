@@ -18,7 +18,7 @@ bool is_immediate(const std::string &str) {
 }
 
 bool is_register(const std::string &str) {
-    return std::all_of(str.begin() + 1, str.end(), isdigit) && str[0] == 'r';
+    return std::all_of(str.begin() + 1, str.end(), isdigit) && std::tolower(str[0]) == 'r';
 }
 
 bool is_register_value(const std::string &str) {
