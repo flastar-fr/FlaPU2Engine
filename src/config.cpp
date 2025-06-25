@@ -29,6 +29,7 @@
 #include "instructions/NOTPseudoInstruction.hpp"
 #include "instructions/NEGPseudoInstruction.hpp"
 #include "instructions/JNEPseudoInstruction.hpp"
+#include "instructions/JEQPseudoInstruction.hpp"
 
 #include "Token.hpp"
 
@@ -84,4 +85,5 @@ std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const
     {"NOT", [](const std::vector<Token>& operands) { return std::make_shared<NOTPseudoInstruction>(operands); }},
     {"NEG", [](const std::vector<Token>& operands) { return std::make_shared<NEGPseudoInstruction>(operands); }},
     {"JNE", [](const std::vector<Token>& operands) { return std::make_shared<JNEPseudoInstruction>(operands); }},
+    {"JEQ", [](const std::vector<Token>& operands) { return std::make_shared<JEQPseudoInstruction>(operands); }},
 };
