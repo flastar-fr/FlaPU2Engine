@@ -1,5 +1,6 @@
 #ifndef TOKEN_HPP
 #define TOKEN_HPP
+#include <cstdint>
 #include <ostream>
 
 #include "config.hpp"
