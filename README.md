@@ -43,6 +43,7 @@ Comments are only singleline and start with a ``#``.
 - [ ] Support to ports
 - [ ] Support to interruptions
 - [ ] Better error messages
+- [ ] Remove case sensitivity
 - [ ] GUI
 
 ## Examples
