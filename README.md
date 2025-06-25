@@ -46,7 +46,10 @@ Comments are only singleline and start with a ``#``.
 - [ ] GUI
 
 ## Examples
-Note that these programs can be hugely optimized, it is just to give you examples of how to use my assembly language.
+Note that these programs can be hugely optimized, it is just to give you some examples of how to use my assembly language.
+
+In these examples the labels are nammed following this format : ``.<prog name>.<function>`` but this is just the choice I made. 
+I could just use the format : ``.<function>`` if I wanted to. As long as it starts with a ``.``, you can name a label as you want.
 
 ### Fibonacci
 r1 is the register result of the program. Here : x = 13, F_x = 233
