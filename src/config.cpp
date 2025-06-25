@@ -1,5 +1,7 @@
 #include "config.hpp"
 
+#include "instructions/Instruction.hpp"
+
 #include "instructions/ADDInstruction.hpp"
 #include "instructions/ADIInstruction.hpp"
 #include "instructions/ANDInstruction.hpp"
@@ -13,14 +15,16 @@
 #include "instructions/SUBInstruction.hpp"
 #include "instructions/XORInstruction.hpp"
 #include "instructions/JMPInstruction.hpp"
-#include "instructions/Instruction.hpp"
 #include "instructions/BRHInstruction.hpp"
 #include "instructions/CALInstruction.hpp"
 #include "instructions/RETInstruction.hpp"
 #include "instructions/LODInstruction.hpp"
-#include "Token.hpp"
-#include "instructions/CMPPseudoInstruction.hpp"
 #include "instructions/STRInstruction.hpp"
+
+#include "instructions/CMPPseudoInstruction.hpp"
+#include "instructions/MOVPseudoInstruction.hpp"
+
+#include "Token.hpp"
 
 std::ostream& operator<<(std::ostream & lhs, const ValueType rhs) {
     std::string value_string;
@@ -67,4 +71,5 @@ std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const
     {"LOD", [](const std::vector<Token>& operands) { return std::make_shared<LODInstruction>(operands); }},
     {"STR", [](const std::vector<Token>& operands) { return std::make_shared<STRInstruction>(operands); }},
     {"CMP", [](const std::vector<Token>& operands) { return std::make_shared<CMPPseudoInstruction>(operands); }},
+    {"MOV", [](const std::vector<Token>& operands) { return std::make_shared<MOVPseudoInstruction>(operands); }},
 };
