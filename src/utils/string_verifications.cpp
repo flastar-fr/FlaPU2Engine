@@ -9,6 +9,14 @@ bool is_digits(const std::string &str) {
     return std::all_of(str.begin(), str.end(), isdigit);
 }
 
+bool is_immediate(const std::string &str) {
+    if (str.empty()) return false;
+
+    if (str[0] == '-') return is_digits(str.substr(1));
+
+    return is_digits(str);
+}
+
 bool is_register(const std::string &str) {
     return std::all_of(str.begin() + 1, str.end(), isdigit) && str[0] == 'r';
 }

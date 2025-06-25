@@ -78,7 +78,7 @@ std::vector<Token> extract_operands(const std::string& line) {
 }
 
 ValueType determine_operand_type(const std::string& operand) {
-    if (is_digits(operand)) {return ValueType::IMMEDIATE_VALUE;}
+    if (is_immediate(operand)) {return ValueType::IMMEDIATE_VALUE;}
     if (is_register(operand)) {return ValueType::REGISTER;}
     if (is_register_value(operand)) {return ValueType::REGISTER_VALUE;}
     if (is_flag(operand)) {return ValueType::FLAG;}
