@@ -27,6 +27,7 @@
 #include "instructions/INCPseudoInstruction.hpp"
 #include "instructions/DECPseudoInstruction.hpp"
 #include "instructions/NOTPseudoInstruction.hpp"
+#include "instructions/NEGPseudoInstruction.hpp"
 
 #include "Token.hpp"
 
@@ -80,4 +81,5 @@ std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const
     {"INC", [](const std::vector<Token>& operands) { return std::make_shared<INCPseudoInstruction>(operands); }},
     {"DEC", [](const std::vector<Token>& operands) { return std::make_shared<DECPseudoInstruction>(operands); }},
     {"NOT", [](const std::vector<Token>& operands) { return std::make_shared<NOTPseudoInstruction>(operands); }},
+    {"NEG", [](const std::vector<Token>& operands) { return std::make_shared<NEGPseudoInstruction>(operands); }},
 };

@@ -1,3 +1,3 @@
 LDI r1 1
-NOT r1 r2
+NEG r1 r2
 HLT
