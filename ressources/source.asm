@@ -1,3 +1,3 @@
-LDI r1 0
-ADI r1 -1
+LDI r1 1
+DEC r1
 HLT

@@ -25,6 +25,7 @@
 #include "instructions/MOVPseudoInstruction.hpp"
 #include "instructions/LSHPseudoInstruction.hpp"
 #include "instructions/INCPseudoInstruction.hpp"
+#include "instructions/DECPseudoInstruction.hpp"
 
 #include "Token.hpp"
 
@@ -76,4 +77,5 @@ std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const
     {"MOV", [](const std::vector<Token>& operands) { return std::make_shared<MOVPseudoInstruction>(operands); }},
     {"LSH", [](const std::vector<Token>& operands) { return std::make_shared<LSHPseudoInstruction>(operands); }},
     {"INC", [](const std::vector<Token>& operands) { return std::make_shared<INCPseudoInstruction>(operands); }},
+    {"DEC", [](const std::vector<Token>& operands) { return std::make_shared<DECPseudoInstruction>(operands); }},
 };
