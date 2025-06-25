@@ -1,6 +1,7 @@
 #ifndef MEMORYCELL_HPP
 #define MEMORYCELL_HPP
 #include <cstdint>
+#include <iostream>
 #include <ostream>
 
 
@@ -98,8 +99,8 @@ public:
         return MemoryCell(new_value);
     }
 
-    virtual MemoryCell operator!() const {
-        const auto new_value = static_cast<uint8_t>(!this->value);
+    virtual MemoryCell operator~() const {
+        const auto new_value = static_cast<uint8_t>(~this->value);
         return MemoryCell(new_value);
     }
 

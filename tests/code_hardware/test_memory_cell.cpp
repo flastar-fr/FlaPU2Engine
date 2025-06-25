@@ -224,5 +224,5 @@ TEST(MemoryCellTest, OtherROR) {
 TEST(MemoryCellTest, UnitaryNOT) {
     const auto cell = MemoryCell(ALTERNATIVE_TEST_VALUE);
 
-    EXPECT_EQ(!cell, !ALTERNATIVE_TEST_VALUE);
+    EXPECT_EQ(~cell, ~ALTERNATIVE_TEST_VALUE);
 }

@@ -27,7 +27,7 @@ TEST(NorInstructionTest, ExecuteValidState) {
 
     nor.execute(engine);
 
-    EXPECT_EQ(registers[REGISTER_RESULT], !(ALTERNATIVE_TEST_VALUE | ALTERNATIVE_TEST_VALUE));
+    EXPECT_EQ(registers[REGISTER_RESULT], ~(ALTERNATIVE_TEST_VALUE | ALTERNATIVE_TEST_VALUE));
 }
 
 TEST(NorInstructionTest, ExecuteValidState0RegisterResult) {
@@ -53,7 +53,7 @@ TEST(NorInstructionTest, ExecuteValidState0RegisterOperandRight) {
 
     nor.execute(engine);
 
-    EXPECT_EQ(registers[REGISTER_RESULT], !ALTERNATIVE_TEST_VALUE);
+    EXPECT_EQ(registers[REGISTER_RESULT], ~ALTERNATIVE_TEST_VALUE);
 }
 
 TEST(NorInstructionTest, ExecuteValidState0RegisterOperandLeft) {
@@ -66,5 +66,5 @@ TEST(NorInstructionTest, ExecuteValidState0RegisterOperandLeft) {
 
     nor.execute(engine);
 
-    EXPECT_EQ(registers[REGISTER_RESULT], !ALTERNATIVE_TEST_VALUE);
+    EXPECT_EQ(registers[REGISTER_RESULT], ~ALTERNATIVE_TEST_VALUE);
 }
