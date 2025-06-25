@@ -13,6 +13,7 @@ You can find my [ISA](https://docs.google.com/spreadsheets/d/1aE8e7TodV6_dxUF-Ub
 ## Getting started
 The build tool this project uses is xmake, and it also needs for the unit tests the gtest library (if you are interrested in tests, otherwise you can remove the tests part from the xmake.lua). 
 This project is written using the C++ 17 convention. 
+
 For now the only way to tell to the program which file you want to execute is by modifying the hard coded file name in the main file and making sure the file is in the ressource source folder at compilation. 
 To see the result you have to look the values displayed after the program execution which represents the values of the 6 first registers.
 
@@ -41,6 +42,7 @@ Comments are only singleline and start with a ``#``.
 - [x] Support to definitions
 - [ ] Support to ports
 - [ ] Support to interruptions
+- [ ] Better way to select a program
 - [x] Better error messages
 - [x] Remove case sensitivity for keywords
 - [ ] GUI
