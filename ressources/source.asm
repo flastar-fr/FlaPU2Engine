@@ -1,3 +1,3 @@
 LDI r1 1
-LSH r1 r2
+INC r1
 HLT
