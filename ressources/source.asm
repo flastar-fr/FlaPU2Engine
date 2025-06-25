@@ -1,4 +1,3 @@
 LDI r1 1
-LDI r2 0
-MOV r1 r2
+LSH r1 r2
 HLT
