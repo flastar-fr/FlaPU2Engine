@@ -1,7 +1,5 @@
 #include <string>
 #include <algorithm>
-#include <cctype>
-#include <iostream>
 #include <vector>
 
 std::string ltrim(const std::string &s) {
@@ -52,7 +50,7 @@ void replace_token(std::string& str, const std::string& from, const std::string&
         }
     }
 
-    str = new_str;
+    str = rtrim(new_str);
 }
 
 void upper(std::string& str) {
