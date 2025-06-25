@@ -41,7 +41,7 @@ Comments are only singleline and start with a ``#``.
 - [x] Support to definitions
 - [ ] Support to ports
 - [ ] Support to interruptions
-- [ ] Better error messages
+- [x] Better error messages
 - [ ] Remove case sensitivity
 - [ ] GUI
 

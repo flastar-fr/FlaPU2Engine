@@ -1,5 +1,6 @@
 #include "Preprocessor.hpp"
 
+#include <iostream>
 #include <stdexcept>
 
 #include "utils/string_manipulations.hpp"
@@ -22,7 +23,10 @@ std::string extract_label(std::string& line) {
 
 std::pair<std::string, std::string> extract_definition(const std::string& line) {
     const auto splitted_line = split(line, " ");
-    if (splitted_line.size() != 3) throw std::invalid_argument("Wrong definition format");
+    if (splitted_line.size() != 3) {
+        std::cerr << "Wrong definition format, should follow : define <definition name> <definition value>" << std::endl;
+        throw std::invalid_argument("Wrong definition format");
+    }
 
     return {splitted_line[1], splitted_line[2]};
 }
