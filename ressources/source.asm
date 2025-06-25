@@ -1,3 +1,8 @@
 LDI r1 1
-NEG r1 r2
-HLT
+LDI r2 2
+
+.start
+    CMP r1 r2
+    JNE .end
+
+.end HLT
