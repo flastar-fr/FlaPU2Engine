@@ -1,6 +1,6 @@
-define x 3
+DEFINE x 3
 
-LDI r1 1
+ldi r1 1
 LDI r2 x
 
 .start

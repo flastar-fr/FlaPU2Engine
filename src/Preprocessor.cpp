@@ -104,7 +104,9 @@ void Preprocessor::findDefinition() {
             continue;
         }
 
-        if (line.substr(0, DEFINITION_KEY_WORD.size()) == DEFINITION_KEY_WORD) {
+        auto first_chars = line.substr(0, DEFINITION_KEY_WORD.size());
+        lower(first_chars);
+        if (first_chars == DEFINITION_KEY_WORD) {
             auto [definition, value] = extract_definition(line);
             labels_n_definitions[definition] = value;
         } else {

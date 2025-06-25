@@ -12,7 +12,8 @@ std::shared_ptr<Instruction> parse_line(const std::string& line) {
     size_t first_space = line.find_first_of(' ');
     first_space = first_space != std::string::npos ? first_space : line.size();
     const size_t start_operand = first_space == line.size() ? line.size() : first_space + 1;
-    const std::string instruction_name = line.substr(0, first_space);
+    std::string instruction_name = line.substr(0, first_space);
+    upper(instruction_name);
 
     if (instruction_factories.find(instruction_name) == instruction_factories.end()) {
         std::cerr << "Unrecognized instruction: " + instruction_name << std::endl;

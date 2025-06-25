@@ -54,3 +54,11 @@ void replace_token(std::string& str, const std::string& from, const std::string&
 
     str = new_str;
 }
+
+void upper(std::string& str) {
+    std::transform(str.begin(), str.end(), str.begin(), toupper);
+}
+
+void lower(std::string& str) {
+    std::transform(str.begin(), str.end(), str.begin(), tolower);
+}
