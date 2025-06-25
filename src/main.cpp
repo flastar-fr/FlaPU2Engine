@@ -28,9 +28,6 @@ void execute_instructions(const std::vector<std::shared_ptr<Instruction>>& instr
     std::cout << engine.getRegisters()[3] << std::endl;
     std::cout << engine.getRegisters()[4] << std::endl;
     std::cout << engine.getRegisters()[5] << std::endl;
-    for (auto& flag : engine.getFlagStates()) {
-        std::cout << flag;
-    }
 }
 
 int main() {

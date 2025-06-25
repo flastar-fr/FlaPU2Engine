@@ -66,11 +66,11 @@ HLT
 
     .fib.start
         SUB r3 r2 r0
-        BRH = .fib.end
-        ADI r3 1
+        JEQ .fib.end
+        INC r3
         ADD r1 r4 r5
-        ADD r1 r0 r4
-        ADD r5 r0 r1
+        MOV r1 r4
+        MOV r5 r1
         JMP .fib.start
 
     .fib.end RET
@@ -93,13 +93,13 @@ HLT
     LDI r4 0
 
     SUB r2 r0 r0
-    BRH = .div.end
+    JEQ .div.end
 
     .div.start
         ADD r2 r4 r4
-        SUB r1 r4 r0
-        BRH < .div.end
-        ADI r3 1
+        CMP r1 r4
+        JLT .div.end
+        INC r3
         JMP .div.start
 
     .div.end RET
@@ -118,12 +118,12 @@ CAL .mod
 HLT
 
 .mod
-    ADD r1 r0 r3
+    MOV r1 r3
 
     .mod.start
-        SUB r2 r3 r0
-        BRH = .mod.is_0
-        BRH >= .mod.end
+        CMP r2 r3
+        JEQ .mod.is_0
+        JGE .mod.end
         SUB r3 r2 r3
         JMP .mod.start
 
@@ -149,10 +149,10 @@ HLT
     LDI r4 0
 
     .mul.start
-        SUB r2 r4 r0
-        BRH = .mul.end
+        CMP r2 r4
+        JEQ .mul.end
         ADD r1 r3 r3
-        ADI r4 1
+        INC r4
         JMP .mul.start
 
     .mul.end RET
