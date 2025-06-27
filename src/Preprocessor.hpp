@@ -1,7 +1,7 @@
 #ifndef PREPROCESSOR_HPP
 #define PREPROCESSOR_HPP
-#include <map>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 
@@ -17,7 +17,7 @@ public:
 
 private:
     std::vector<std::string> lines;
-    std::map<std::string, std::string> labels_n_definitions;
+    std::pmr::unordered_map<std::string, std::string> labels_n_definitions;
 };
 
 
