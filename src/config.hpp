@@ -32,6 +32,8 @@ constexpr size_t MAX_STACK_MEMORY = 16;
 constexpr char FIRST_LABEL_CHAR = '.';
 const std::string DEFINITION_KEY_WORD = "define";
 constexpr char COMMENT_PREFIX = '#';
+constexpr char LEFT_REGISTER_VALUE_CHAR = '[';
+constexpr char RIGHT_REGISTER_VALUE_CHAR = ']';
 
 const std::array<std::string, 4> AVAILABLE_FLAGS = {"=", "!=", ">=", "<"};;
 
