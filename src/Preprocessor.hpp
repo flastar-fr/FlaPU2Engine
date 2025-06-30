@@ -13,7 +13,7 @@ public:
     void uniformize();
     void findDefinition();
     void findLabels();
-    void replaceLabels();
+    void replaceLabelsNDefinitions();
 
 private:
     std::vector<std::string> lines;

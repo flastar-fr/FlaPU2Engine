@@ -74,7 +74,7 @@ std::vector<std::string>& Preprocessor::preprocess() {
     uniformize();
     findDefinition();
     findLabels();
-    replaceLabels();
+    replaceLabelsNDefinitions();
     return lines;
 }
 
@@ -132,7 +132,7 @@ void Preprocessor::findLabels() {
     }
 }
 
-void Preprocessor::replaceLabels() {
+void Preprocessor::replaceLabelsNDefinitions() {
     for (auto& line : lines) {
         for (auto const& [key, val] : labels_n_definitions) {
             replace_token(line, key, val);
