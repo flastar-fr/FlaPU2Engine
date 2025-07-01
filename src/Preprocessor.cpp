@@ -7,6 +7,8 @@
 
 #include "config.hpp"
 
+constexpr size_t DEFINITION_SIZE_FORMAT = 3;
+
 
 std::string extract_label(std::string& line) {
     const size_t first_space = line.find(' ');
@@ -23,7 +25,7 @@ std::string extract_label(std::string& line) {
 
 std::pair<std::string, std::string> extract_definition(const std::string& line) {
     const auto splitted_line = split(line, " ");
-    if (splitted_line.size() != 3) {
+    if (splitted_line.size() != DEFINITION_SIZE_FORMAT) {
         std::cerr << "Wrong definition format, should follow : define <definition name> <definition value>" << std::endl;
         throw std::invalid_argument("Wrong definition format");
     }
@@ -70,11 +72,45 @@ void merge_labels(std::string& trimmed_line, const std::vector<std::string>& lin
     }
 }
 
+std::string get_repetition_sequence(const std::string& str) {
+    std::string new_str = str;
+    const bool are_register_values = new_str[0] == LEFT_REGISTER_VALUE_CHAR && new_str[new_str.size() - 1] == RIGHT_REGISTER_VALUE_CHAR;
+    auto splitted_str = split(new_str, std::string{PATTERN_REPETITION_CHAR});
+
+    if (are_register_values) {
+        splitted_str[0] = splitted_str[0].substr(1);
+        auto& last_part = splitted_str[splitted_str.size() - 1];
+        last_part = last_part.substr(0, last_part.size() - 1);
+        for (auto& splitted_part : splitted_str) {
+            splitted_part.insert(0, std::string{LEFT_REGISTER_VALUE_CHAR});
+            splitted_part.insert(splitted_part.size(), std::string{RIGHT_REGISTER_VALUE_CHAR});
+        }
+    }
+
+    new_str = join(splitted_str);
+
+    return new_str;
+}
+
+void replace_repetition_sequences(std::string& line) {
+    const auto splitted_lines = split(line, " ");
+
+    for (auto& splitted_line : splitted_lines) {
+        const auto contains_pattern_char = splitted_line.find(PATTERN_REPETITION_CHAR) != std::string::npos;
+        if (contains_pattern_char) {
+            auto repetition_sequence = get_repetition_sequence(splitted_line);
+            replace_token(line, splitted_line, repetition_sequence);
+        }
+    }
+}
+
 std::vector<std::string>& Preprocessor::preprocess() {
     uniformize();
     findDefinition();
     findLabels();
     replaceLabelsNDefinitions();
+    processPatternRepetitions();
+
     return lines;
 }
 
@@ -137,5 +173,11 @@ void Preprocessor::replaceLabelsNDefinitions() {
         for (auto const& [key, val] : labels_n_definitions) {
             replace_token(line, key, val);
         }
+    }
+}
+
+void Preprocessor::processPatternRepetitions() {
+    for (auto& line : lines) {
+        replace_repetition_sequences(line);
     }
 }

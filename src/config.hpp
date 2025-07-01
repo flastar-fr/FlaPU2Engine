@@ -34,6 +34,7 @@ const std::string DEFINITION_KEY_WORD = "define";
 constexpr char COMMENT_PREFIX = '#';
 constexpr char LEFT_REGISTER_VALUE_CHAR = '[';
 constexpr char RIGHT_REGISTER_VALUE_CHAR = ']';
+constexpr char PATTERN_REPETITION_CHAR = ':';
 
 const std::array<std::string, 4> AVAILABLE_FLAGS = {"=", "!=", ">=", "<"};;
 

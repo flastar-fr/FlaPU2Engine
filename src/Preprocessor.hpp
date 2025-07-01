@@ -14,6 +14,7 @@ public:
     void findDefinition();
     void findLabels();
     void replaceLabelsNDefinitions();
+    void processPatternRepetitions();
 
 private:
     std::vector<std::string> lines;
