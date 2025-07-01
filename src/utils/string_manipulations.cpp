@@ -29,10 +29,10 @@ std::vector<std::string> split(const std::string& s, const std::string& delimite
     while ((pos_end = s.find(delimiter, pos_start)) != std::string::npos) {
         std::string token = s.substr(pos_start, pos_end - pos_start);
         pos_start = pos_end + delim_len;
-        res.push_back (token);
+        res.push_back(token);
     }
 
-    res.push_back (s.substr (pos_start));
+    res.push_back(s.substr(pos_start));
     return res;
 }
 
@@ -59,4 +59,13 @@ void upper(std::string& str) {
 
 void lower(std::string& str) {
     std::transform(str.begin(), str.end(), str.begin(), tolower);
+}
+
+std::string join(const std::vector<std::string>& values, const std::string& sep = " ") {
+    std::string final_string;
+    for (auto& value : values) {
+        final_string += sep + value;
+    }
+
+    return ltrim(final_string);
 }
