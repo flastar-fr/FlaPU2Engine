@@ -45,7 +45,7 @@ Comments are only singleline and start with a ``#``.
 - [ ] Better way to select a program
 - [x] Better error messages
 - [x] Remove case sensitivity for keywords
-- [ ] Be able to have more than 255 memory
+- [x] Be able to have more than 255 memory
 - [ ] GUI
 
 ## Examples
