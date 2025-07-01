@@ -31,6 +31,13 @@ TEST(LodInstructionTest, DefaultConstructorOperandsTokensImmediate) {
     EXPECT_EQ("LOD", lod.getName());
 }
 
+TEST(LodInstructionTest, DefaultConstructorOperandsTokensRegistersValuesHighLow) {
+    const auto lod = LODInstruction(VALID_OPERANDS_3_REGISTER_1_REGISTER_REGISTER_VALUES_CLASSIC);
+
+    EXPECT_EQ(true, lod.isCorrect());
+    EXPECT_EQ("LOD", lod.getName());
+}
+
 TEST(LodInstructionTest, ExecuteValidStateRegister) {
     const auto lod = LODInstruction(VALID_OPERANDS_2_REGISTER_REGISTER_VALUE_CLASSIC);
     auto engine = Engine();
@@ -68,6 +75,21 @@ TEST(LodInstructionTest, ExecuteValidStateImmediate) {
 
     registers[SECOND_REGISTER_TO_USE] = ALTERNATIVE_TEST_VALUE;
     memory[ALTERNATIVE_TEST_VALUE] = ALTERNATIVE_TEST_VALUE;
+
+    lod.execute(engine);
+
+    EXPECT_EQ(registers[FIRST_REGISTER_TO_USE], ALTERNATIVE_TEST_VALUE);
+}
+
+TEST(LodInstructionTest, ExecuteValidStateRegisterValuesHighLow) {
+    const auto lod = LODInstruction(VALID_OPERANDS_3_REGISTER_1_REGISTER_REGISTER_VALUES_CLASSIC);
+    auto engine = Engine();
+    auto& registers = engine.getRegisters();
+    auto& memory = engine.getMemory();
+
+    registers[FIRST_REGISTER_TO_USE] = ALTERNATIVE_TEST_VALUE;
+    registers[SECOND_REGISTER_TO_USE] = ALTERNATIVE_TEST_VALUE;
+    memory[(ALTERNATIVE_TEST_VALUE << AMOUNT_BITS_PER_CELL) + ALTERNATIVE_TEST_VALUE] = ALTERNATIVE_TEST_VALUE;
 
     lod.execute(engine);
 

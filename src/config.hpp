@@ -27,8 +27,9 @@ std::ostream& operator<<(std::ostream & lhs, ValueType rhs);
 
 extern std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const std::vector<Token>&)>> instruction_factories;
 constexpr size_t MAX_AMOUNT_INSTRUCTIONS = 1024;
-constexpr size_t DEFAULT_SIZE_MEMORY = 255;
+constexpr size_t DEFAULT_SIZE_MEMORY = 65535;
 constexpr size_t MAX_STACK_MEMORY = 16;
+constexpr size_t AMOUNT_BITS_PER_CELL = 8;
 constexpr char FIRST_LABEL_CHAR = '.';
 const std::string DEFINITION_KEY_WORD = "define";
 constexpr char COMMENT_PREFIX = '#';

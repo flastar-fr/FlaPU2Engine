@@ -31,6 +31,13 @@ TEST(StrInstructionTest, DefaultConstructorOperandsTokensImmediate) {
     EXPECT_EQ("STR", str.getName());
 }
 
+TEST(StrInstructionTest, DefaultConstructorOperandsTokensRegistersValuesHighLow) {
+    const auto str = STRInstruction(VALID_OPERANDS_3_REGISTER_VALUES_CLASSIC);
+
+    EXPECT_EQ(true, str.isCorrect());
+    EXPECT_EQ("STR", str.getName());
+}
+
 TEST(StrInstructionTest, ExecuteValidStateRegister) {
     const auto str = STRInstruction(VALID_OPERANDS_2_REGISTER_VALUES_CLASSIC);
     auto engine = Engine();
@@ -71,4 +78,21 @@ TEST(StrInstructionTest, ExecuteValidStateImmediate) {
     str.execute(engine);
 
     EXPECT_EQ(memory[ALTERNATIVE_TEST_VALUE], ALTERNATIVE_TEST_VALUE);
+}
+
+TEST(StrInstructionTest, ExecuteValidStateRegisterValuesHighLow) {
+    const auto str = STRInstruction(VALID_OPERANDS_3_REGISTER_VALUES_CLASSIC);
+    auto engine = Engine();
+    auto& registers = engine.getRegisters();
+    auto& memory = engine.getMemory();
+
+    registers[FIRST_REGISTER_TO_USE] = ALTERNATIVE_TEST_VALUE;
+    registers[SECOND_REGISTER_TO_USE] = ALTERNATIVE_TEST_VALUE;
+    registers[REGISTER_RESULT] = ALTERNATIVE_TEST_VALUE;
+
+    str.execute(engine);
+
+    const uint16_t address_memory = (ALTERNATIVE_TEST_VALUE << AMOUNT_BITS_PER_CELL) + ALTERNATIVE_TEST_VALUE;
+
+    EXPECT_EQ(memory[address_memory], ALTERNATIVE_TEST_VALUE);
 }
