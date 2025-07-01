@@ -111,3 +111,12 @@ TEST(LowerTest, LowerText) {
 
     EXPECT_EQ(EXAMPLE_VALUE, str);
 }
+
+TEST(JoinTest, JoinTest) {
+    const std::vector strings = {EXAMPLE_VALUE, EXAMPLE_VALUE, EXAMPLE_VALUE_ALTERNATIVE};
+
+    const auto joined_strings_space_sep = join(strings);
+    const std::string expected_string = EXAMPLE_VALUE + " " + EXAMPLE_VALUE + " " + EXAMPLE_VALUE_ALTERNATIVE;
+
+    EXPECT_EQ(expected_string, joined_strings_space_sep);
+}
