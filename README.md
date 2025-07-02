@@ -1,5 +1,5 @@
 # FlaPU2Engine
-This project is an emulator for an 8 bits CPU that has (for now) 255 bytes of memory and 16 registers. 
+This project is an emulator for a 8 bits CPU that has more than 65MB (can be configured but cannot be more than actually configured) of memory and 16 registers. 
 This is my first C++ project so it is more a learning project than an actual useful project. 
 You can find my [ISA](https://docs.google.com/spreadsheets/d/1aE8e7TodV6_dxUF-UbF0xdbSolc1Z1ntD5Rz3ESL6Uk/edit?gid=0#gid=0) here.
 ***
