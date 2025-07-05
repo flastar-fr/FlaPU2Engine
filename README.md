@@ -41,6 +41,11 @@ Comments are only singleline and start with a ``#``.
 - [x] Support to labels
 - [x] Support to definitions
 - [ ] Support to ports
+  - [ ] Main window
+  - [ ] Basic number display
+  - [ ] Basic text display
+  - [ ] Random number generator
+  - [ ] Input system
 - [ ] Support to interruptions
 - [ ] Better way to select a program
 - [x] Better error messages
@@ -48,6 +53,8 @@ Comments are only singleline and start with a ``#``.
 - [x] Be able to have more than 255 memory
 - [ ] GUI
   - [ ] See / draw main window
+  - [ ] Basic number display
+  - [ ] Basic text display
   - [ ] See registers values
   - [ ] See memory values
   - [ ] Adapt clock speed
