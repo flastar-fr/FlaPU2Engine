@@ -24,7 +24,7 @@ However, you may need some extra information on some particular things.
 This project uses my own architecture so the first register (r0) is an eternal null register which means that no matter what value you assign to it its value will always be 0.
 That also means that you can use this register in instruction calls, and you will be sure that the value of the register will be 0.
 
-To create a definition you have to use the ``define`` keyword and you this format : ``define <definition name> <definition value>``.
+To create a definition you have to use the ``define`` keyword, and you can use this format : ``define <definition name> <definition value>``.
 For example : ``define NULL_VALUE 0``
 
 The labels always start with a dot and are placed before the instruction that you want to jump from.
