@@ -42,9 +42,22 @@ Comments are only singleline and start with a ``#``.
 - [x] Support to definitions
 - [ ] Support to ports
   - [ ] Main window
-  - [ ] Basic number display
-  - [ ] Basic text display
-  - [ ] Random number generator
+    - [ ] Draw pixel
+    - [ ] Draw filled rectangle
+    - [ ] Draw empty rectangle
+    - [ ] Clear pixel
+    - [ ] Clear rectangle
+    - [ ] Clear screen
+    - [ ] Update screen
+  - [ ] Basic number 16 bits display
+    - [ ] Clear display
+    - [ ] Add number
+    - [ ] Show number
+  - [ ] Basic text display 20 chars
+    - [ ] Add char
+    - [ ] Clear chars
+    - [ ] Display chars
+  - [ ] Random 8 bits number generator
   - [ ] Input system
 - [ ] Support to interruptions
 - [ ] Better way to select a program
