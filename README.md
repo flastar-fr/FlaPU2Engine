@@ -72,8 +72,8 @@ Comments are only singleline and start with a ``#``.
   - [x] See memory values
   - [ ] Adapt clock speed
   - [ ] See program counter and flags
-  - [ ] See current amount of executed instructions
-  - [ ] Run / Pause / Stop the program
+  - [x] See current amount of executed instructions
+  - [x] Run / Pause / Stop the program
 
 ## Examples
 Note that these programs can be hugely optimized, it is just to give you some examples of how to use my assembly language.
