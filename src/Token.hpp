@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <ostream>
 
-#include "config.hpp"
+#include "config_hardware.hpp"
 
 
 enum class ValueType;

@@ -4,6 +4,7 @@
 #include "imgui_impl_opengl3.h"
 #include <cstdio>
 
+#include "config_gui.hpp"
 #include "windows_creation.hpp"
 
 static void glfw_error_callback(const int error, const char* description) {
@@ -47,12 +48,14 @@ void handle_frame_creation() {
     ImGui::NewFrame();
 }
 
-void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_color, Engine& engine) {
+void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_color, Engine& engine, EngineStatus& engineStatus) {
     handle_frame_creation();
 
-    if (!engine.isProgramFinished()) engine.executeNextInstruction();
+    if (!engine.isProgramFinished() && engineStatus.runningStatus == EngineRunningStatus::RUNNING) engine.executeNextInstruction();
 
     if constexpr (SHOW_DEBUG) display_debug_windows(engine);
+
+    display_controls(engineStatus);
 
     render_window(window, io, clear_color);
 }
@@ -115,9 +118,10 @@ bool start_window(GLFWwindow*& window, ImGuiIO& io, int& exit_code) {
 
 void execute_loop(GLFWwindow* window, const ImGuiIO& io, Engine& engine) {
     constexpr auto clear_color = ImVec4(0.f, 0.f, 0.f, 1.f);
+    auto engineStatus = EngineStatus();
 
     while (!glfwWindowShouldClose(window)) {
-        loop_iteration(window, io, clear_color, engine);
+        loop_iteration(window, io, clear_color, engine, engineStatus);
     }
 }
 

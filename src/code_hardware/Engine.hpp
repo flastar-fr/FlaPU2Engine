@@ -4,7 +4,7 @@
 #include <stack>
 #include <utility>
 
-#include "config.hpp"
+#include "config_hardware.hpp"
 #include "Memory.hpp"
 #include "Registers.hpp"
 #include "instructions/HLTInstruction.hpp"

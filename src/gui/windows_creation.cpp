@@ -2,6 +2,8 @@
 
 #include <imgui.h>
 
+#include "config_gui.hpp"
+#include "EngineStatus.hpp"
 #include "code_hardware/Engine.hpp"
 
 void display_registers(const Registers &registers) {
@@ -31,16 +33,54 @@ void display_memory(Memory &memory) {
 }
 
 void display_instruction_executed_trace(Engine &engine) {
-    ImGui::Begin("Instruction Trace");
-    ImGui::Text("Instruction Trace: ");
-
     const auto instructions_execution_trace = engine.getInstructionsExecutionTrace();
+
+    ImGui::Begin("Instruction Trace");
+    ImGui::Text("Amount executed instructions: %d", instructions_execution_trace.size());
+    ImGui::Text("Instruction Trace: ");
 
     for (const auto& instruction : instructions_execution_trace) {
         ImGui::Text("Instruction : %s", instruction->tostring().c_str());
     }
 
     ImGui::SetWindowSize(ImVec2(950, 200));
+    ImGui::End();
+}
+
+void create_buttons_controllers(EngineStatus &engineStatus) {
+    if (ImGui::Button("Play")) {
+        if (engineStatus.runningStatus == EngineRunningStatus::PAUSED) {
+            engineStatus.runningStatus = EngineRunningStatus::RUNNING;
+        }
+    }
+
+    ImGui::SameLine();
+
+    if (ImGui::Button("Pause")) {
+        engineStatus.runningStatus = EngineRunningStatus::PAUSED;
+    }
+
+    ImGui::SameLine();
+
+    if (ImGui::Button("Stop")) {
+        engineStatus.runningStatus = EngineRunningStatus::STOPPED;
+    }
+}
+
+void display_controls(EngineStatus &engineStatus) {
+    ImGui::Begin("Controls");
+    ImGui::Text("Controls: ");
+
+    create_buttons_controllers(engineStatus);
+
+    ImGui::Text("Position:");
+    ImGui::SliderInt("##Slider", &engineStatus.opPerSecond, 0, MAX_SPEED_EXECUTION);
+    ImGui::SameLine();
+    ImGui::InputInt("##Input", &engineStatus.opPerSecond, 1);
+
+    ImGui::Spacing();
+
+    ImGui::SetWindowSize(ImVec2(145, 115));
     ImGui::End();
 }
 

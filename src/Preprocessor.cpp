@@ -5,7 +5,7 @@
 
 #include "utils/string_manipulations.hpp"
 
-#include "config.hpp"
+#include "config_hardware.hpp"
 
 constexpr size_t DEFINITION_SIZE_FORMAT = 3;
 

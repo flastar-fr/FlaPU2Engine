@@ -1,12 +1,10 @@
-#ifndef CONFIG_HPP
-#define CONFIG_HPP
+#ifndef CONFIG_HARDWARE_HPP
+#define CONFIG_HARDWARE_HPP
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <functional>
 #include <array>
-
-#define SHOW_DEBUG true
 
 class Instruction;
 struct Token;
@@ -42,4 +40,4 @@ constexpr char PATTERN_REPETITION_CHAR = ':';
 
 const std::array<std::string, 4> AVAILABLE_FLAGS = {"=", "!=", ">=", "<"};;
 
-#endif //CONFIG_HPP
+#endif //CONFIG_HARDWARE_HPP

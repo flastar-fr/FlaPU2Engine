@@ -1,8 +1,8 @@
-DEFINE x 3
+LDI r1 1
+LDI r2 2
 
-ldi r1 1
-LDI r2 x
-STR [r1:r2] [r2]
-LOD r3 [r1:r2]
+.start
+    ADD r1 r2 r1
+    JMP .start
 
 HLT
