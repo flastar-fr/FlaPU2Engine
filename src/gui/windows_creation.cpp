@@ -3,7 +3,7 @@
 #include <imgui.h>
 
 #include "config_gui.hpp"
-#include "EngineStatus.hpp"
+#include "code_hardware/EngineStatus.hpp"
 #include "code_hardware/Engine.hpp"
 
 void display_registers(const Registers &registers) {
@@ -32,8 +32,8 @@ void display_memory(Memory &memory) {
     ImGui::End();
 }
 
-void display_instruction_executed_trace(Engine &engine) {
-    const auto instructions_execution_trace = engine.getInstructionsExecutionTrace();
+void display_instruction_executed_trace(EngineRunner &engine_runner) {
+    const auto instructions_execution_trace = engine_runner.getInstructionsExecutionTrace();
 
     ImGui::Begin("Instruction Trace");
     ImGui::Text("Amount executed instructions: %d", instructions_execution_trace.size());
@@ -84,8 +84,11 @@ void display_controls(EngineStatus &engineStatus) {
     ImGui::End();
 }
 
-void display_debug_windows(Engine& engine) {
-    display_registers(engine.getRegisters());
-    display_memory(engine.getMemory());
-    display_instruction_executed_trace(engine);
+void display_debug_windows(EngineRunner& engine_runner) {
+    const auto& registers = engine_runner.getEngine().getRegisters();
+    auto& memory = engine_runner.getEngine().getMemory();
+
+    display_registers(registers);
+    display_memory(memory);
+    display_instruction_executed_trace(engine_runner);
 }

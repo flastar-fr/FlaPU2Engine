@@ -1,12 +1,9 @@
 #ifndef INSTRUCTION_HPP
 #define INSTRUCTION_HPP
-#include <ostream>
 #include <vector>
 
 #include "Token.hpp"
-#include "code_hardware/Registers.hpp"
-
-class Engine;
+#include "code_hardware/Engine.hpp"
 
 class Instruction {
 public:
@@ -17,24 +14,10 @@ public:
     virtual void execute(Engine& engine) const = 0;
     [[nodiscard]] virtual bool isCorrect() const = 0;
 
-    [[nodiscard]] std::string getName() const {
-        return name;
-    }
+    [[nodiscard]] std::string getName() const;
 
-    [[nodiscard]] std::string tostring() const {
-        std::string desc = "Instruction[name : " + name + ", Operands : { ";
-        for (const auto& operand : operands) {
-            desc += to_string(operand) + " ";
-        }
-        desc += "}]";
-
-        return desc;
-    }
-
-    friend std::ostream& operator<<(std::ostream & lhs, const Instruction& rhs) {
-        lhs << rhs.tostring();
-        return lhs;
-    }
+    [[nodiscard]] std::string tostring() const;
+    friend std::ostream& operator<<(std::ostream & lhs, const Instruction& rhs);
 
 protected:
     std::string name;

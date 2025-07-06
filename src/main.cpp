@@ -1,29 +1,13 @@
-#include <iostream>
-#include <ostream>
 #include "parser.hpp"
 #include <string>
 
 #include "Preprocessor.hpp"
-#include "code_hardware/Engine.hpp"
 #include "gui/gui_handling.hpp"
 #include "utils/io_manipulations.hpp"
-#include "instructions/HLTInstruction.hpp"
-
-void execute_instructions(const std::vector<std::shared_ptr<Instruction>>& instructions, Engine& engine) {
-    while (!engine.isProgramFinished()) {
-        engine.executeNextInstruction();
-    }
-
-    std::cout << engine.getRegisters()[0] << std::endl;
-    std::cout << engine.getRegisters()[1] << std::endl;
-    std::cout << engine.getRegisters()[2] << std::endl;
-    std::cout << engine.getRegisters()[3] << std::endl;
-    std::cout << engine.getRegisters()[4] << std::endl;
-    std::cout << engine.getRegisters()[5] << std::endl;
-}
 
 int main() {
     std::vector<std::string> result;
+
 
     if (const bool is_open = read_file("ressources/source.asm", result); !is_open) {
         return 1;
@@ -40,9 +24,8 @@ int main() {
 
     fill_empty(instructions, MAX_AMOUNT_INSTRUCTIONS);
 
-    auto engine = Engine(instructions);
-
-    create_window(engine);
+    auto engineRunner = EngineRunner(Engine(), instructions);
+    create_window(engineRunner);
 
     return 0;
 }

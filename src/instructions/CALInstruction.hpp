@@ -1,7 +1,5 @@
 #ifndef CALINSTRUCTION_HPP
 #define CALINSTRUCTION_HPP
-#include <iostream>
-
 #include "Instruction.hpp"
 
 class CALInstruction final : public Instruction {

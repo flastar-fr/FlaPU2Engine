@@ -1,6 +1,5 @@
 #ifndef JMPINSTRUCTION_HPP
 #define JMPINSTRUCTION_HPP
-#include <iostream>
 
 #include "Instruction.hpp"
 

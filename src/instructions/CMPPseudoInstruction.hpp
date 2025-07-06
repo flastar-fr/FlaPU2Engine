@@ -19,7 +19,7 @@ public:
         }
 
         auto temp_operands = operands;
-        temp_operands.push_back(Token(0, ValueType::REGISTER));
+        temp_operands.emplace_back(0, ValueType::REGISTER);
 
         const auto sub = SUBInstruction(temp_operands);
         sub.execute(engine);

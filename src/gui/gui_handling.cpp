@@ -48,12 +48,14 @@ void handle_frame_creation() {
     ImGui::NewFrame();
 }
 
-void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_color, Engine& engine, EngineStatus& engineStatus) {
+void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_color, EngineRunner& engine_manager) {
+    auto engineStatus = engine_manager.getEngineStatus();
+
     handle_frame_creation();
 
-    if (!engine.isProgramFinished() && engineStatus.runningStatus == EngineRunningStatus::RUNNING) engine.executeNextInstruction();
+    if (!engine_manager.isProgramFinished() && engineStatus.runningStatus == EngineRunningStatus::RUNNING) engine_manager.executeNextInstruction();
 
-    if constexpr (SHOW_DEBUG) display_debug_windows(engine);
+    if constexpr (SHOW_DEBUG) display_debug_windows(engine_manager);
 
     display_controls(engineStatus);
 
@@ -116,22 +118,21 @@ bool start_window(GLFWwindow*& window, ImGuiIO& io, int& exit_code) {
     return false;
 }
 
-void execute_loop(GLFWwindow* window, const ImGuiIO& io, Engine& engine) {
+void execute_loop(GLFWwindow* window, const ImGuiIO& io, EngineRunner& engine_runner) {
     constexpr auto clear_color = ImVec4(0.f, 0.f, 0.f, 1.f);
-    auto engineStatus = EngineStatus();
 
     while (!glfwWindowShouldClose(window)) {
-        loop_iteration(window, io, clear_color, engine, engineStatus);
+        loop_iteration(window, io, clear_color, engine_runner);
     }
 }
 
-int create_window(Engine& engine) {
+int create_window(EngineRunner& engine_runner) {
     GLFWwindow* window;
     ImGuiIO io;
 
     if (int exit_code; start_window(window, io, exit_code)) return exit_code;
 
-    execute_loop(window, io, engine);
+    execute_loop(window, io, engine_runner);
 
     clean_window(window);
 

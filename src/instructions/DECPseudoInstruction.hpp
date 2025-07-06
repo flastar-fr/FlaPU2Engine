@@ -19,7 +19,7 @@ public:
         }
 
         auto temp_operands = operands;
-        temp_operands.push_back(Token(-1, ValueType::IMMEDIATE_VALUE));
+        temp_operands.emplace_back(-1, ValueType::IMMEDIATE_VALUE);
 
         const auto adi = ADIInstruction(temp_operands);
         adi.execute(engine);

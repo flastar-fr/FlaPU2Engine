@@ -2,23 +2,20 @@
 #define ENGINE_HPP
 
 #include <stack>
-#include <utility>
 
 #include "config_hardware.hpp"
 #include "Memory.hpp"
 #include "Registers.hpp"
-#include "instructions/HLTInstruction.hpp"
 
 
 class Engine {
 public:
-    explicit Engine(const int memoryAmount, std::vector<std::shared_ptr<Instruction>> instructions)
-    : register_amount(DEFAULT_SIZE_REGISTERS), memory_amount(memoryAmount), registers(Registers()), memory(Memory(memoryAmount)), programCounter(0), flag_states({false, false, false, false}), instructions(std::move(instructions)) {}
-    explicit Engine(std::vector<std::shared_ptr<Instruction>> instructions) : Engine(DEFAULT_SIZE_MEMORY, std::move(instructions)) {}
+    explicit Engine(const int memoryAmount)
+    : register_amount(DEFAULT_SIZE_REGISTERS), memory_amount(memoryAmount), registers(Registers()), memory(Memory(memoryAmount)), programCounter(0), flag_states({false, false, false, false}){}
+    Engine() : Engine(DEFAULT_SIZE_MEMORY) {}
 
     Registers& getRegisters() { return registers; }
     Memory& getMemory() { return memory; }
-    std::vector<std::shared_ptr<Instruction>>& getInstructionsExecutionTrace() { return instructions_execution_trace; }
     [[nodiscard]] size_t getProgramCounter() const { return programCounter; }
     [[nodiscard]] std::array<bool, 4> getFlagStates() const { return flag_states; }
     void verifyFlags(const uint8_t operand1, const uint8_t operand2) {
@@ -47,22 +44,6 @@ public:
         stack_addresses.pop();
     }
 
-    void executeNextInstruction() {
-        const std::shared_ptr<Instruction> instruction = instructions[getProgramCounter()];
-        //std::cout << *instruction << std::endl;
-        instructions_execution_trace.push_back(instruction);
-        instruction->execute(*this);
-        incrementProgramCounter();
-    }
-
-    [[nodiscard]] bool isProgramFinished() const {
-        const std::shared_ptr<Instruction> instruction = instructions[getProgramCounter()];
-        const bool is_in_the_range = getProgramCounter() < MAX_AMOUNT_INSTRUCTIONS;
-        const bool is_end_program = dynamic_cast<HLTInstruction*>(instruction.get()) != nullptr;
-
-        return is_end_program || !is_in_the_range;
-    }
-
 private:
     int register_amount;
     int memory_amount;
@@ -71,7 +52,5 @@ private:
     size_t programCounter;
     std::array<bool, 4> flag_states;
     std::stack<uint8_t> stack_addresses;
-    std::vector<std::shared_ptr<Instruction>> instructions;
-    std::vector<std::shared_ptr<Instruction>> instructions_execution_trace;
 };
 #endif //ENGINE_HPP
