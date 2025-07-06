@@ -2,17 +2,19 @@
 #define ENGINE_HPP
 
 #include <stack>
+#include <utility>
 
 #include "config.hpp"
 #include "Memory.hpp"
 #include "Registers.hpp"
+#include "instructions/HLTInstruction.hpp"
 
 
 class Engine {
 public:
-    explicit Engine(const int memoryAmount)
-    : registerAmount(DEFAULT_SIZE_REGISTERS), memoryAmount(memoryAmount), registers(Registers()), memory(Memory(memoryAmount)), programCounter(0), flag_states({false, false, false, false}) {}
-    Engine() : Engine(DEFAULT_SIZE_MEMORY) {}
+    explicit Engine(const int memoryAmount, std::vector<std::shared_ptr<Instruction>> instructions)
+    : registerAmount(DEFAULT_SIZE_REGISTERS), memoryAmount(memoryAmount), registers(Registers()), memory(Memory(memoryAmount)), programCounter(0), flag_states({false, false, false, false}), instructions(std::move(instructions)) {}
+    explicit Engine(std::vector<std::shared_ptr<Instruction>> instructions) : Engine(DEFAULT_SIZE_MEMORY, std::move(instructions)) {}
 
     Registers& getRegisters() { return registers; }
     Memory& getMemory() { return memory; }
@@ -44,6 +46,13 @@ public:
         stack_addresses.pop();
     }
 
+    void execute_next_instruction() {
+        const std::shared_ptr<Instruction> instruction = instructions[getProgramCounter()];
+        std::cout << *instruction << std::endl;
+        instruction->execute(*this);
+        incrementProgramCounter();
+    }
+
 private:
     int registerAmount;
     int memoryAmount;
@@ -52,5 +61,6 @@ private:
     size_t programCounter;
     std::array<bool, 4> flag_states;
     std::stack<uint8_t> stack_addresses;
+    std::vector<std::shared_ptr<Instruction>> instructions;
 };
 #endif //ENGINE_HPP

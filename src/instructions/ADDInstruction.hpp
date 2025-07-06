@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "Instruction.hpp"
+#include "code_hardware/Engine.hpp"
 
 class ADDInstruction final : public Instruction {
 public:

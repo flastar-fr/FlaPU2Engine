@@ -3,8 +3,10 @@
 #include <ostream>
 #include <vector>
 
-#include "code_hardware/Engine.hpp"
-#include "../Token.hpp"
+#include "Token.hpp"
+#include "code_hardware/Registers.hpp"
+
+class Engine;
 
 class Instruction {
 public:

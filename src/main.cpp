@@ -2,24 +2,23 @@
 #include <ostream>
 #include "parser.hpp"
 #include <string>
-#include <instructions/HLTInstruction.hpp>
 
 #include "Preprocessor.hpp"
+#include "code_hardware/Engine.hpp"
 #include "utils/io_manipulations.hpp"
+#include "instructions/HLTInstruction.hpp"
 
 void execute_instructions(const std::vector<std::shared_ptr<Instruction>>& instructions, Engine& engine) {
-    std::shared_ptr<Instruction> instruction = instructions[engine.getProgramCounter()];
+    std::shared_ptr<Instruction> next_instruction = instructions[engine.getProgramCounter()];
     bool is_in_the_range = true;
-    bool is_end_program = dynamic_cast<HLTInstruction*>(instruction.get()) != nullptr;
+    bool is_end_program = dynamic_cast<HLTInstruction*>(next_instruction.get()) != nullptr;
 
     while (is_in_the_range && !is_end_program) {
-        std::cout << *instruction << std::endl;
-        instruction->execute(engine);
+        engine.execute_next_instruction();
 
-        engine.incrementProgramCounter();
-        instruction = instructions[engine.getProgramCounter()];
+        next_instruction = instructions[engine.getProgramCounter()];
         is_in_the_range = engine.getProgramCounter() < MAX_AMOUNT_INSTRUCTIONS;
-        is_end_program = dynamic_cast<HLTInstruction*>(instruction.get()) != nullptr;
+        is_end_program = dynamic_cast<HLTInstruction*>(next_instruction.get()) != nullptr;
     }
 
     std::cout << engine.getRegisters()[0] << std::endl;
@@ -31,7 +30,6 @@ void execute_instructions(const std::vector<std::shared_ptr<Instruction>>& instr
 }
 
 int main() {
-    Engine engine;
     std::vector<std::string> result;
 
     if (const bool is_open = read_file("ressources/source.asm", result); !is_open) {
@@ -49,6 +47,7 @@ int main() {
 
     fill_empty(instructions, MAX_AMOUNT_INSTRUCTIONS);
 
+    auto engine = Engine(instructions);
     execute_instructions(instructions, engine);
 
     return 0;
