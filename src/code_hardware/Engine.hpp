@@ -53,6 +53,14 @@ public:
         incrementProgramCounter();
     }
 
+    [[nodiscard]] bool isProgramFinished() const {
+        const std::shared_ptr<Instruction> instruction = instructions[getProgramCounter()];
+        const bool is_in_the_range = getProgramCounter() < MAX_AMOUNT_INSTRUCTIONS;
+        const bool is_end_program = dynamic_cast<HLTInstruction*>(instruction.get()) != nullptr;
+
+        return is_end_program || !is_in_the_range;
+    }
+
 private:
     int registerAmount;
     int memoryAmount;

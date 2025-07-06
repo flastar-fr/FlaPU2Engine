@@ -9,16 +9,8 @@
 #include "instructions/HLTInstruction.hpp"
 
 void execute_instructions(const std::vector<std::shared_ptr<Instruction>>& instructions, Engine& engine) {
-    std::shared_ptr<Instruction> next_instruction = instructions[engine.getProgramCounter()];
-    bool is_in_the_range = true;
-    bool is_end_program = dynamic_cast<HLTInstruction*>(next_instruction.get()) != nullptr;
-
-    while (is_in_the_range && !is_end_program) {
+    while (!engine.isProgramFinished()) {
         engine.executeNextInstruction();
-
-        next_instruction = instructions[engine.getProgramCounter()];
-        is_in_the_range = engine.getProgramCounter() < MAX_AMOUNT_INSTRUCTIONS;
-        is_end_program = dynamic_cast<HLTInstruction*>(next_instruction.get()) != nullptr;
     }
 
     std::cout << engine.getRegisters()[0] << std::endl;
