@@ -46,7 +46,7 @@ public:
         stack_addresses.pop();
     }
 
-    void execute_next_instruction() {
+    void executeNextInstruction() {
         const std::shared_ptr<Instruction> instruction = instructions[getProgramCounter()];
         std::cout << *instruction << std::endl;
         instruction->execute(*this);

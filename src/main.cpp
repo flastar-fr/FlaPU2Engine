@@ -14,7 +14,7 @@ void execute_instructions(const std::vector<std::shared_ptr<Instruction>>& instr
     bool is_end_program = dynamic_cast<HLTInstruction*>(next_instruction.get()) != nullptr;
 
     while (is_in_the_range && !is_end_program) {
-        engine.execute_next_instruction();
+        engine.executeNextInstruction();
 
         next_instruction = instructions[engine.getProgramCounter()];
         is_in_the_range = engine.getProgramCounter() < MAX_AMOUNT_INSTRUCTIONS;
