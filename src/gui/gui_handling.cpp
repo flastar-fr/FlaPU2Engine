@@ -48,14 +48,15 @@ void handle_frame_creation() {
     ImGui::NewFrame();
 }
 
-void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_color, EngineRunner& engine_manager) {
-    auto engineStatus = engine_manager.getEngineStatus();
+void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_color, EngineRunner& engine_runner) {
+    auto &engineStatus = engine_runner.getEngineStatus();
 
     handle_frame_creation();
 
-    if (!engine_manager.isProgramFinished() && engineStatus.runningStatus == EngineRunningStatus::RUNNING) engine_manager.executeNextInstruction();
+    const bool engine_running = !engine_runner.isProgramFinished() && engineStatus.runningStatus == EngineRunningStatus::RUNNING;
+    if (engine_running) engine_runner.executeNextInstruction();
 
-    if constexpr (SHOW_DEBUG) display_debug_windows(engine_manager);
+    if constexpr (SHOW_DEBUG) display_debug_windows(engine_runner);
 
     display_controls(engineStatus);
 
