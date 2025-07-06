@@ -36,28 +36,26 @@
 #include "Token.hpp"
 
 std::ostream& operator<<(std::ostream & lhs, const ValueType rhs) {
-    std::string value_string;
-    switch (rhs) {
+    lhs << to_string(rhs);
+    return lhs;
+}
+
+std::string to_string(const ValueType value_type) {
+    switch (value_type) {
         case ValueType::IMMEDIATE_VALUE: {
-                value_string = "IMMEDIATE_VALUE";
-                break;
+            return "IMMEDIATE_VALUE";
         }
         case ValueType::REGISTER: {
-                value_string = "REGISTER";
-                break;
+            return"REGISTER";
         }
         case ValueType::REGISTER_VALUE: {
-                value_string = "REGISTER_VALUE";
-                break;
+            return "REGISTER_VALUE";
         }
         case ValueType::FLAG: {
-            value_string = "FLAG";
-            break;
+            return "FLAG";
         }
     }
-
-    lhs << value_string;
-    return lhs;
+    return "???";
 }
 
 std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const std::vector<Token>&)>> instruction_factories = {

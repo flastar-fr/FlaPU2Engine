@@ -21,12 +21,18 @@ public:
         return name;
     }
 
-    friend std::ostream& operator<<(std::ostream & lhs, const Instruction& rhs) {
-        lhs << "Instruction[name : " + rhs.name + ", Operands : { ";
-        for (const auto& operand : rhs.operands) {
-            lhs << operand << " ";
+    [[nodiscard]] std::string tostring() const {
+        std::string desc = "Instruction[name : " + name + ", Operands : { ";
+        for (const auto& operand : operands) {
+            desc += to_string(operand) + " ";
         }
-        lhs << "}]";
+        desc += "}]";
+
+        return desc;
+    }
+
+    friend std::ostream& operator<<(std::ostream & lhs, const Instruction& rhs) {
+        lhs << rhs.tostring();
         return lhs;
     }
 
@@ -35,7 +41,5 @@ protected:
     size_t amount_operands = 0;
     std::vector<Token> operands;
 };
-
-
 
 #endif //INSTRUCTION_HPP

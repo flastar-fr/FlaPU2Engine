@@ -13,11 +13,12 @@
 class Engine {
 public:
     explicit Engine(const int memoryAmount, std::vector<std::shared_ptr<Instruction>> instructions)
-    : registerAmount(DEFAULT_SIZE_REGISTERS), memoryAmount(memoryAmount), registers(Registers()), memory(Memory(memoryAmount)), programCounter(0), flag_states({false, false, false, false}), instructions(std::move(instructions)) {}
+    : register_amount(DEFAULT_SIZE_REGISTERS), memory_amount(memoryAmount), registers(Registers()), memory(Memory(memoryAmount)), programCounter(0), flag_states({false, false, false, false}), instructions(std::move(instructions)) {}
     explicit Engine(std::vector<std::shared_ptr<Instruction>> instructions) : Engine(DEFAULT_SIZE_MEMORY, std::move(instructions)) {}
 
     Registers& getRegisters() { return registers; }
     Memory& getMemory() { return memory; }
+    std::vector<std::shared_ptr<Instruction>>& getInstructionsExecutionTrace() { return instructions_execution_trace; }
     [[nodiscard]] size_t getProgramCounter() const { return programCounter; }
     [[nodiscard]] std::array<bool, 4> getFlagStates() const { return flag_states; }
     void verifyFlags(const uint8_t operand1, const uint8_t operand2) {
@@ -49,6 +50,7 @@ public:
     void executeNextInstruction() {
         const std::shared_ptr<Instruction> instruction = instructions[getProgramCounter()];
         std::cout << *instruction << std::endl;
+        instructions_execution_trace.push_back(instruction);
         instruction->execute(*this);
         incrementProgramCounter();
     }
@@ -62,13 +64,14 @@ public:
     }
 
 private:
-    int registerAmount;
-    int memoryAmount;
+    int register_amount;
+    int memory_amount;
     Registers registers;
     Memory memory;
     size_t programCounter;
     std::array<bool, 4> flag_states;
     std::stack<uint8_t> stack_addresses;
     std::vector<std::shared_ptr<Instruction>> instructions;
+    std::vector<std::shared_ptr<Instruction>> instructions_execution_trace;
 };
 #endif //ENGINE_HPP

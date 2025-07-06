@@ -24,6 +24,7 @@ enum class FlagType {
 };
 
 std::ostream& operator<<(std::ostream & lhs, ValueType rhs);
+std::string to_string(ValueType value_type);
 
 extern std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const std::vector<Token>&)>> instruction_factories;
 constexpr size_t MAX_AMOUNT_INSTRUCTIONS = 1024;
