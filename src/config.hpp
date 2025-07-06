@@ -6,6 +6,8 @@
 #include <functional>
 #include <array>
 
+#define SHOW_DEBUG true
+
 class Instruction;
 struct Token;
 

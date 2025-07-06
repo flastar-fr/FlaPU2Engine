@@ -43,3 +43,9 @@ void display_instruction_executed_trace(Engine &engine) {
     ImGui::SetWindowSize(ImVec2(950, 200));
     ImGui::End();
 }
+
+void display_debug_windows(Engine& engine) {
+    display_registers(engine.getRegisters());
+    display_memory(engine.getMemory());
+    display_instruction_executed_trace(engine);
+}

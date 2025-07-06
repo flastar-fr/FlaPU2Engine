@@ -52,9 +52,7 @@ void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_co
 
     if (!engine.isProgramFinished()) engine.executeNextInstruction();
 
-    display_registers(engine.getRegisters());
-    display_memory(engine.getMemory());
-    display_instruction_executed_trace(engine);
+    if constexpr (SHOW_DEBUG) display_debug_windows(engine);
 
     render_window(window, io, clear_color);
 }
