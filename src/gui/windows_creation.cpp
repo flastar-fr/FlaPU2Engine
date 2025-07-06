@@ -47,6 +47,36 @@ void display_instruction_executed_trace(EngineRunner &engine_runner) {
     ImGui::End();
 }
 
+void create_flags_table(const Engine& engine) {
+    ImGui::BeginTable("Flags", 4);
+
+    ImGui::TableSetupColumn("eq", ImGuiTableColumnFlags_WidthFixed, 50.0f);
+    ImGui::TableSetupColumn("ne", ImGuiTableColumnFlags_WidthFixed, 50.0f);
+    ImGui::TableSetupColumn("ge", ImGuiTableColumnFlags_WidthFixed, 50.0f);
+    ImGui::TableSetupColumn("lt", ImGuiTableColumnFlags_WidthFixed, 50.0f);
+    ImGui::TableHeadersRow();
+
+    for (const auto& flag : engine.getFlagStates()) {
+        ImGui::TableNextColumn();
+        ImGui::Text(flag ? "true" : "false");
+    }
+
+    ImGui::EndTable();
+}
+
+void display_flags_n_pc(const Engine &engine) {
+    ImGui::Begin("Flags and Program Counter");
+    ImGui::Text("Flags: ");
+    ImGui::SameLine();
+
+    create_flags_table(engine);
+
+    ImGui::Text("Program Counter: %d", engine.getProgramCounter());
+
+    ImGui::SetWindowSize(ImVec2(300, 90));
+    ImGui::End();
+}
+
 void create_buttons_controllers(EngineStatus &engineStatus) {
     if (ImGui::Button("Play")) {
         if (engineStatus.runningStatus == EngineRunningStatus::PAUSED) {
@@ -84,11 +114,13 @@ void display_controls(EngineStatus &engineStatus) {
     ImGui::End();
 }
 
-void display_debug_windows(EngineRunner& engine_runner) {
-    const auto& registers = engine_runner.getEngine().getRegisters();
-    auto& memory = engine_runner.getEngine().getMemory();
+void display_debug_windows(EngineRunner &engine_runner) {
+    const auto &registers = engine_runner.getEngine().getRegisters();
+    auto &memory = engine_runner.getEngine().getMemory();
+    const auto &engine = engine_runner.getEngine();
 
     display_registers(registers);
     display_memory(memory);
     display_instruction_executed_trace(engine_runner);
+    display_flags_n_pc(engine);
 }

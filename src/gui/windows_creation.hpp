@@ -6,7 +6,7 @@
 void display_registers(const Registers &registers);
 void display_memory(Memory &memory);
 void display_instruction_executed_trace(EngineRunner &engine_runner);
-void display_flags_n_pc(Engine &engine);
+void display_flags_n_pc(const Engine &engine);
 
 void display_controls(EngineStatus &engineStatus);
 
