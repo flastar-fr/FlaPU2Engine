@@ -14,7 +14,9 @@ public:
     virtual void execute(Engine& engine) const = 0;
     [[nodiscard]] virtual bool isCorrect() const = 0;
 
-    [[nodiscard]] std::string getName() const;
+    [[nodiscard]] std::string Instruction::getName() const {
+        return name;
+    }
 
     [[nodiscard]] std::string tostring() const;
     friend std::ostream& operator<<(std::ostream & lhs, const Instruction& rhs);

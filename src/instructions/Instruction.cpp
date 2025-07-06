@@ -4,10 +4,6 @@
 void Instruction::execute(Engine& engine) const {}
 bool Instruction::isCorrect() const { return false; }
 
-[[nodiscard]] std::string Instruction::getName() const {
-    return name;
-}
-
 [[nodiscard]] std::string Instruction::tostring() const {
     std::string desc = "Instruction[name : " + name + ", Operands : { ";
     for (const auto& operand : operands) {
