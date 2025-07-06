@@ -4,6 +4,8 @@
 #include "imgui_impl_opengl3.h"
 #include <cstdio>
 
+#include "windows_creation.hpp"
+
 static void glfw_error_callback(const int error, const char* description) {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
@@ -48,8 +50,10 @@ void handle_frame_creation() {
 void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_color, Engine& engine) {
     handle_frame_creation();
 
-    // TODO : windows creation
     if (!engine.isProgramFinished()) engine.executeNextInstruction();
+
+    display_registers(engine.getRegisters());
+    display_memory(engine.getMemory());
 
     render_window(window, io, clear_color);
 }

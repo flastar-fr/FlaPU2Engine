@@ -1,5 +1,6 @@
 #pragma once
-#include "code_hardware/Engine.hpp"
+#include "code_hardware/Memory.hpp"
+#include "code_hardware/Registers.hpp"
 
-void display_registers(const Engine &engine);
-void display_memory(const Engine &engine);
+void display_registers(const Registers &registers);
+void display_memory(Memory &memory);

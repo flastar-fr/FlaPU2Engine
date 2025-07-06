@@ -68,8 +68,8 @@ Comments are only singleline and start with a ``#``.
   - [ ] See / draw main window
   - [ ] Basic number display
   - [ ] Basic text display
-  - [ ] See registers values
-  - [ ] See memory values
+  - [x] See registers values
+  - [x] See memory values
   - [ ] Adapt clock speed
   - [ ] See program counter and flags
   - [ ] See current amount of executed instructions
