@@ -5,6 +5,7 @@
 
 #include "Preprocessor.hpp"
 #include "code_hardware/Engine.hpp"
+#include "gui/gui_handling.hpp"
 #include "utils/io_manipulations.hpp"
 #include "instructions/HLTInstruction.hpp"
 
@@ -40,7 +41,8 @@ int main() {
     fill_empty(instructions, MAX_AMOUNT_INSTRUCTIONS);
 
     auto engine = Engine(instructions);
-    execute_instructions(instructions, engine);
+
+    create_window(engine);
 
     return 0;
 }
