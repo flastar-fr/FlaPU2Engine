@@ -14,7 +14,7 @@ public:
     virtual void execute(Engine& engine) const = 0;
     [[nodiscard]] virtual bool isCorrect() const = 0;
 
-    [[nodiscard]] std::string Instruction::getName() const {
+    [[nodiscard]] std::string getName() const {
         return name;
     }
 
