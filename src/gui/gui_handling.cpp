@@ -54,6 +54,7 @@ void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_co
 
     display_registers(engine.getRegisters());
     display_memory(engine.getMemory());
+    display_instruction_executed_trace(engine);
 
     render_window(window, io, clear_color);
 }

@@ -2,7 +2,9 @@
 
 #include <imgui.h>
 
-void display_registers(const Registers& registers) {
+#include "code_hardware/Engine.hpp"
+
+void display_registers(const Registers &registers) {
     ImGui::Begin("Registers");
     ImGui::Text("Registers: ");
 
@@ -15,7 +17,7 @@ void display_registers(const Registers& registers) {
     ImGui::End();
 }
 
-void display_memory(Memory& memory) {
+void display_memory(Memory &memory) {
     ImGui::Begin("Memory");
     ImGui::Text("Memory: ");
 
@@ -25,5 +27,19 @@ void display_memory(Memory& memory) {
     }
 
     ImGui::SetWindowSize(ImVec2(150, 300));
+    ImGui::End();
+}
+
+void display_instruction_executed_trace(Engine &engine) {
+    ImGui::Begin("Instruction Trace");
+    ImGui::Text("Instruction Trace: ");
+
+    const auto instructions_execution_trace = engine.getInstructionsExecutionTrace();
+
+    for (const auto& instruction : instructions_execution_trace) {
+        ImGui::Text("Instruction : %s", instruction->tostring().c_str());
+    }
+
+    ImGui::SetWindowSize(ImVec2(950, 200));
     ImGui::End();
 }

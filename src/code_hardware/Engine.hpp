@@ -49,7 +49,7 @@ public:
 
     void executeNextInstruction() {
         const std::shared_ptr<Instruction> instruction = instructions[getProgramCounter()];
-        std::cout << *instruction << std::endl;
+        //std::cout << *instruction << std::endl;
         instructions_execution_trace.push_back(instruction);
         instruction->execute(*this);
         incrementProgramCounter();
