@@ -66,11 +66,11 @@ Comments are only singleline and start with a ``#``.
 - [x] Be able to have more than 255 memory cells
 - [ ] GUI
   - [ ] See / draw main window
-  - [ ] Basic number display
-  - [ ] Basic text display
+  - [x] Basic number display
+  - [x] Basic text display
   - [x] See registers values
   - [x] See memory values
-  - [ ] Adapt clock speed
+  - [x] Adapt clock speed
   - [x] See program counter and flags
   - [x] See the current number of executed instructions
   - [x] Run / Pause / Stop the program
