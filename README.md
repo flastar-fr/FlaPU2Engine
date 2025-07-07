@@ -72,7 +72,7 @@ Comments are only singleline and start with a ``#``.
   - [x] See memory values
   - [ ] Adapt clock speed
   - [x] See program counter and flags
-  - [x] See current number of executed instructions
+  - [x] See the current number of executed instructions
   - [x] Run / Pause / Stop the program
 
 ## Examples
