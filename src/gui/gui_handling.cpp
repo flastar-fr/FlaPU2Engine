@@ -59,6 +59,7 @@ void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_co
     if constexpr (SHOW_DEBUG) display_debug_windows(engine_runner);
 
     display_controls(engineStatus);
+    display_text_n_number(engine_runner.getEngine());
 
     render_window(window, io, clear_color);
 }

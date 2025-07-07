@@ -103,7 +103,7 @@ void display_controls(EngineStatus &engineStatus) {
 
     create_buttons_controllers(engineStatus);
 
-    ImGui::Text("Position:");
+    ImGui::Text("Operation /seconds:");
     ImGui::SliderInt("##Slider", &engineStatus.opPerSecond, 0, MAX_SPEED_EXECUTION);
     ImGui::SameLine();
     ImGui::InputInt("##Input", &engineStatus.opPerSecond, 1);
@@ -111,6 +111,13 @@ void display_controls(EngineStatus &engineStatus) {
     ImGui::Spacing();
 
     ImGui::SetWindowSize(ImVec2(145, 115));
+    ImGui::End();
+}
+
+void display_text_n_number(Engine &engine) {
+    ImGui::Begin("Text and Number");
+    ImGui::Text("Text: %s", "____________________");
+    ImGui::Text("Number: %d", 666);
     ImGui::End();
 }
 
