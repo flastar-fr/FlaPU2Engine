@@ -49,14 +49,14 @@ Comments are only singleline and start with a ``#``.
     - [ ] Clear rectangle
     - [ ] Clear screen
     - [ ] Update screen
-  - [ ] Basic number 16-bit display
-    - [ ] Clear display
-    - [ ] Add number
-    - [ ] Show number
-  - [ ] Basic text display 20 chars
-    - [ ] Add char
-    - [ ] Clear chars
-    - [ ] Display chars
+  - [x] Basic number 16-bit display
+    - [x] Clear display
+    - [x] Add number
+    - [x] Show number
+  - [x] Basic text display 20 chars
+    - [x] Add char
+    - [x] Clear chars
+    - [x] Display chars
   - [ ] Random 8 bits number generator
   - [ ] Input system
 - [ ] Support for interruptions
