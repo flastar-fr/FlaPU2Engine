@@ -27,7 +27,10 @@ enum class FlagType {
 enum class PortType {
     WRITE_CHAR,
     CLEAR_CHARS,
-    PRINT_CHARS
+    PRINT_CHARS,
+    WRITE_NUMBER,
+    CLEAR_NUMBER,
+    PRINT_NUMBER
 };
 
 std::ostream& operator<<(std::ostream & lhs, ValueType rhs);

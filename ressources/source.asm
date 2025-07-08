@@ -10,6 +10,8 @@ LDI r9 'R'
 LDI r10 'L'
 LDI r11 'D'
 LDI r12 '!'
+LDI r13 2
+LDI r14 154
 
 PST write_char [r1]
 PST write_char [r2]
@@ -22,6 +24,9 @@ PST write_char [r8]
 PST write_char [r9]
 PST write_char [r10]
 PST write_char [r11]
-PST write_char [r12] # test
+PST write_char [r12]
 PST print_chars
+
+PST write_number [r13:r14]
+PST print_number
 HLT

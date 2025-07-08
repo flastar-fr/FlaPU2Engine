@@ -117,7 +117,7 @@ void display_controls(EngineStatus &engineStatus) {
 void display_text_n_number(Engine &engine) {
     ImGui::Begin("Text and Number");
     ImGui::Text("Text: %s", engine.getPorts().text_display.getDisplayedText().c_str());
-    ImGui::Text("Number: %d", 666);
+    ImGui::Text("Number: %d", engine.getPorts().number_display.getDisplayedNumber());
     ImGui::End();
 }
 

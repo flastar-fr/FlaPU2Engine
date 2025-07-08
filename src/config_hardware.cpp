@@ -87,10 +87,14 @@ std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const
 
 std::unordered_map<std::string, std::string> PORTS_MAP_LABELS = {{"write_char", "p0"},
     {"clear_chars", "p1"},
-    {"print_chars", "p2"}
+    {"print_chars", "p2"},
+    {"write_number", "p3"},
+    {"clear_number", "p4"},
+    {"print_number", "p5"}
 };
 
-std::vector<PortType> PORTS_TYPES = {PortType::WRITE_CHAR, PortType::CLEAR_CHARS, PortType::PRINT_CHARS};
+std::vector<PortType> PORTS_TYPES = {PortType::WRITE_CHAR, PortType::CLEAR_CHARS, PortType::PRINT_CHARS,
+    PortType::WRITE_NUMBER, PortType::CLEAR_NUMBER, PortType::PRINT_NUMBER};
 std::vector<char> CHARS_MAPPING = {'0', '1', '2', '3', '4', '5', '6', '7', '9',
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
     ' ', '!', '?'
