@@ -20,6 +20,7 @@
 #include "instructions/RETInstruction.hpp"
 #include "instructions/LODInstruction.hpp"
 #include "instructions/STRInstruction.hpp"
+#include "instructions/PSTInstruction.hpp"
 
 #include "instructions/CMPPseudoInstruction.hpp"
 #include "instructions/MOVPseudoInstruction.hpp"
@@ -42,18 +43,11 @@ std::ostream& operator<<(std::ostream & lhs, const ValueType rhs) {
 
 std::string to_string(const ValueType value_type) {
     switch (value_type) {
-        case ValueType::IMMEDIATE_VALUE: {
-            return "IMMEDIATE_VALUE";
-        }
-        case ValueType::REGISTER: {
-            return"REGISTER";
-        }
-        case ValueType::REGISTER_VALUE: {
-            return "REGISTER_VALUE";
-        }
-        case ValueType::FLAG: {
-            return "FLAG";
-        }
+        case ValueType::IMMEDIATE_VALUE: return "IMMEDIATE_VALUE";
+        case ValueType::REGISTER: return"REGISTER";
+        case ValueType::REGISTER_VALUE: return "REGISTER_VALUE";
+        case ValueType::FLAG: return "FLAG";
+        case ValueType::PORT: return "PORT";
     }
     return "???";
 }
@@ -77,6 +71,7 @@ std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const
     {"RET", [](const std::vector<Token>& operands) { return std::make_shared<RETInstruction>(operands); }},
     {"LOD", [](const std::vector<Token>& operands) { return std::make_shared<LODInstruction>(operands); }},
     {"STR", [](const std::vector<Token>& operands) { return std::make_shared<STRInstruction>(operands); }},
+    {"PST", [](const std::vector<Token>& operands) { return std::make_shared<PSTInstruction>(operands); }},
     {"CMP", [](const std::vector<Token>& operands) { return std::make_shared<CMPPseudoInstruction>(operands); }},
     {"MOV", [](const std::vector<Token>& operands) { return std::make_shared<MOVPseudoInstruction>(operands); }},
     {"LSH", [](const std::vector<Token>& operands) { return std::make_shared<LSHPseudoInstruction>(operands); }},
@@ -88,4 +83,15 @@ std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const
     {"JEQ", [](const std::vector<Token>& operands) { return std::make_shared<JEQPseudoInstruction>(operands); }},
     {"JGE", [](const std::vector<Token>& operands) { return std::make_shared<JGEPseudoInstruction>(operands); }},
     {"JLT", [](const std::vector<Token>& operands) { return std::make_shared<JLTPseudoInstruction>(operands); }},
+};
+
+std::unordered_map<std::string, std::string> PORTS_MAP_LABELS = {{"write_char", "p0"},
+    {"clear_chars", "p1"},
+    {"print_chars", "p2"}
+};
+
+std::vector<PortType> PORTS_TYPES = {PortType::WRITE_CHAR, PortType::CLEAR_CHARS, PortType::PRINT_CHARS};
+std::vector<char> CHARS_MAPPING = {'0', '1', '2', '3', '4', '5', '6', '7', '9',
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+    ' ', '!', '?'
 };

@@ -13,6 +13,7 @@ public:
     void uniformize();
     void findDefinition();
     void findLabels();
+    void mergePortsLabelsToLabels();
     void replaceLabelsNDefinitions();
     void processPatternRepetitions();
 

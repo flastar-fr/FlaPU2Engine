@@ -24,6 +24,6 @@ TEST(CalInstructionTest, ExecuteValidState) {
     cal.execute(engine);
 
     EXPECT_EQ(engine.getProgramCounter(), ALTERNATIVE_TEST_VALUE - 1);
-    engine.pop_stack();
+    engine.popStack();
     EXPECT_EQ(engine.getProgramCounter(), NULL_VALUE);
 }

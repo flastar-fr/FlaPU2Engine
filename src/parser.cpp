@@ -57,12 +57,14 @@ void fill_empty(std::vector<std::shared_ptr<Instruction>>& instructions, const i
 std::vector<Token> extract_operands(const std::string& line) {
     std::vector<Token> tokens;
     std::string operand;
+    bool is_quote_closed = false;
 
     if (line.empty()) return tokens;
 
     for (const auto current_char : line) {
-        if (current_char != ' ') {
+        if (current_char != ' ' || is_quote_closed) {
             operand += current_char;
+            is_quote_closed = current_char == '\'';
         } else {
             const ValueType token_type = determine_operand_type(operand);
             const uint8_t token_value = determine_operand_value(operand, token_type);
@@ -81,17 +83,29 @@ std::vector<Token> extract_operands(const std::string& line) {
 }
 
 ValueType determine_operand_type(const std::string& operand) {
-    if (is_immediate(operand)) {return ValueType::IMMEDIATE_VALUE;}
-    if (is_register(operand)) {return ValueType::REGISTER;}
-    if (is_register_value(operand)) {return ValueType::REGISTER_VALUE;}
-    if (is_flag(operand)) {return ValueType::FLAG;}
+    if (is_immediate(operand)) { return ValueType::IMMEDIATE_VALUE; }
+    if (is_char(operand)) { return ValueType::IMMEDIATE_VALUE; }
+    if (is_register(operand)) { return ValueType::REGISTER; }
+    if (is_register_value(operand)) { return ValueType::REGISTER_VALUE; }
+    if (is_flag(operand)) { return ValueType::FLAG; }
+    if (is_port(operand)) { return ValueType::PORT; }
     std::cerr << "Unrecognized type: " << operand << std::endl;
     throw std::runtime_error("Unrecognized type: " + operand);
 }
 
 uint8_t determine_operand_value(const std::string& operand, const ValueType& type) {
     switch (type) {
-        case ValueType::IMMEDIATE_VALUE: return static_cast<uint8_t>(std::stoi(operand));
+        case ValueType::IMMEDIATE_VALUE: {
+            if (is_char(operand)) {
+                const auto finded = std::find(CHARS_MAPPING.begin(), CHARS_MAPPING.end(), operand[1]);
+                if (CHARS_MAPPING.end() == finded) {
+                    std::cerr << "Unrecognized char: " << operand << std::endl;
+                    throw std::runtime_error("Unrecognized char: " + operand);
+                }
+                return std::distance(CHARS_MAPPING.begin(), finded);
+            }
+            return static_cast<uint8_t>(std::stoi(operand));
+        }
         case ValueType::REGISTER: {
             const std::string value_part = operand.substr(1);
             return static_cast<uint8_t>(std::stoi(value_part));
@@ -107,7 +121,10 @@ uint8_t determine_operand_value(const std::string& operand, const ValueType& typ
                throw std::runtime_error("Unrecognized flag: " + operand);
            }
            return std::distance(AVAILABLE_FLAGS.begin(), finded);
-
+        }
+        case ValueType::PORT: {
+            const std::string value_part = operand.substr(1);
+            return static_cast<uint8_t>(std::stoi(value_part));
         }
         default: {
             std::cerr << "Unknown type" << std::endl;

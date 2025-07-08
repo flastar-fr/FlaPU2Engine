@@ -13,7 +13,8 @@ enum class ValueType {
     IMMEDIATE_VALUE,
     REGISTER,
     REGISTER_VALUE,
-    FLAG
+    FLAG,
+    PORT
 };
 
 enum class FlagType {
@@ -21,6 +22,12 @@ enum class FlagType {
     NOT_EQUALS,
     GREATER_OR_EQUALS,
     LESS
+};
+
+enum class PortType {
+    WRITE_CHAR,
+    CLEAR_CHARS,
+    PRINT_CHARS
 };
 
 std::ostream& operator<<(std::ostream & lhs, ValueType rhs);
@@ -31,6 +38,7 @@ constexpr size_t MAX_AMOUNT_INSTRUCTIONS = 1024;
 constexpr size_t DEFAULT_SIZE_MEMORY = 65535;
 constexpr size_t MAX_STACK_MEMORY = 16;
 constexpr size_t AMOUNT_BITS_PER_CELL = 8;
+constexpr size_t MAX_AMOUNT_CHARS_DISPLAY = 20;
 constexpr char FIRST_LABEL_CHAR = '.';
 const std::string DEFINITION_KEY_WORD = "define";
 constexpr char COMMENT_PREFIX = '#';
@@ -38,6 +46,11 @@ constexpr char LEFT_REGISTER_VALUE_CHAR = '[';
 constexpr char RIGHT_REGISTER_VALUE_CHAR = ']';
 constexpr char PATTERN_REPETITION_CHAR = ':';
 
-const std::array<std::string, 4> AVAILABLE_FLAGS = {"=", "!=", ">=", "<"};;
+const std::array<std::string, 4> AVAILABLE_FLAGS = {"=", "!=", ">=", "<"};
+
+extern std::unordered_map<std::string, std::string> PORTS_MAP_LABELS;
+
+extern std::vector<PortType> PORTS_TYPES;
+extern std::vector<char> CHARS_MAPPING;
 
 #endif //CONFIG_HARDWARE_HPP

@@ -17,7 +17,7 @@ public:
             throw std::invalid_argument("Invalid instruction");
         }
 
-        engine.push_stack(engine.getProgramCounter());
+        engine.pushStack(engine.getProgramCounter());
         engine.jump(operands[0].value - 1);
     }
 

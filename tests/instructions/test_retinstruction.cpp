@@ -22,7 +22,7 @@ TEST(RetInstructionTest, ExecuteValidState) {
     auto engine = Engine();
 
     EXPECT_EQ(engine.getProgramCounter(), NULL_VALUE);
-    engine.push_stack(ALTERNATIVE_TEST_VALUE);
+    engine.pushStack(ALTERNATIVE_TEST_VALUE);
     ret.execute(engine);
     EXPECT_EQ(engine.getProgramCounter(), ALTERNATIVE_TEST_VALUE);
 }

@@ -51,12 +51,17 @@ std::vector<std::string> extract_labels_and_find_next_line(std::string& trimmed_
 }
 
 void remove_comments(std::string& line) {
-    const size_t first_space = line.find(COMMENT_PREFIX);
-    if (first_space == std::string::npos) {
+    if (!line.empty() && line[0] == COMMENT_PREFIX) {
+        line.clear();
         return;
     }
 
-    line = line.substr(0, first_space - 1);
+    const size_t first_comment_char = line.find(COMMENT_PREFIX);
+    if (first_comment_char == std::string::npos) {
+        return;
+    }
+
+    line = line.substr(0, first_comment_char - 1);
 }
 
 void merge_labels(std::string& trimmed_line, const std::vector<std::string>& lines, size_t& i) {
@@ -108,6 +113,7 @@ std::vector<std::string>& Preprocessor::preprocess() {
     uniformize();
     findDefinition();
     findLabels();
+    mergePortsLabelsToLabels();
     replaceLabelsNDefinitions();
     processPatternRepetitions();
 
@@ -120,9 +126,9 @@ void Preprocessor::uniformize() {
     for (size_t i = 0; i < lines.size(); ++i) {
         auto trimmed_line = trim(lines[i]);
 
-        if (trimmed_line.empty()) continue;
-
         remove_comments(trimmed_line);
+
+        if (trimmed_line.empty()) continue;
 
         merge_labels(trimmed_line, lines, i);
 
@@ -165,6 +171,12 @@ void Preprocessor::findLabels() {
 
         line = std::move(trimed_line);
         ++amount_line;
+    }
+}
+
+void Preprocessor::mergePortsLabelsToLabels() {
+    for (auto const& [key, val] : PORTS_MAP_LABELS) {
+        labels_n_definitions[key] = val;
     }
 }
 

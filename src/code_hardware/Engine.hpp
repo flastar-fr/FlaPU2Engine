@@ -5,6 +5,7 @@
 
 #include "config_hardware.hpp"
 #include "Memory.hpp"
+#include "Ports.hpp"
 #include "Registers.hpp"
 
 
@@ -18,6 +19,7 @@ public:
     Memory& getMemory() { return memory; }
     [[nodiscard]] size_t getProgramCounter() const { return programCounter; }
     [[nodiscard]] std::array<bool, 4> getFlagStates() const { return flag_states; }
+    [[nodiscard]] Ports& getPorts() { return ports; }
     void verifyFlags(const uint8_t operand1, const uint8_t operand2) {
         setFlagsStates({operand1 == operand2, operand1 != operand2, operand1 >= operand2, operand1 < operand2});
     }
@@ -34,12 +36,12 @@ public:
         programCounter = newAddress % MAX_AMOUNT_INSTRUCTIONS;
     }
 
-    void push_stack(const uint8_t address) {
+    void pushStack(const uint8_t address) {
         if (stack_addresses.size() > MAX_STACK_MEMORY) throw std::length_error("Stack overflow");
         stack_addresses.push(address);
     }
 
-    void pop_stack() {
+    void popStack() {
         jump(stack_addresses.top());
         stack_addresses.pop();
     }
@@ -52,5 +54,6 @@ private:
     size_t programCounter;
     std::array<bool, 4> flag_states;
     std::stack<uint8_t> stack_addresses;
+    Ports ports;
 };
 #endif //ENGINE_HPP

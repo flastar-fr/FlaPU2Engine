@@ -17,7 +17,7 @@ public:
             throw std::invalid_argument("Invalid instruction");
         }
 
-        engine.pop_stack();
+        engine.popStack();
     }
 
     [[nodiscard]] bool isCorrect() const override {
