@@ -44,7 +44,6 @@ Comments are only singleline and start with a ``#``.
   - [ ] Main window
     - [ ] Draw pixel
     - [ ] Draw filled rectangles
-    - [ ] Draw empty rectangles
     - [ ] Clear pixel
     - [ ] Clear rectangle
     - [ ] Clear screen
