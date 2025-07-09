@@ -4,7 +4,7 @@
 class NumberDisplay {
 public:
     void addNumber(const uint8_t high_value, const uint8_t low_value) {
-        value = (high_value << 8) + low_value;
+        value = (high_value << AMOUNT_BITS_PER_CELL) + low_value;
     }
 
     void clear() {
