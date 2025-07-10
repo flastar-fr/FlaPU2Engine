@@ -9,6 +9,7 @@
 #include "code_hardware/EngineRunner.hpp"
 
 static void glfw_error_callback(int error, const char* description);
+void handle_keyboard_inputs(Engine& engine);
 void clean_window(GLFWwindow* window);
 void render_window(GLFWwindow* window, const ImGuiIO& io, ImVec4 clear_color);
 void handle_frame_creation();

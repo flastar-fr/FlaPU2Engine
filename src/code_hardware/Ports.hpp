@@ -1,4 +1,5 @@
 #pragma once
+#include "Keyboard.hpp"
 #include "NumberDisplay.hpp"
 #include "RandomNumberGenerator.hpp"
 #include "Screen.hpp"
@@ -11,4 +12,5 @@ struct Ports {
     NumberDisplay number_display;
     Screen screen;
     RandomNumberGenerator random_number_generator;
+    Keyboard keyboard;
 };

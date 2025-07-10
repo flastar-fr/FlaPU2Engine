@@ -54,6 +54,7 @@ PST clear_screen
 PST print_screen
 
 # randomly place rectangles
+LDI r3 5
 .start_rects
     PLD random_nb r1
     PLD random_nb r2
@@ -64,6 +65,75 @@ PST print_screen
     PST draw_rect
     PST print_screen
     PST clear_screen
-    JMP .start_rects
+    DEC r3
+    CMP r3 r0
+    BRH != .start_rects
+
+PST clear_screen
+PST print_screen
+
+# draw rectangle
+LDI r1 10
+LDI r2 40
+LDI r3 45
+LDI r4 70
+LDI r5 75
+LDI r6 105
+LDI r7 135
+LDI r9 35 # UP
+LDI r10 36 # DOWN
+LDI r11 37 # LEFT
+LDI r12 38 # RIGHT
+.rects.start
+    PLD keyboard_input r8
+    CMP r8 r9
+    BRH = .rects.up
+    CMP r8 r10
+    BRH = .rects.down
+    CMP r8 r11
+    BRH = .rects.left
+    CMP r8 r12
+    BRH = .rects.right
+    JMP .rects.start
 
 HLT
+
+.rects.up
+    PST pixel1_x [r0:r5]
+    PST pixel1_y [r0:r1]
+    PST pixel2_x [r0:r6]
+    PST pixel2_y [r0:r2]
+    PST clear_screen
+    PST draw_rect
+    PST print_screen
+    JMP .rects.start
+
+.rects.down
+    PST pixel1_x [r0:r5]
+    PST pixel1_y [r0:r3]
+    PST pixel2_x [r0:r6]
+    PST pixel2_y [r0:r5]
+    PST clear_screen
+    PST draw_rect
+    PST print_screen
+    JMP .rects.start
+
+.rects.left
+    PST pixel1_x [r0:r2]
+    PST pixel1_y [r0:r3]
+    PST pixel2_x [r0:r4]
+    PST pixel2_y [r0:r5]
+    PST clear_screen
+    PST draw_rect
+    PST print_screen
+    JMP .rects.start
+
+.rects.right
+    PST pixel1_x [r0:r6]
+    PST pixel1_y [r0:r3]
+    PST pixel2_x [r0:r7]
+    PST pixel2_y [r0:r5]
+    PST clear_screen
+    PST draw_rect
+    PST print_screen
+    JMP .rects.start

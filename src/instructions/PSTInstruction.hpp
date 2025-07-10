@@ -17,81 +17,82 @@ public:
         }
 
         Registers& registers = engine.getRegisters();
+        Ports& ports = engine.getPorts();
 
         const PortType port_type = PORTS_TYPES[operands[0].value];
         switch (port_type) {
             case PortType::WRITE_CHAR: {
                 const char char_to_write = CHARS_MAPPING[registers[operands[1].value].getValue()];
-                engine.getPorts().text_display.addChar(char_to_write);
+                ports.text_display.addChar(char_to_write);
                 break;
             }
             case PortType::CLEAR_CHARS: {
-                engine.getPorts().text_display.clear();
+                ports.text_display.clear();
                 break;
             }
             case PortType::PRINT_CHARS: {
-                engine.getPorts().text_display.print();
+                ports.text_display.print();
                 break;
             }
             case PortType::WRITE_NUMBER: {
                 const uint8_t high_value = registers[operands[1].value].getValue();
                 const uint8_t low_value = registers[operands[2].value].getValue();
-                engine.getPorts().number_display.addNumber(high_value, low_value);
+                ports.number_display.addNumber(high_value, low_value);
                 break;
             }
             case PortType::CLEAR_NUMBER: {
-                engine.getPorts().number_display.clear();
+                ports.number_display.clear();
                 break;
             }
             case PortType::PRINT_NUMBER: {
-                engine.getPorts().number_display.print();
+                ports.number_display.print();
                 break;
             }
             case PortType::ADD_X1: {
                 const uint8_t high_value = registers[operands[1].value].getValue();
                 const uint8_t low_value = registers[operands[2].value].getValue();
-                engine.getPorts().screen.addX1(high_value, low_value);
+                ports.screen.addX1(high_value, low_value);
                 break;
             }
             case PortType::ADD_Y1: {
                 const uint8_t high_value = registers[operands[1].value].getValue();
                 const uint8_t low_value = registers[operands[2].value].getValue();
-                engine.getPorts().screen.addY1(high_value, low_value);
+                ports.screen.addY1(high_value, low_value);
                 break;
             }
             case PortType::ADD_X2: {
                 const uint8_t high_value = registers[operands[1].value].getValue();
                 const uint8_t low_value = registers[operands[2].value].getValue();
-                engine.getPorts().screen.addX2(high_value, low_value);
+                ports.screen.addX2(high_value, low_value);
                 break;
             }
             case PortType::ADD_Y2: {
                 const uint8_t high_value = registers[operands[1].value].getValue();
                 const uint8_t low_value = registers[operands[2].value].getValue();
-                engine.getPorts().screen.addY2(high_value, low_value);
+                ports.screen.addY2(high_value, low_value);
                 break;
             }
             case PortType::DRAW_PIXEL: {
-                engine.getPorts().screen.drawPixel();
+                ports.screen.drawPixel();
                 break;
             }
             case PortType::DRAW_RECT: {
-                engine.getPorts().screen.drawRectangle();
+                ports.screen.drawRectangle();
                 break;
             }
             case PortType::CLEAR_PIXEL: {
-                engine.getPorts().screen.clearPixel();
+                ports.screen.clearPixel();
             }
             case PortType::CLEAR_RECT: {
-                engine.getPorts().screen.clearRectangle();
+                ports.screen.clearRectangle();
                 break;
             }
             case PortType::CLEAR_SCREEN: {
-                engine.getPorts().screen.clearScreen();
+                ports.screen.clearScreen();
                 break;
             }
             case PortType::PRINT_SCREEN: {
-                engine.getPorts().screen.pushBuffer();
+                ports.screen.pushBuffer();
                 break;
             }
             default: {

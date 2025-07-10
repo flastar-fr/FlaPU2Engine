@@ -18,14 +18,23 @@ public:
         }
 
         Registers& registers = engine.getRegisters();
+        Ports& ports = engine.getPorts();
 
         const PortType port_type = PORTS_TYPES[operands[0].value];
         switch (port_type) {
             case PortType::RANDOM_NB: {
                 const uint8_t random_number = RandomNumberGenerator::generateRandomNumber();
-                const uint8_t register_to_place = operands[1].value;
+                const uint8_t register_result = operands[1].value;
 
-                registers[register_to_place] = random_number;
+                registers[register_result] = random_number;
+                break;
+            }
+            case PortType::KEYBOARD_INPUT: {
+                const Keycode keycode = ports.keyboard.popKeyCode();
+                const auto keycode_id = static_cast<uint8_t>(keycode);
+                const uint8_t register_result = operands[1].value;
+
+                registers[register_result] = keycode_id;
                 break;
             }
             default: {

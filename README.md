@@ -34,13 +34,12 @@ Comments are only singleline and start with a ``#``.
 
 ## Features
 - [x] Working structure (registers, memory, etc...)
-- [ ] Support for all instructions
-  - Need ports instructions
+- [x] Support for all instructions
 - [x] Support for all pseudoinstructions
 - [x] Support for comments
 - [x] Support for labels
 - [x] Support for definitions
-- [ ] Support for ports
+- [x] Support for ports
   - [x] Main window
     - [x] Draw pixel
     - [x] Draw filled rectangles
@@ -57,7 +56,7 @@ Comments are only singleline and start with a ``#``.
     - [x] Clear chars
     - [x] Display chars
   - [x] Random 8 bits number generator
-  - [ ] Input system
+  - [x] Input system
 - [ ] Support for interruptions
 - [ ] Better way to select a program
 - [x] Better error messages
