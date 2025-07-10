@@ -12,7 +12,10 @@
 class Engine {
 public:
     explicit Engine(const int memoryAmount)
-    : register_amount(DEFAULT_SIZE_REGISTERS), memory_amount(memoryAmount), registers(Registers()), memory(Memory(memoryAmount)), programCounter(0), flag_states({false, false, false, false}){}
+        : register_amount(DEFAULT_SIZE_REGISTERS), memory_amount(memoryAmount), registers(Registers()),
+          memory(Memory(memoryAmount)), programCounter(0), flag_states({false, false, false, false}), ports(Ports(SCREEN_SIZE)) {
+    }
+
     Engine() : Engine(DEFAULT_SIZE_MEMORY) {}
 
     Registers& getRegisters() { return registers; }

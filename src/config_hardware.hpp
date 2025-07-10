@@ -5,6 +5,9 @@
 #include <unordered_map>
 #include <functional>
 #include <array>
+#include <cstdint>
+
+#include "utils/Vector2.hpp"
 
 class Instruction;
 struct Token;
@@ -30,7 +33,17 @@ enum class PortType {
     PRINT_CHARS,
     WRITE_NUMBER,
     CLEAR_NUMBER,
-    PRINT_NUMBER
+    PRINT_NUMBER,
+    ADD_X1,
+    ADD_Y1,
+    ADD_X2,
+    ADD_Y2,
+    DRAW_PIXEL,
+    DRAW_RECT,
+    CLEAR_PIXEL,
+    CLEAR_RECT,
+    CLEAR_SCREEN,
+    PRINT_SCREEN
 };
 
 std::ostream& operator<<(std::ostream & lhs, ValueType rhs);
@@ -48,6 +61,7 @@ constexpr char COMMENT_PREFIX = '#';
 constexpr char LEFT_REGISTER_VALUE_CHAR = '[';
 constexpr char RIGHT_REGISTER_VALUE_CHAR = ']';
 constexpr char PATTERN_REPETITION_CHAR = ':';
+const Vector2<uint16_t> SCREEN_SIZE = {1280, 720};
 
 const std::array<std::string, 4> AVAILABLE_FLAGS = {"=", "!=", ">=", "<"};
 

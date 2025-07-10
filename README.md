@@ -40,14 +40,14 @@ Comments are only singleline and start with a ``#``.
 - [x] Support for comments
 - [x] Support for labels
 - [x] Support for definitions
-- [ ] Support for ports
-  - [ ] Main window
-    - [ ] Draw pixel
-    - [ ] Draw filled rectangles
-    - [ ] Clear pixel
-    - [ ] Clear rectangle
-    - [ ] Clear screen
-    - [ ] Update screen
+- [x] Support for ports
+  - [x] Main window
+    - [x] Draw pixel
+    - [x] Draw filled rectangles
+    - [x] Clear pixel
+    - [x] Clear rectangle
+    - [x] Clear screen
+    - [x] Update screen
   - [x] Basic number 16-bit display
     - [x] Clear display
     - [x] Add number

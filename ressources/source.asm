@@ -1,3 +1,4 @@
+# write "HELLO WORLD!"
 LDI r1 'H'
 LDI r2 'E'
 LDI r3 'L'
@@ -10,9 +11,6 @@ LDI r9 'R'
 LDI r10 'L'
 LDI r11 'D'
 LDI r12 '!'
-LDI r13 2
-LDI r14 154
-
 PST write_char [r1]
 PST write_char [r2]
 PST write_char [r3]
@@ -27,6 +25,32 @@ PST write_char [r11]
 PST write_char [r12]
 PST print_chars
 
+# write "666"
+LDI r13 2
+LDI r14 154
 PST write_number [r13:r14]
 PST print_number
+
+# draw pixel
+LDI r1 50
+PST pixel1_x [r0:r1]
+PST pixel1_y [r0:r1]
+PST draw_pixel
+PST print_screen
+
+# draw rectangle
+LDI r1 80
+PST pixel1_x [r0:r1]
+PST pixel1_y [r0:r1]
+LDI r2 1
+LDI r3 244
+PST pixel2_x [r2:r3]
+PST pixel2_y [r2:r3]
+PST draw_rect
+PST print_screen
+PST clear_rect
+PST print_screen
+PST clear_screen
+PST print_screen
+
 HLT

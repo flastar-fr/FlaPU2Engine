@@ -90,11 +90,22 @@ std::unordered_map<std::string, std::string> PORTS_MAP_LABELS = {{"write_char", 
     {"print_chars", "p2"},
     {"write_number", "p3"},
     {"clear_number", "p4"},
-    {"print_number", "p5"}
+    {"print_number", "p5"},
+    {"pixel1_x", "p6"},
+    {"pixel1_y", "p7"},
+    {"pixel2_x", "p8"},
+    {"pixel2_y", "p9"},
+    {"draw_pixel", "p10"},
+    {"draw_rect", "p11"},
+    {"clear_pixel", "p12"},
+    {"clear_rect", "p13"},
+    {"clear_screen", "p14"},
+    {"print_screen", "p15"}
 };
 
 std::vector<PortType> PORTS_TYPES = {PortType::WRITE_CHAR, PortType::CLEAR_CHARS, PortType::PRINT_CHARS,
-    PortType::WRITE_NUMBER, PortType::CLEAR_NUMBER, PortType::PRINT_NUMBER};
+    PortType::WRITE_NUMBER, PortType::CLEAR_NUMBER, PortType::PRINT_NUMBER,
+    PortType::ADD_X1, PortType::ADD_Y1, PortType::ADD_X2, PortType::ADD_Y2, PortType::DRAW_PIXEL, PortType::DRAW_RECT, PortType::CLEAR_PIXEL, PortType::CLEAR_RECT, PortType::CLEAR_SCREEN, PortType::PRINT_SCREEN};
 std::vector<char> CHARS_MAPPING = {'0', '1', '2', '3', '4', '5', '6', '7', '9',
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
     ' ', '!', '?'

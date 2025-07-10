@@ -61,6 +61,8 @@ void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_co
     display_controls(engineStatus);
     display_text_n_number(engine_runner.getEngine());
 
+    render_main_window_content(engine_runner.getEngine().getPorts().screen);
+
     render_window(window, io, clear_color);
 }
 
@@ -88,7 +90,7 @@ bool setup_glfw(const char*& glsl_version, GLFWwindow*& window, int& exit_code) 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 #endif
 
-    window = glfwCreateWindow(1280, 720, "FlaPU2Engine", nullptr, nullptr);
+    window = glfwCreateWindow(SCREEN_SIZE.x, SCREEN_SIZE.y, "FlaPU2Engine", nullptr, nullptr);
     if (window == nullptr) {
         exit_code = 1;
         return true;

@@ -3,6 +3,7 @@
 #include <imgui.h>
 
 #include "config_gui.hpp"
+#include "helper_functions.hpp"
 #include "code_hardware/EngineStatus.hpp"
 #include "code_hardware/Engine.hpp"
 
@@ -130,4 +131,17 @@ void display_debug_windows(EngineRunner &engine_runner) {
     display_memory(memory);
     display_instruction_executed_trace(engine_runner);
     display_flags_n_pc(engine);
+}
+
+void render_main_window_content(Screen& screen) {
+    auto screen_pixels = screen.getDisplayedScreen();
+
+    for (size_t x = 0; x < screen.getScreenSize().x; ++x) {
+        for (size_t y = 0; y < screen.getScreenSize().y; ++y) {
+            if (!screen_pixels[screen.getPixelIndexFrom2D(x, y)]) continue;
+            const auto x_float = static_cast<float>(x);
+            const auto y_float = static_cast<float>(y);
+            draw_pixel(ImVec2(x_float, y_float), IM_COL32(255, 255, 255, 255));
+        }
+    }
 }
