@@ -3,8 +3,7 @@
 
 class RandomNumberGenerator {
 public:
-    RandomNumberGenerator() : gen(std::random_device{}())
-    {}
+    RandomNumberGenerator() : gen(std::random_device{}()) {}
 
     void addRange(const uint8_t low, const uint8_t high) {
         low_value = low;
