@@ -23,7 +23,7 @@ public:
         const PortType port_type = PORTS_TYPES[operands[0].value];
         switch (port_type) {
             case PortType::RANDOM_NB: {
-                const uint8_t random_number = RandomNumberGenerator::generateRandomNumber();
+                const uint8_t random_number = ports.random_number_generator.generateRandomNumber();
                 const uint8_t register_result = operands[1].value;
 
                 registers[register_result] = random_number;

@@ -95,6 +95,12 @@ public:
                 ports.screen.pushBuffer();
                 break;
             }
+            case PortType::ADD_RNG_RANGE: {
+                const uint8_t high_value = registers[operands[1].value].getValue();
+                const uint8_t low_value = registers[operands[2].value].getValue();
+                ports.random_number_generator.addRange(high_value, low_value);
+                break;
+            }
             default: {
                 std::cerr << "Invalid port " + std::to_string(operands[0].value) + " for writting" << std::endl;
                 throw std::invalid_argument("Invalid port " + std::to_string(operands[0].value) + " for writting");
@@ -121,6 +127,7 @@ public:
             case PortType::PRINT_NUMBER:
             case PortType::CLEAR_CHARS:
             case PortType::PRINT_CHARS: return operands.size() == 1;
+            case PortType::ADD_RNG_RANGE:
             case PortType::ADD_X1:
             case PortType::ADD_Y1:
             case PortType::ADD_X2:

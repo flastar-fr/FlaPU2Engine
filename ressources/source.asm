@@ -55,6 +55,8 @@ PST print_screen
 
 # randomly place rectangles
 LDI r3 5
+LDI r4 255
+PST rng_range [r0:r4]
 .start_rects
     PLD random_nb r1
     PLD random_nb r2

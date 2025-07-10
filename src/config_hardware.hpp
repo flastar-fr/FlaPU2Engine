@@ -44,6 +44,7 @@ enum class PortType {
     CLEAR_RECT,
     CLEAR_SCREEN,
     PRINT_SCREEN,
+    ADD_RNG_RANGE,
     RANDOM_NB,
     KEYBOARD_INPUT
 };
