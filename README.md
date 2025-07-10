@@ -40,7 +40,7 @@ Comments are only singleline and start with a ``#``.
 - [x] Support for comments
 - [x] Support for labels
 - [x] Support for definitions
-- [x] Support for ports
+- [ ] Support for ports
   - [x] Main window
     - [x] Draw pixel
     - [x] Draw filled rectangles
@@ -63,8 +63,8 @@ Comments are only singleline and start with a ``#``.
 - [x] Better error messages
 - [x] Remove case sensitivity for keywords
 - [x] Be able to have more than 255 memory cells
-- [ ] GUI
-  - [ ] See / draw main window
+- [x] GUI
+  - [x] See / draw main window
   - [x] Basic number display
   - [x] Basic text display
   - [x] See registers values
