@@ -43,7 +43,8 @@ enum class PortType {
     CLEAR_PIXEL,
     CLEAR_RECT,
     CLEAR_SCREEN,
-    PRINT_SCREEN
+    PRINT_SCREEN,
+    RANDOM_NB
 };
 
 std::ostream& operator<<(std::ostream & lhs, ValueType rhs);

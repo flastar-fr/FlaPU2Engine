@@ -92,6 +92,11 @@ public:
             }
             case PortType::PRINT_SCREEN: {
                 engine.getPorts().screen.pushBuffer();
+                break;
+            }
+            default: {
+                std::cerr << "Invalid port " + std::to_string(operands[0].value) + " for writting" << std::endl;
+                throw std::invalid_argument("Invalid port " + std::to_string(operands[0].value) + " for writting");
             }
         }
     }

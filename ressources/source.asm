@@ -53,4 +53,17 @@ PST print_screen
 PST clear_screen
 PST print_screen
 
+# randomly place rectangles
+.start_rects
+    PLD random_nb r1
+    PLD random_nb r2
+    PST pixel1_x [r0:r1]
+    PST pixel1_y [r0:r1]
+    PST pixel2_x [r0:r2]
+    PST pixel2_y [r0:r2]
+    PST draw_rect
+    PST print_screen
+    PST clear_screen
+    JMP .start_rects
+
 HLT

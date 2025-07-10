@@ -21,6 +21,7 @@
 #include "instructions/LODInstruction.hpp"
 #include "instructions/STRInstruction.hpp"
 #include "instructions/PSTInstruction.hpp"
+#include "instructions/PLDInstruction.hpp"
 
 #include "instructions/CMPPseudoInstruction.hpp"
 #include "instructions/MOVPseudoInstruction.hpp"
@@ -72,6 +73,7 @@ std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const
     {"LOD", [](const std::vector<Token>& operands) { return std::make_shared<LODInstruction>(operands); }},
     {"STR", [](const std::vector<Token>& operands) { return std::make_shared<STRInstruction>(operands); }},
     {"PST", [](const std::vector<Token>& operands) { return std::make_shared<PSTInstruction>(operands); }},
+    {"PLD", [](const std::vector<Token>& operands) { return std::make_shared<PLDInstruction>(operands); }},
     {"CMP", [](const std::vector<Token>& operands) { return std::make_shared<CMPPseudoInstruction>(operands); }},
     {"MOV", [](const std::vector<Token>& operands) { return std::make_shared<MOVPseudoInstruction>(operands); }},
     {"LSH", [](const std::vector<Token>& operands) { return std::make_shared<LSHPseudoInstruction>(operands); }},
@@ -100,12 +102,16 @@ std::unordered_map<std::string, std::string> PORTS_MAP_LABELS = {{"write_char", 
     {"clear_pixel", "p12"},
     {"clear_rect", "p13"},
     {"clear_screen", "p14"},
-    {"print_screen", "p15"}
+    {"print_screen", "p15"},
+    {"random_nb", "p16"}
 };
 
 std::vector<PortType> PORTS_TYPES = {PortType::WRITE_CHAR, PortType::CLEAR_CHARS, PortType::PRINT_CHARS,
     PortType::WRITE_NUMBER, PortType::CLEAR_NUMBER, PortType::PRINT_NUMBER,
-    PortType::ADD_X1, PortType::ADD_Y1, PortType::ADD_X2, PortType::ADD_Y2, PortType::DRAW_PIXEL, PortType::DRAW_RECT, PortType::CLEAR_PIXEL, PortType::CLEAR_RECT, PortType::CLEAR_SCREEN, PortType::PRINT_SCREEN};
+    PortType::ADD_X1, PortType::ADD_Y1, PortType::ADD_X2, PortType::ADD_Y2, PortType::DRAW_PIXEL, PortType::DRAW_RECT, PortType::CLEAR_PIXEL, PortType::CLEAR_RECT, PortType::CLEAR_SCREEN, PortType::PRINT_SCREEN,
+    PortType::RANDOM_NB
+};
+
 std::vector<char> CHARS_MAPPING = {'0', '1', '2', '3', '4', '5', '6', '7', '9',
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
     ' ', '!', '?'

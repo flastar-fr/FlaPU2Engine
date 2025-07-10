@@ -56,7 +56,7 @@ Comments are only singleline and start with a ``#``.
     - [x] Add char
     - [x] Clear chars
     - [x] Display chars
-  - [ ] Random 8 bits number generator
+  - [x] Random 8 bits number generator
   - [ ] Input system
 - [ ] Support for interruptions
 - [ ] Better way to select a program
