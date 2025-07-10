@@ -110,7 +110,7 @@ const Vector2<uint16_t> SCREEN_SIZE = {1280, 720};
 
 const std::array<std::string, 4> AVAILABLE_FLAGS = {"=", "!=", ">=", "<"};
 
-extern std::unordered_map<std::string, std::string> PORTS_MAP_LABELS;
+extern std::vector<std::string> PORTS_MAP_LABELS;
 
 extern std::vector<PortType> PORTS_TYPES;
 extern std::vector<char> CHARS_MAPPING;

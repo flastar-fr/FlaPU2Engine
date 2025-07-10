@@ -87,25 +87,27 @@ std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const
     {"JLT", [](const std::vector<Token>& operands) { return std::make_shared<JLTPseudoInstruction>(operands); }},
 };
 
-std::unordered_map<std::string, std::string> PORTS_MAP_LABELS = {{"write_char", "p0"},
-    {"clear_chars", "p1"},
-    {"print_chars", "p2"},
-    {"write_number", "p3"},
-    {"clear_number", "p4"},
-    {"print_number", "p5"},
-    {"pixel1_x", "p6"},
-    {"pixel1_y", "p7"},
-    {"pixel2_x", "p8"},
-    {"pixel2_y", "p9"},
-    {"draw_pixel", "p10"},
-    {"draw_rect", "p11"},
-    {"clear_pixel", "p12"},
-    {"clear_rect", "p13"},
-    {"clear_screen", "p14"},
-    {"print_screen", "p15"},
-    {"random_nb", "p16"},
-    {"keyboard_input", "p17"}
+std::vector<std::string> PORTS_MAP_LABELS = {
+    "write_char",
+    "clear_chars",
+    "print_chars",
+    "write_number",
+    "clear_number",
+    "print_number",
+    "pixel1_x",
+    "pixel1_y",
+    "pixel2_x",
+    "pixel2_y",
+    "draw_pixel",
+    "draw_rect",
+    "clear_pixel",
+    "clear_rect",
+    "clear_screen",
+    "print_screen",
+    "random_nb",
+    "keyboard_input"
 };
+
 
 std::vector<PortType> PORTS_TYPES = {PortType::WRITE_CHAR, PortType::CLEAR_CHARS, PortType::PRINT_CHARS,
     PortType::WRITE_NUMBER, PortType::CLEAR_NUMBER, PortType::PRINT_NUMBER,

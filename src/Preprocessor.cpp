@@ -175,8 +175,8 @@ void Preprocessor::findLabels() {
 }
 
 void Preprocessor::mergePortsLabelsToLabels() {
-    for (auto const& [key, val] : PORTS_MAP_LABELS) {
-        labels_n_definitions[key] = val;
+    for (int i = 0; i < PORTS_MAP_LABELS.size(); ++i) {
+        labels_n_definitions[PORTS_MAP_LABELS[i]] = "p" + std::to_string(i);
     }
 }
 
