@@ -136,14 +136,14 @@ void display_debug_windows(EngineRunner &engine_runner) {
 
 void render_main_window_content(Screen& screen) {
     const auto& screen_pixels = screen.getDisplayedScreen();
-
     const auto screen_size = screen.getScreenSize();
-    for (size_t y = 0; y < screen_size.y; ++y) {
-        for (size_t x = 0; x < screen_size.x; ++x) {
-            if (!screen_pixels[screen.getPixelIndexFrom2D(x, y)]) continue;
-            const auto x_float = static_cast<float>(x);
-            const auto y_float = static_cast<float>(y);
-            draw_pixel(ImVec2(x_float, y_float), IM_COL32(255, 255, 255, 255));
+    const size_t width = screen_size.x;
+    const size_t height = screen_size.y;
+
+    for (size_t index = 0, y = 0; y < height; ++y) {
+        for (size_t x = 0; x < width; ++x, ++index) {
+            if (!screen_pixels[index]) continue;
+            draw_pixel(ImVec2(static_cast<float>(x), static_cast<float>(y)), IM_COL32(255, 255, 255, 255));
         }
     }
 }
