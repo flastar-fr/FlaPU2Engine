@@ -135,7 +135,7 @@ void display_debug_windows(EngineRunner &engine_runner) {
 }
 
 void render_main_window_content(Screen& screen) {
-    auto& screen_pixels = screen.getDisplayedScreen();
+    const auto& screen_pixels = screen.getDisplayedScreen();
 
     const auto screen_size = screen.getScreenSize();
     for (size_t y = 0; y < screen_size.y; ++y) {

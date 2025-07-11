@@ -53,7 +53,7 @@ public:
         displayed_screen = screen_buffer;
     }
 
-    [[nodiscard]] std::vector<bool>& getDisplayedScreen() { return displayed_screen; }
+    [[nodiscard]] std::vector<uint8_t>& getDisplayedScreen() { return displayed_screen; }
 
     [[nodiscard]] int getPixelIndexFrom2D(const uint16_t x, const uint16_t y) const {
         return y * screen_size.x + x;
@@ -74,6 +74,6 @@ private:
     Vector2<uint16_t> pos2;
     Vector2<uint16_t> screen_size;
 
-    std::vector<bool> screen_buffer;
-    std::vector<bool> displayed_screen;
+    std::vector<uint8_t> screen_buffer;
+    std::vector<uint8_t> displayed_screen;
 };
