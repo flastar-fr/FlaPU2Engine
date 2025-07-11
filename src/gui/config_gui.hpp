@@ -1,9 +1,12 @@
 #pragma once
 
-#define SHOW_DEBUG true
+#include "config_hardware.hpp"
+#include <imgui.h>
+
+#define SHOW_DEBUG false
 
 constexpr long MAX_SPEED_EXECUTION = 100000000;
-constexpr int MAX_INSTRUCTION_TO_DISPLAY = 1000;
+constexpr int MAX_INSTRUCTION_TO_DISPLAY = 100;
 
 const std::unordered_map<ImGuiKey, Keycode> PRESSABLE_KEYCODES = {
     {ImGuiKey_1, Keycode::ONE},

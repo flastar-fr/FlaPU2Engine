@@ -6,7 +6,7 @@
 #undef GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
-#include "code_hardware/EngineRunner.hpp"
+#include "EngineRunner.hpp"
 
 static void glfw_error_callback(int error, const char* description);
 void execute_instructions(EngineRunner& engine_runner);

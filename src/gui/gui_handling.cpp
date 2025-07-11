@@ -72,7 +72,7 @@ void handle_frame_creation() {
 }
 
 void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_color, EngineRunner& engine_runner) {
-    auto &engineStatus = engine_runner.getEngineStatus();
+    const auto &engineStatus = engine_runner.getEngineStatus();
 
     handle_frame_creation();
 
@@ -83,7 +83,7 @@ void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_co
 
     if constexpr (SHOW_DEBUG) display_debug_windows(engine_runner);
 
-    display_controls(engineStatus);
+    display_controls(engine_runner);
     display_text_n_number(engine_runner.getEngine());
 
     render_main_window_content(engine_runner.getEngine().getPorts().screen);

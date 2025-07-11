@@ -4,8 +4,6 @@
 
 #include "config_gui.hpp"
 #include "helper_functions.hpp"
-#include "code_hardware/EngineStatus.hpp"
-#include "code_hardware/Engine.hpp"
 
 void display_registers(const Registers &registers) {
     ImGui::Begin("Registers");
@@ -34,10 +32,10 @@ void display_memory(Memory &memory) {
 }
 
 void display_instruction_executed_trace(EngineRunner &engine_runner) {
-    const auto instructions_execution_trace = engine_runner.getInstructionsExecutionTrace();
+    const auto& instructions_execution_trace = engine_runner.getInstructionsExecutionTrace();
 
     ImGui::Begin("Instruction Trace");
-    ImGui::Text("Amount executed instructions: %d, FPS: %f", instructions_execution_trace.size(), ImGui::GetIO().Framerate);
+    ImGui::Text("Amount executed instructions: %d, FPS: %f", engine_runner.getAmountExecutedInstructions(), ImGui::GetIO().Framerate);
     ImGui::Text("Instruction Trace: ");
 
     for (size_t i = 0; i < instructions_execution_trace.size() && i <= MAX_INSTRUCTION_TO_DISPLAY; ++i) {
@@ -99,20 +97,23 @@ void create_buttons_controllers(EngineStatus &engineStatus) {
     }
 }
 
-void display_controls(EngineStatus &engineStatus) {
+void display_controls(EngineRunner &engine_runner) {
     ImGui::Begin("Controls");
     ImGui::Text("Controls: ");
 
-    create_buttons_controllers(engineStatus);
+    EngineStatus& engine_status = engine_runner.getEngineStatus();
+
+    create_buttons_controllers(engine_status);
 
     ImGui::Text("Operation /seconds:");
-    ImGui::SliderInt("##Slider", &engineStatus.op_per_second, 0, MAX_SPEED_EXECUTION);
+    ImGui::SliderInt("##Slider", &engine_status.op_per_second, 0, MAX_SPEED_EXECUTION);
     ImGui::SameLine();
-    ImGui::InputInt("##Input", &engineStatus.op_per_second, 1);
+    ImGui::InputInt("##Input", &engine_status.op_per_second, 1);
 
-    ImGui::Spacing();
+    ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
+    ImGui::Text("Executed : %d", engine_runner.getAmountExecutedInstructions());
 
-    ImGui::SetWindowSize(ImVec2(145, 115));
+    ImGui::SetWindowSize(ImVec2(165, 155));
     ImGui::End();
 }
 
