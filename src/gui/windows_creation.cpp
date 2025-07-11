@@ -137,8 +137,9 @@ void display_debug_windows(EngineRunner &engine_runner) {
 void render_main_window_content(Screen& screen) {
     auto& screen_pixels = screen.getDisplayedScreen();
 
-    for (size_t x = 0; x < screen.getScreenSize().x; ++x) {
-        for (size_t y = 0; y < screen.getScreenSize().y; ++y) {
+    const auto screen_size = screen.getScreenSize();
+    for (size_t y = 0; y < screen_size.y; ++y) {
+        for (size_t x = 0; x < screen_size.x; ++x) {
             if (!screen_pixels[screen.getPixelIndexFrom2D(x, y)]) continue;
             const auto x_float = static_cast<float>(x);
             const auto y_float = static_cast<float>(y);
