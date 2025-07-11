@@ -37,10 +37,11 @@ void display_instruction_executed_trace(EngineRunner &engine_runner) {
     const auto instructions_execution_trace = engine_runner.getInstructionsExecutionTrace();
 
     ImGui::Begin("Instruction Trace");
-    ImGui::Text("Amount executed instructions: %d", instructions_execution_trace.size());
+    ImGui::Text("Amount executed instructions: %d, FPS: %f", instructions_execution_trace.size(), ImGui::GetIO().Framerate);
     ImGui::Text("Instruction Trace: ");
 
-    for (const auto& instruction : instructions_execution_trace) {
+    for (size_t i = 0; i < instructions_execution_trace.size() && i <= MAX_INSTRUCTION_TO_DISPLAY; ++i) {
+        const auto& instruction = instructions_execution_trace[i];
         ImGui::Text("Instruction : %s", instruction->tostring().c_str());
     }
 
