@@ -59,7 +59,7 @@ public:
         return y * screen_size.x + x;
     }
 
-    [[nodiscard]] Vector2<uint16_t> getScreenSize() const { return screen_size; }
+    [[nodiscard]] Vector2<uint16_t>& getScreenSize() { return screen_size; }
 
     void changePixelRectangle(const Vector2<uint16_t> pos1_rect, const Vector2<uint16_t> pos2_rect, const bool value_to_assign) {
         for (uint16_t x = pos1_rect.x; x <= pos2_rect.x; ++x) {
