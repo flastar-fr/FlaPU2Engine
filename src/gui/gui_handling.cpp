@@ -2,13 +2,28 @@
 
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include <cstdio>
 
 #include "config_gui.hpp"
 #include "windows_creation.hpp"
 
 static void glfw_error_callback(const int error, const char* description) {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
+}
+
+void execute_instructions(EngineRunner& engine_runner) {
+    const float fps = ImGui::GetIO().Framerate;
+    const int ops = engine_runner.getEngineStatus().op_per_second;
+    float& instruction_accumulator = engine_runner.getEngineStatus().instruction_accumulator;
+
+    if (fps <= 0.0f || ops <= 0) return;
+
+    const float instructions_per_frame = static_cast<float>(ops) / fps;
+    instruction_accumulator += instructions_per_frame;
+
+    while (instruction_accumulator >= 1.0f) {
+        engine_runner.executeNextInstruction();
+        instruction_accumulator -= 1.0f;
+    }
 }
 
 void handle_keyboard_inputs(Engine& engine) {
@@ -64,7 +79,7 @@ void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_co
     handle_keyboard_inputs(engine_runner.getEngine());
 
     const bool engine_running = !engine_runner.isProgramFinished() && engineStatus.running_status == EngineRunningStatus::RUNNING;
-    if (engine_running) engine_runner.executeNextInstruction();
+    if (engine_running) execute_instructions(engine_runner);
 
     if constexpr (SHOW_DEBUG) display_debug_windows(engine_runner);
 
