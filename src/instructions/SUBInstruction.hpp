@@ -24,8 +24,8 @@ public:
         const uint8_t second_register_to_sub = operands[1].value;
         const uint8_t register_result = operands[2].value;
 
-        registers[register_result] = registers[first_register_to_sub] - registers[second_register_to_sub];
         engine.verifyFlags(registers[first_register_to_sub].getValue(), registers[second_register_to_sub].getValue());
+        registers[register_result] = registers[first_register_to_sub] - registers[second_register_to_sub];
     }
 
     [[nodiscard]] bool isCorrect() const override {

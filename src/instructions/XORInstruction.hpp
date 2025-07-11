@@ -25,8 +25,8 @@ public:
         const uint8_t second_register_to_xor = operands[1].value;
         const uint8_t register_result = operands[2].value;
 
-        registers[register_result] = registers[first_register_to_xor] ^ registers[second_register_to_xor];;
         engine.verifyFlags(registers[first_register_to_xor].getValue(), registers[second_register_to_xor].getValue());
+        registers[register_result] = registers[first_register_to_xor] ^ registers[second_register_to_xor];;
     }
 
     [[nodiscard]] bool isCorrect() const override {
