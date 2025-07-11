@@ -35,7 +35,7 @@ void display_instruction_executed_trace(EngineRunner &engine_runner) {
     const auto& instructions_execution_trace = engine_runner.getInstructionsExecutionTrace();
 
     ImGui::Begin("Instruction Trace");
-    ImGui::Text("Amount executed instructions: %d, FPS: %f", engine_runner.getAmountExecutedInstructions(), ImGui::GetIO().Framerate);
+    ImGui::Text("Amount executed instructions: %lld, FPS: %f", engine_runner.getAmountExecutedInstructions(), ImGui::GetIO().Framerate);
     ImGui::Text("Instruction Trace: ");
 
     for (size_t i = 0; i < instructions_execution_trace.size() && i <= MAX_INSTRUCTION_TO_DISPLAY; ++i) {
@@ -111,7 +111,7 @@ void display_controls(EngineRunner &engine_runner) {
     ImGui::InputInt("##Input", &engine_status.op_per_second, 1);
 
     ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
-    ImGui::Text("Executed : %d", engine_runner.getAmountExecutedInstructions());
+    ImGui::Text("Executed : %lld", engine_runner.getAmountExecutedInstructions());
 
     ImGui::SetWindowSize(ImVec2(165, 155));
     ImGui::End();

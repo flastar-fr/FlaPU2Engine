@@ -45,6 +45,6 @@ private:
     Engine engine;
     std::vector<std::shared_ptr<Instruction>> instructions;
     std::deque<std::shared_ptr<Instruction>> instructions_execution_trace;
-    long amount_executed_instructions = 0;
+    long long amount_executed_instructions = 0;
     EngineStatus engine_status;
 };
