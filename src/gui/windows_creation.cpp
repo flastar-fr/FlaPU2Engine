@@ -80,21 +80,21 @@ void display_flags_n_pc(const Engine &engine) {
 
 void create_buttons_controllers(EngineStatus &engineStatus) {
     if (ImGui::Button("Play")) {
-        if (engineStatus.runningStatus == EngineRunningStatus::PAUSED) {
-            engineStatus.runningStatus = EngineRunningStatus::RUNNING;
+        if (engineStatus.running_status == EngineRunningStatus::PAUSED) {
+            engineStatus.running_status = EngineRunningStatus::RUNNING;
         }
     }
 
     ImGui::SameLine();
 
     if (ImGui::Button("Pause")) {
-        engineStatus.runningStatus = EngineRunningStatus::PAUSED;
+        engineStatus.running_status = EngineRunningStatus::PAUSED;
     }
 
     ImGui::SameLine();
 
     if (ImGui::Button("Stop")) {
-        engineStatus.runningStatus = EngineRunningStatus::STOPPED;
+        engineStatus.running_status = EngineRunningStatus::STOPPED;
     }
 }
 
@@ -105,9 +105,9 @@ void display_controls(EngineStatus &engineStatus) {
     create_buttons_controllers(engineStatus);
 
     ImGui::Text("Operation /seconds:");
-    ImGui::SliderInt("##Slider", &engineStatus.opPerSecond, 0, MAX_SPEED_EXECUTION);
+    ImGui::SliderInt("##Slider", &engineStatus.op_per_second, 0, MAX_SPEED_EXECUTION);
     ImGui::SameLine();
-    ImGui::InputInt("##Input", &engineStatus.opPerSecond, 1);
+    ImGui::InputInt("##Input", &engineStatus.op_per_second, 1);
 
     ImGui::Spacing();
 

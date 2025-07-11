@@ -7,8 +7,8 @@ enum class EngineRunningStatus {
 };
 
 struct EngineStatus {
-    EngineStatus(): opPerSecond(10), runningStatus(EngineRunningStatus::RUNNING) {}
+    EngineStatus(): op_per_second(10), running_status(EngineRunningStatus::RUNNING) {}
 
-    int opPerSecond;
-    EngineRunningStatus runningStatus;
+    int op_per_second;
+    EngineRunningStatus running_status;
 };

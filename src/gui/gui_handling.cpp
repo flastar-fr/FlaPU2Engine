@@ -63,7 +63,7 @@ void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_co
 
     handle_keyboard_inputs(engine_runner.getEngine());
 
-    const bool engine_running = !engine_runner.isProgramFinished() && engineStatus.runningStatus == EngineRunningStatus::RUNNING;
+    const bool engine_running = !engine_runner.isProgramFinished() && engineStatus.running_status == EngineRunningStatus::RUNNING;
     if (engine_running) engine_runner.executeNextInstruction();
 
     if constexpr (SHOW_DEBUG) display_debug_windows(engine_runner);
