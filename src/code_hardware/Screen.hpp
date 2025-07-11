@@ -32,15 +32,11 @@ public:
     }
 
     void drawRectangle() {
-        for (uint16_t x = pos1.x; x <= pos2.x; ++x) {
-            for (uint16_t y = pos1.y; y <= pos2.y; ++y) {
-                screen_buffer[getPixelIndexFrom2D(x, y)] = true;
-            }
-        }
+        changePixelRectangle(pos1, pos2, true);
     }
 
     void clearPixel() {
-        changePixelRectangle(pos1, pos2, true);
+        screen_buffer[getPixelIndexFrom2D(pos1.x, pos1.y)] = false;
     }
 
     void clearRectangle() {
@@ -57,7 +53,7 @@ public:
         displayed_screen = screen_buffer;
     }
 
-    [[nodiscard]] std::vector<bool> getDisplayedScreen() { return displayed_screen; }
+    [[nodiscard]] std::vector<bool>& getDisplayedScreen() { return displayed_screen; }
 
     [[nodiscard]] int getPixelIndexFrom2D(const uint16_t x, const uint16_t y) const {
         return y * screen_size.x + x;
