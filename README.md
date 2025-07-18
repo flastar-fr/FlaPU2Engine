@@ -1,7 +1,7 @@
 # FlaPU2Engine
 This project is an emulator for an 8-bit CPU that has more than 65MB (can be configured but cannot be more than actually configured) of memory and 16 registers.
 This is my first C++ project, so it is more a learning project than an actual useful project.
-You can find my [ISA](https://docs.google.com/spreadsheets/d/1aE8e7TodV6_dxUF-UbF0xdbSolc1Z1ntD5Rz3ESL6Uk/edit?gid=0#gid=0) here.
+You can find my [ISA](https://docs.google.com/spreadsheets/d/1aE8e7TodV6_dxUF-UbF0xdbSolc1Z1ntD5Rz3ESL6Uk/edit?gid=0#gid=0) here (not followed 100%).
 ***
 
 ## Summary
@@ -29,7 +29,8 @@ However, for the tests, the gcc compiler returns me warnings, but it seems to be
 
 ## How to program ?
 With the ISA and some really basic knowledge of assembly, you should be able to program in my assembly language.
-However, you may need some extra information on some particular things.
+However, you may need some extra information on some particular things. 
+Note that I do not follow a 100% the ISA. I added a couple more features for some instructions, so I recommend you watching my code for the instruction implementation before calling it.
 
 ### Null register
 This project uses my own architecture, so the first register (r0) is an eternal null register, which means that no matter what value you assign to it, its value will always be 0.
