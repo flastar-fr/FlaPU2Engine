@@ -17,6 +17,12 @@ This project is written using the C++ 17 convention.
 For now the only way to tell to the program which file you want to execute is by modifying the hard coded file name in the main file and making sure the file is in the ressource source folder at compilation.
 To see the result, you have to look at the values displayed after the program execution, which represent the values of the 6 first registers.
 
+### Compile
+To compile and launch the main program you have to have xmake installed and launch the ``xmake run FlaPU2Engine`` command. 
+This command will start downloading ImGui and all dependencies and then compile to execute.
+Same for the unit tests and launch ``xmake run tests``. Same as before, it will download this time the gtest package. 
+All this configuration can be found in [the xmake.lua file](xmake.lua).
+
 ## How to program ?
 With the ISA and some really basic knowledge of assembly, you should be able to program in my assembly language.
 However, you may need some extra information on some particular things.
@@ -71,13 +77,17 @@ Note : this order also represents the order where it is left in the vector. That
 
 To interract with ports you have to use the ``PLD`` and ``PST`` instructions. The first one loads the value of a port into a register, the second one stores the value of a register into a port.
 
-For ports that only need to be triggered you can just pass no register with ``PST`` instruction, and it will be triggered. Even if you pass a register that has a value of 0 it will be triggered (might change later).
+For ports that only needs to be triggered you can just pass no register with ``PST`` instruction, and it will be triggered. Even if you pass a register that has a value of 0 it will be triggered (might change later).
 
 You can check the complete example on ports [here](#example-using-all-ports)
 
 ### Extra information
-
 Comments are only singleline and start with a ``#``.
+
+All the configurations are available in .hpp or .cpp files. 
+The config files for the engine are [src/config_hardware.hpp](src/config_hardware.hpp) and [src/config_hardware.cpp](src/config_hardware.cpp). 
+The config file for the GUI is [src/gui/config_gui.hpp](src/gui/config_gui.hpp). 
+I do not recommend you to remove some datas from these files, but you can change the default values, add new instructions, new chars, etc... But already existing values (mainly in enums) could result in compilation error.
 
 ## Features
 - [x] Working structure (registers, memory, etc...)
