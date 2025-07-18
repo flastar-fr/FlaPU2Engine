@@ -53,7 +53,7 @@ PST print_screen
 PST clear_screen
 PST print_screen
 
-# randomly place rectangles
+# randomly place 5 rectangles
 LDI r3 5
 LDI r4 255
 PST rng_range [r0:r4]
@@ -74,7 +74,7 @@ PST rng_range [r0:r4]
 PST clear_screen
 PST print_screen
 
-# draw rectangle
+# draw rectangle following the pressed arrows
 LDI r1 10
 LDI r2 40
 LDI r3 45

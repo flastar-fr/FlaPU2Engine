@@ -6,7 +6,7 @@ You can find my [ISA](https://docs.google.com/spreadsheets/d/1aE8e7TodV6_dxUF-Ub
 
 ## Summary
 1. [Getting started](#getting-started)
-2. [Addionnal information](#additionnal-information)
+2. [How to program ?](#how-to-program-)
 3. [Features](#features)
 4. [Examples](#examples)
 
@@ -17,18 +17,65 @@ This project is written using the C++ 17 convention.
 For now the only way to tell to the program which file you want to execute is by modifying the hard coded file name in the main file and making sure the file is in the ressource source folder at compilation.
 To see the result, you have to look at the values displayed after the program execution, which represent the values of the 6 first registers.
 
-## Additionnal information
-With the ISA and some basic knowledge of assembly, you should be able to program in my assembly language.
+## How to program ?
+With the ISA and some really basic knowledge of assembly, you should be able to program in my assembly language.
 However, you may need some extra information on some particular things.
 
+### Null register
 This project uses my own architecture, so the first register (r0) is an eternal null register, which means that no matter what value you assign to it, its value will always be 0.
 That also means that you can use this register in instruction calls, and you will be sure that the value of the register will be 0.
 
-To create a definition, you have to use the ``define`` keyword, and you can use this format : ``define <definition name> <definition value>``.
-For example : ``define NULL_VALUE 0``
+### Definitions
+To create a definition, you have to use the ``define`` keyword, and use this format : ``define <definition name> <definition value>``.
+Example : ``define NULL_VALUE 0``
 
-The labels always start with a dot and are placed before the instruction that you want to jump from.
+Definitions are implemented using an unordened map during preprocessing and does not check if a definition already exists. 
+So you have to make sure to define a definition name only one time to not deal with undefined behaviour.
+
+### Labels
+Labels always start with a dot and are placed before the instruction that you want to jump from.
 Take a look at the [examples](#examples) for a better understanding.
+
+### Ports
+Ports can be accessed via their name or their id. The id looks close to register id but instead of starting with an ``r`` it starts with a ``p`` so for example : ``p0``, ``p1``, ``p2``.
+There are 18 ports so the last port is p17.
+
+Ports names are evaluated at preprocessing to be replaced by a port id.
+
+Here is the list of all available ports name :
+1. Text display
+   - write_char
+   - clear_chars
+   - print_chars
+2. Number display
+   - write_number
+   - clear_number
+   - print_number
+3. Screen
+   - pixel1_x
+   - pixel1_y
+   - pixel2_x
+   - pixel2_y
+   - draw_pixel
+   - draw_rect
+   - clear_pixel
+   - clear_rect
+   - clear_screen
+   - print_screen
+4. Random device
+   - rng_range
+   - random_nb
+5. Keyboard input
+   - keyboard_input
+Note : this order also represents the order where it is left in the vector. That means that the id of the first name in the list is ``p0``, next is ``p1`` and so on to ``p17``.
+
+To interract with ports you have to use the ``PLD`` and ``PST`` instructions. The first one loads the value of a port into a register, the second one stores the value of a register into a port.
+
+For ports that only need to be triggered you can just pass no register with ``PST`` instruction, and it will be triggered. Even if you pass a register that has a value of 0 it will be triggered (might change later).
+
+You can check the complete example on ports [here](#example-using-all-ports)
+
+### Extra information
 
 Comments are only singleline and start with a ``#``.
 
@@ -74,7 +121,7 @@ Comments are only singleline and start with a ``#``.
   - [x] Run / Pause / Stop the program
 
 ## Examples
-Note that these programs can be hugely optimized. It is just to give you some examples of how to use my assembly language.
+Note that these programs can be hugely optimized and readibility improved. It is just to give you some examples of how to use my assembly language.
 
 In these examples the labels are nammed following this format : ``.<prog name>.<function>`` but this is just the choice I made.
 I could just use the format : ``.<function>`` if I wanted to. As long as it starts with a ``.``, you can name a label as you want.
@@ -187,4 +234,150 @@ HLT
         JMP .mul.start
 
     .mul.end RET
+```
+
+### Example using all ports
+In this example I dive into each port and use these ports using the appropriate instruction (PLD or PST). This is a fairly simple but complete example which shows all the available ports.
+```asm
+# write "HELLO WORLD!"
+LDI r1 'H'
+LDI r2 'E'
+LDI r3 'L'
+LDI r4 'L'
+LDI r5 'O'
+LDI r6 ' '
+LDI r7 'W'
+LDI r8 'O'
+LDI r9 'R'
+LDI r10 'L'
+LDI r11 'D'
+LDI r12 '!'
+PST write_char [r1]
+PST write_char [r2]
+PST write_char [r3]
+PST write_char [r4]
+PST write_char [r5]
+PST write_char [r6]
+PST write_char [r7]
+PST write_char [r8]
+PST write_char [r9]
+PST write_char [r10]
+PST write_char [r11]
+PST write_char [r12]
+PST print_chars
+
+# write "666"
+LDI r13 2
+LDI r14 154
+PST write_number [r13:r14]
+PST print_number
+
+# draw pixel
+LDI r1 50
+PST pixel1_x [r0:r1]
+PST pixel1_y [r0:r1]
+PST draw_pixel
+PST print_screen
+
+# draw rectangle
+LDI r1 80
+PST pixel1_x [r0:r1]
+PST pixel1_y [r0:r1]
+LDI r2 1
+LDI r3 244
+PST pixel2_x [r2:r3]
+PST pixel2_y [r2:r3]
+PST draw_rect
+PST print_screen
+PST clear_rect
+PST print_screen
+PST clear_screen
+PST print_screen
+
+# randomly place 5 rectangles
+LDI r3 5
+LDI r4 255
+PST rng_range [r0:r4]
+.start_rects
+    PLD random_nb r1
+    PLD random_nb r2
+    PST pixel1_x [r0:r1]
+    PST pixel1_y [r0:r1]
+    PST pixel2_x [r0:r2]
+    PST pixel2_y [r0:r2]
+    PST draw_rect
+    PST print_screen
+    PST clear_screen
+    DEC r3
+    CMP r3 r0
+    BRH != .start_rects
+
+PST clear_screen
+PST print_screen
+
+# draw rectangle following the pressed arrows
+LDI r1 10
+LDI r2 40
+LDI r3 45
+LDI r4 70
+LDI r5 75
+LDI r6 105
+LDI r7 135
+LDI r9 35 # UP
+LDI r10 36 # DOWN
+LDI r11 37 # LEFT
+LDI r12 38 # RIGHT
+.rects.start
+    PLD keyboard_input r8
+    CMP r8 r9
+    BRH = .rects.up
+    CMP r8 r10
+    BRH = .rects.down
+    CMP r8 r11
+    BRH = .rects.left
+    CMP r8 r12
+    BRH = .rects.right
+    JMP .rects.start
+
+HLT
+
+.rects.up
+    PST pixel1_x [r0:r5]
+    PST pixel1_y [r0:r1]
+    PST pixel2_x [r0:r6]
+    PST pixel2_y [r0:r2]
+    PST clear_screen
+    PST draw_rect
+    PST print_screen
+    JMP .rects.start
+
+.rects.down
+    PST pixel1_x [r0:r5]
+    PST pixel1_y [r0:r3]
+    PST pixel2_x [r0:r6]
+    PST pixel2_y [r0:r5]
+    PST clear_screen
+    PST draw_rect
+    PST print_screen
+    JMP .rects.start
+
+.rects.left
+    PST pixel1_x [r0:r2]
+    PST pixel1_y [r0:r3]
+    PST pixel2_x [r0:r4]
+    PST pixel2_y [r0:r5]
+    PST clear_screen
+    PST draw_rect
+    PST print_screen
+    JMP .rects.start
+
+.rects.right
+    PST pixel1_x [r0:r6]
+    PST pixel1_y [r0:r3]
+    PST pixel2_x [r0:r7]
+    PST pixel2_y [r0:r5]
+    PST clear_screen
+    PST draw_rect
+    PST print_screen
+    JMP .rects.start
 ```
