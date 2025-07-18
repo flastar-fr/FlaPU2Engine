@@ -11,7 +11,7 @@ You can find my [ISA](https://docs.google.com/spreadsheets/d/1aE8e7TodV6_dxUF-Ub
 4. [Examples](#examples)
 
 ## Getting started
-The build tool this project uses is xmake, and it also needs for the unit tests the gtest library (if you are interested in tests, otherwise you can remove the "tests" part from the xmake.lua).
+The build tool this project uses is xmake, and it also needs for the unit tests the gtest library (if you are interested in tests, otherwise you can remove the "tests" part from the [xmake.lua](xmake.lua)).
 This project is written using the C++ 17 convention.
 
 For now the only way to tell to the program which file you want to execute is by modifying the hard coded file name in the main file and making sure the file is in the ressource source folder at compilation.
@@ -22,6 +22,10 @@ To compile and launch the main program you have to have xmake installed and laun
 This command will start downloading ImGui and all dependencies and then compile to execute.
 Same for the unit tests and launch ``xmake run tests``. Same as before, it will download this time the gtest package. 
 All this configuration can be found in [the xmake.lua file](xmake.lua).
+
+I tested my program to compile with MCVS on Windows and gcc on Arch Linux. 
+Both the main program and the tests work properly with both of the compilers / systems. 
+However, for the tests, the gcc compiler returns me warnings, but it seems to be version related and I do not understand where is the issue so you might not have the issue.
 
 ## How to program ?
 With the ISA and some really basic knowledge of assembly, you should be able to program in my assembly language.
