@@ -21,7 +21,7 @@ public:
 
         const uint8_t interrupt_code = operands[0].value;
 
-        engine.triggerInterrupt(interrupt_code);
+        engine.triggerInterrupt(interrupt_code, false);
     }
 
     [[nodiscard]] bool isCorrect() const override {

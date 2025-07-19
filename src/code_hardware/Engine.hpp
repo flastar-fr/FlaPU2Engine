@@ -1,6 +1,7 @@
 #ifndef ENGINE_HPP
 #define ENGINE_HPP
 
+#include <chrono>
 #include <stack>
 
 #include "config_hardware.hpp"
@@ -14,14 +15,16 @@ class Engine {
 public:
     explicit Engine(const int memoryAmount, const size_t amountInterrupts)
         : register_amount(DEFAULT_SIZE_REGISTERS), memory_amount(memoryAmount), registers(Registers()),
-          memory(Memory(memoryAmount)), programCounter(0), flag_states({false, false, false, false}),
-          ports(Ports(SCREEN_SIZE)), ivt(amountInterrupts) {}
+          memory(Memory(memoryAmount)), program_counter(0), flag_states({false, false, false, false}),
+          ports(Ports(SCREEN_SIZE)), ivt(amountInterrupts) {
+        start_period = std::chrono::high_resolution_clock::now();
+    }
 
     Engine() : Engine(DEFAULT_SIZE_MEMORY, AMOUNT_INTERRUPTS) {}
 
     Registers& getRegisters() { return registers; }
     Memory& getMemory() { return memory; }
-    [[nodiscard]] size_t getProgramCounter() const { return programCounter; }
+    [[nodiscard]] size_t getProgramCounter() const { return program_counter; }
     [[nodiscard]] std::array<bool, 4> getFlagStates() const { return flag_states; }
     [[nodiscard]] Ports& getPorts() { return ports; }
     [[nodiscard]] InterruptVectorTable& getInterruptVectorTable() { return ivt; }
@@ -36,14 +39,14 @@ public:
     }
 
     void incrementProgramCounter() {
-        programCounter = ++programCounter % MAX_AMOUNT_INSTRUCTIONS;
+        program_counter = ++program_counter % MAX_AMOUNT_INSTRUCTIONS;
     }
 
     void jump(const size_t new_address) {
-        programCounter = new_address % MAX_AMOUNT_INSTRUCTIONS;
+        program_counter = new_address % MAX_AMOUNT_INSTRUCTIONS;
     }
 
-    void pushStack(const uint8_t address) {
+    void pushStack(const size_t address) {
         if (stack_addresses.size() > MAX_STACK_MEMORY) throw std::length_error("Stack overflow");
         stack_addresses.push(address);
     }
@@ -53,19 +56,32 @@ public:
         stack_addresses.pop();
     }
 
-    void setInterruptionEnabledState(const bool enabled) {
-        interruption_enabled = enabled;
+    void setInterruptionEnabledState(const bool new_state) {
+        interruption_enabled = new_state;
     }
 
-    void triggerInterrupt(const uint8_t interrupt_code) {
+    void triggerInterrupt(const uint8_t interrupt_code, const bool reexecute_last_instruction) {
         if (!interruption_enabled) return;
 
         const size_t new_address = ivt.getInterruptionISRAddress(interrupt_code);
 
-        pushStack(getProgramCounter());
+        const int offset_stack = reexecute_last_instruction ? 1 : 0;
+        const int offset_jump = reexecute_last_instruction ? 0 : 1;
+        pushStack(getProgramCounter() - offset_stack);
 
-        jump(new_address - 1);
+        jump(new_address - offset_jump);
         setInterruptionEnabledState(false);
+    }
+
+    void checkPeriodicInterrupt() {
+        const auto now = std::chrono::high_resolution_clock::now();
+        const auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - start_period);
+
+        if (duration.count() >= PERIODIC_TIMER_DURATION_MS) {
+            start_period = std::chrono::high_resolution_clock::now();
+
+            triggerInterrupt(PERIODIC_INTERRUPT_CODE, true);
+        }
     }
 
 private:
@@ -73,11 +89,12 @@ private:
     int memory_amount;
     Registers registers;
     Memory memory;
-    size_t programCounter;
+    size_t program_counter;
     std::array<bool, 4> flag_states;
     bool interruption_enabled = true;
-    std::stack<uint8_t> stack_addresses;
+    std::stack<size_t> stack_addresses;
     Ports ports;
     InterruptVectorTable ivt;
+    std::chrono::time_point<std::chrono::steady_clock> start_period;
 };
 #endif //ENGINE_HPP

@@ -107,6 +107,8 @@ constexpr char COMMENT_PREFIX = '#';
 constexpr char LEFT_REGISTER_VALUE_CHAR = '[';
 constexpr char RIGHT_REGISTER_VALUE_CHAR = ']';
 constexpr char PATTERN_REPETITION_CHAR = ':';
+constexpr int PERIODIC_TIMER_DURATION_MS = 1000;
+constexpr uint8_t PERIODIC_INTERRUPT_CODE = 0;
 const Vector2<uint16_t> SCREEN_SIZE = {1280, 720};
 const int AMOUNT_INTERRUPTS = static_cast<int>(std::pow(2, AMOUNT_BITS_PER_CELL) - 1);
 
