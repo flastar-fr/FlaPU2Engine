@@ -97,7 +97,7 @@ std::string to_string(ValueType value_type);
 
 extern std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const std::vector<Token>&)>> instruction_factories;
 constexpr size_t MAX_AMOUNT_INSTRUCTIONS = 1024;
-constexpr size_t DEFAULT_SIZE_MEMORY = 65535;
+constexpr uint16_t DEFAULT_SIZE_MEMORY = 65535;
 constexpr size_t MAX_STACK_MEMORY = 16;
 constexpr size_t AMOUNT_BITS_PER_CELL = 8;
 constexpr size_t MAX_AMOUNT_CHARS_DISPLAY = 20;
@@ -108,6 +108,7 @@ constexpr char LEFT_REGISTER_VALUE_CHAR = '[';
 constexpr char RIGHT_REGISTER_VALUE_CHAR = ']';
 constexpr char PATTERN_REPETITION_CHAR = ':';
 const Vector2<uint16_t> SCREEN_SIZE = {1280, 720};
+const int AMOUNT_INTERRUPTS = static_cast<int>(std::pow(2, AMOUNT_BITS_PER_CELL) - 1);
 
 const std::array<std::string, 4> AVAILABLE_FLAGS = {"=", "!=", ">=", "<"};
 

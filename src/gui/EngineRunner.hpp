@@ -13,12 +13,13 @@ public:
     [[nodiscard]] Engine& getEngine() { return engine; }
     [[nodiscard]] EngineStatus& getEngineStatus() { return engine_status; }
     std::deque<std::shared_ptr<Instruction>>& getInstructionsExecutionTrace() { return instructions_execution_trace; }
-    [[nodiscard]] long getAmountExecutedInstructions() const { return amount_executed_instructions; }
+    [[nodiscard]] long long getAmountExecutedInstructions() const { return amount_executed_instructions; }
 
     void executeNextInstruction() {
         const auto& instruction = instructions[engine.getProgramCounter()];
         registerInstruction(instruction);
         instruction->execute(engine);
+        std::cout << *instruction << std::endl;
         engine.incrementProgramCounter();
     }
 

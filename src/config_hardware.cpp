@@ -22,6 +22,9 @@
 #include "instructions/STRInstruction.hpp"
 #include "instructions/PSTInstruction.hpp"
 #include "instructions/PLDInstruction.hpp"
+#include "instructions/INTInstruction.hpp"
+#include "instructions/ISTInstruction.hpp"
+#include "instructions/IRTInstruction.hpp"
 
 #include "instructions/CMPPseudoInstruction.hpp"
 #include "instructions/MOVPseudoInstruction.hpp"
@@ -74,6 +77,9 @@ std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const
     {"STR", [](const std::vector<Token>& operands) { return std::make_shared<STRInstruction>(operands); }},
     {"PST", [](const std::vector<Token>& operands) { return std::make_shared<PSTInstruction>(operands); }},
     {"PLD", [](const std::vector<Token>& operands) { return std::make_shared<PLDInstruction>(operands); }},
+    {"INT", [](const std::vector<Token>& operands) { return std::make_shared<INTInstruction>(operands); }},
+    {"IST", [](const std::vector<Token>& operands) { return std::make_shared<ISTInstruction>(operands); }},
+    {"IRT", [](const std::vector<Token>& operands) { return std::make_shared<IRTInstruction>(operands); }},
     {"CMP", [](const std::vector<Token>& operands) { return std::make_shared<CMPPseudoInstruction>(operands); }},
     {"MOV", [](const std::vector<Token>& operands) { return std::make_shared<MOVPseudoInstruction>(operands); }},
     {"LSH", [](const std::vector<Token>& operands) { return std::make_shared<LSHPseudoInstruction>(operands); }},
