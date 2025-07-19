@@ -6,9 +6,22 @@ You can find my [ISA](https://docs.google.com/spreadsheets/d/1aE8e7TodV6_dxUF-Ub
 
 ## Summary
 1. [Getting started](#getting-started)
+   1. [Compile](#compile)
 2. [How to program ?](#how-to-program-)
+    1. [Null register](#null-register)
+    2. [Definitions](#definitions)
+    3. [Labels](#labels)
+    4. [Ports](#ports)
+    5. [Interrupts](#interrupts)
+    6. [Extra information](#extra-information)
 3. [Features](#features)
 4. [Examples](#examples)
+   1. [Fibonacci](#fibonacci)
+   2. [Division](#division)
+   3. [Modulo](#modulo)
+   4. [Multiplication](#multiplication)
+   5. [Example using all ports](#example-using-all-ports)
+   6. [Complete example with interrupts](#complete-example-with-interrupts)
 
 ## Getting started
 The build tool this project uses is xmake, and it also needs for the unit tests the gtest library (if you are interested in tests, otherwise you can remove the "tests" part from the [xmake.lua](xmake.lua)).
@@ -85,6 +98,20 @@ To interract with ports you have to use the ``PLD`` and ``PST`` instructions. Th
 For ports that only needs to be triggered you can just pass no register with ``PST`` instruction, and it will be triggered. Even if you pass a register that has a value of 0 it will be triggered (might change later).
 
 You can check the complete example on ports [here](#example-using-all-ports)
+
+### Interrupts
+The interrupt system is very simple. The engine has an Interrupt Vector Table (IVT) of 255 interrupts (so the max amount of interrupts) and each index correspond to an address for the ISR. 
+Instructions for interrupts varies a bit from the ISA. The ``IST`` instruction used as ``IST <interrupt code (immediate value)> <ISR address (immediate value)>`` is used to store the ISR address in the IVT. 
+The ``INT`` instruction used as ``INT <interrupt code (immediate value)>`` trigger an interrupt. 
+
+At the end of your ISR code you have to put the ``IRT`` instruction which tells the engine to pop from the address stack exactly like a ``RET`` instruction after being ``CAL``. 
+What is the point of ``IRT`` instruction then ? The ``IRT`` instruction also sets the flag for instructions to be triggerable as enabled because ``INT`` one deactivate the flag. 
+A flag deactivated means that no interrupts can be triggered.
+
+The interrupt with the code 0 is reserved for the timer interrupt. This interrupt is thrown once every x ms where x can be found in [this file](src/config_hardware.hpp) (might change to be editable later). 
+If this interrupt is called during when the interrupt flag is false it will just be avoided.
+
+I ugely recommend you to check out [my example](#complete-example-with-interrupts) before trying to using interrupts.
 
 ### Extra information
 Comments are only singleline and start with a ``#``.
@@ -395,4 +422,67 @@ HLT
     PST draw_rect
     PST print_screen
     JMP .rects.start
+```
+
+### Complete example with interrupts
+This example first set the ISR of each interrupt. It then triggers the interrupts 2 and 1, the first one displays 'Hello World!' in the text display and the second one displays 666. 
+During this process the timer interrupt might be good to be triggered but is not triggered because interrupts can't be triggered during another interrupt. 
+After the 2 interrupts are executed the timer interrupt can be executed during the infinite loop to increment r1 each time the interrupt is triggered.
+```asm
+IST 0 .timer_isr
+IST 1 .set_2_isr
+IST 2 .set_3_isr
+
+INT 2
+INT 1
+.start
+    JMP .start
+HLT
+
+.timer_isr
+    INC r1
+    IRT
+
+.set_2_isr
+    CAL .say_666
+    IRT
+
+.set_3_isr
+    CAL .write_hello_world
+    IRT
+
+.write_hello_world
+    LDI r1 'H'
+    LDI r2 'E'
+    LDI r3 'L'
+    LDI r4 'L'
+    LDI r5 'O'
+    LDI r6 ' '
+    LDI r7 'W'
+    LDI r8 'O'
+    LDI r9 'R'
+    LDI r10 'L'
+    LDI r11 'D'
+    LDI r12 '!'
+    PST write_char [r1]
+    PST write_char [r2]
+    PST write_char [r3]
+    PST write_char [r4]
+    PST write_char [r5]
+    PST write_char [r6]
+    PST write_char [r7]
+    PST write_char [r8]
+    PST write_char [r9]
+    PST write_char [r10]
+    PST write_char [r11]
+    PST write_char [r12]
+    PST print_chars
+    RET
+
+.say_666
+    LDI r13 2
+    LDI r14 154
+    PST write_number [r13:r14]
+    PST print_number
+    RET
 ```
