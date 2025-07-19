@@ -91,6 +91,8 @@ Here is the list of all available ports name :
    - random_nb
 5. Keyboard input
    - keyboard_input
+6. Periodic interrupt timer
+   - input_timer_ms
 Note : this order also represents the order where it is left in the vector. That means that the id of the first name in the list is ``p0``, next is ``p1`` and so on to ``p17``.
 
 To interract with ports you have to use the ``PLD`` and ``PST`` instructions. The first one loads the value of a port into a register, the second one stores the value of a register into a port.
@@ -108,7 +110,8 @@ At the end of your ISR code you have to put the ``IRT`` instruction which tells 
 What is the point of ``IRT`` instruction then ? The ``IRT`` instruction also sets the flag for instructions to be triggerable as enabled because ``INT`` one deactivate the flag. 
 A flag deactivated means that no interrupts can be triggered.
 
-The interrupt with the code 0 is reserved for the timer interrupt. This interrupt is thrown once every x ms where x can be found in [this file](src/config_hardware.hpp) (might change to be editable later). 
+The interrupt with the code 0 is reserved for the timer interrupt. This interrupt is thrown once every n ms where n is by default 1000ms. 
+You can edit this value with the ``input_timer_ms`` port that takes 2 registers values argument (high / low bytes).
 If this interrupt is called during when the interrupt flag is false it will just be avoided.
 
 I ugely recommend you to check out [my example](#complete-example-with-interrupts) before trying to using interrupts.

@@ -77,11 +77,15 @@ public:
         const auto now = std::chrono::high_resolution_clock::now();
         const auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - start_period);
 
-        if (duration.count() >= PERIODIC_TIMER_DURATION_MS) {
+        if (duration.count() >= periodic_timer_duration_ms) {
             start_period = std::chrono::high_resolution_clock::now();
 
             triggerInterrupt(PERIODIC_INTERRUPT_CODE, true);
         }
+    }
+
+    void setPeriodicTimerDuration(const int duration) {
+        periodic_timer_duration_ms = duration;
     }
 
 private:
@@ -96,5 +100,6 @@ private:
     Ports ports;
     InterruptVectorTable ivt;
     std::chrono::time_point<std::chrono::steady_clock> start_period;
+    int periodic_timer_duration_ms= DEFAULT_PERIODIC_TIMER_DURATION_MS;
 };
 #endif //ENGINE_HPP

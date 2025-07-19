@@ -1,6 +1,11 @@
 IST 0 .timer_isr
 IST 1 .set_2_isr
 IST 2 .set_3_isr
+LDI r5 1
+LDI r6 244
+PST input_timer_ms [r5:r6]
+LDI r5 0
+LDI r6 0
 
 INT 2
 INT 1
