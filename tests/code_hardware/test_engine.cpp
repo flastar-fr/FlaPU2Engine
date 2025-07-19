@@ -11,7 +11,7 @@ TEST(EngineTest, DefaultConstructor) {
 }
 
 TEST(EngineTest, CustomSizeConstructor) {
-    auto engine = Engine(ALTERNATIVE_TEST_VALUE);
+    auto engine = Engine(ALTERNATIVE_TEST_VALUE, ALTERNATIVE_TEST_VALUE);
 
     EXPECT_EQ(engine.getRegisters().size(), DEFAULT_SIZE_REGISTERS);
     EXPECT_EQ(engine.getMemory().size(), ALTERNATIVE_TEST_VALUE);
