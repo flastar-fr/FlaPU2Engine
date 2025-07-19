@@ -428,13 +428,18 @@ HLT
 ```
 
 ### Complete example with interrupts
-This example first set the ISR of each interrupt. It then triggers the interrupts 2 and 1, the first one displays 'Hello World!' in the text display and the second one displays 666. 
+This example first set the ISR of each interrupt. After that it modifies the default duration for the timer (1000ms -> 500ms). It then triggers the interrupts 2 and 1, the first one displays 'Hello World!' in the text display and the second one displays 666. 
 During this process the timer interrupt might be good to be triggered but is not triggered because interrupts can't be triggered during another interrupt. 
 After the 2 interrupts are executed the timer interrupt can be executed during the infinite loop to increment r1 each time the interrupt is triggered.
 ```asm
 IST 0 .timer_isr
 IST 1 .set_2_isr
 IST 2 .set_3_isr
+LDI r5 1
+LDI r6 244
+PST input_timer_ms [r5:r6]
+LDI r5 0
+LDI r6 0
 
 INT 2
 INT 1
