@@ -19,7 +19,6 @@ public:
         const auto& instruction = instructions[engine.getProgramCounter()];
         registerInstruction(instruction);
         instruction->execute(engine);
-        std::cout << *instruction << std::endl;
         engine.incrementProgramCounter();
     }
 

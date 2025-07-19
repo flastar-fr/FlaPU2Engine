@@ -19,7 +19,7 @@ public:
 
 private:
     std::vector<std::string> lines;
-    std::pmr::unordered_map<std::string, std::string> labels_n_definitions;
+    std::unordered_map<std::string, std::string> labels_n_definitions;
 };
 
 

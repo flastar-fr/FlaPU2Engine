@@ -9,6 +9,19 @@
 
 constexpr size_t DEFINITION_SIZE_FORMAT = 3;
 
+void remove_comments(std::string& line) {
+    if (!line.empty() && line[0] == COMMENT_PREFIX) {
+        line.clear();
+        return;
+    }
+
+    const size_t first_comment_char = line.find(COMMENT_PREFIX);
+    if (first_comment_char == std::string::npos) {
+        return;
+    }
+
+    line = line.substr(0, first_comment_char - 1);
+}
 
 std::string extract_label(std::string& line) {
     const size_t first_space = line.find(' ');
@@ -41,6 +54,7 @@ std::vector<std::string> extract_labels_and_find_next_line(std::string& trimmed_
         if (trimmed_line.empty()) {
             ++current_line;
             trimmed_line = trim(lines[current_line]);
+            remove_comments(trimmed_line);
         } else {
             label = extract_label(trimmed_line);
             labels_to_add.push_back(label);
@@ -48,20 +62,6 @@ std::vector<std::string> extract_labels_and_find_next_line(std::string& trimmed_
     }
 
     return labels_to_add;
-}
-
-void remove_comments(std::string& line) {
-    if (!line.empty() && line[0] == COMMENT_PREFIX) {
-        line.clear();
-        return;
-    }
-
-    const size_t first_comment_char = line.find(COMMENT_PREFIX);
-    if (first_comment_char == std::string::npos) {
-        return;
-    }
-
-    line = line.substr(0, first_comment_char - 1);
 }
 
 void merge_labels(std::string& trimmed_line, const std::vector<std::string>& lines, size_t& i) {
@@ -129,7 +129,6 @@ void Preprocessor::uniformize() {
         remove_comments(trimmed_line);
 
         if (trimmed_line.empty()) continue;
-
         merge_labels(trimmed_line, lines, i);
 
         new_lines.push_back(trimmed_line);
