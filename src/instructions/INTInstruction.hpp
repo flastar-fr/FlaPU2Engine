@@ -19,17 +19,9 @@ public:
             throw std::invalid_argument("Invalid instruction");
         }
 
-        if (!engine.getInterruptionEnabled()) return;
-
         const uint8_t interrupt_code = operands[0].value;
-        const InterruptVectorTable& ivt = engine.getInterruptVectorTable();
 
-        const size_t new_address = ivt.getInterruptionISRAddress(interrupt_code);
-
-        engine.pushStack(engine.getProgramCounter());
-
-        engine.jump(new_address - 1);
-        engine.setInterruptionEnabledState(false);
+        engine.triggerInterrupt(interrupt_code);
     }
 
     [[nodiscard]] bool isCorrect() const override {

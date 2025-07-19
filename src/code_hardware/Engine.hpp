@@ -57,6 +57,17 @@ public:
         interruption_enabled = enabled;
     }
 
+    void triggerInterrupt(const uint8_t interrupt_code) {
+        if (!interruption_enabled) return;
+
+        const size_t new_address = ivt.getInterruptionISRAddress(interrupt_code);
+
+        pushStack(getProgramCounter());
+
+        jump(new_address - 1);
+        setInterruptionEnabledState(false);
+    }
+
 private:
     int register_amount;
     int memory_amount;
