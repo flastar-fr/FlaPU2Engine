@@ -199,8 +199,8 @@ I do not recommend you to remove some datas from these files, but you can change
     - [x] Display chars
   - [x] Random 8 bits number generator
   - [x] Input system
-- [ ] Support for interruptions
-- [ ] Better way to select a program
+- [x] Support for interruptions
+- [x] Better way to select a program
 - [x] Better error messages
 - [x] Remove case sensitivity for keywords
 - [x] Be able to have more than 255 memory cells
