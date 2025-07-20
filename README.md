@@ -224,6 +224,9 @@ I could just use the format : ``.<function>`` if I wanted to. As long as it star
 ### Fibonacci
 r1 is the register result of the program. Here: x = 13, F_x = 233
 ```asm
+# switch off interrupts
+PST switch_interrupt
+
 define x 13
 
 LDI r2 x
@@ -252,6 +255,9 @@ HLT
 ### Division
 r3 is the register result. Here: x = 13, y = 5, x/y = 2
 ```asm
+# switch off interrupts
+PST switch_interrupt
+
 define x 13
 define y 5
 
@@ -281,6 +287,9 @@ HLT
 ### Modulo
 r3 is the register result. Here: x = 13, y = 5, x % y = 3
 ```asm
+# switch off interrupts
+PST switch_interrupt
+
 define x 13
 define y 5
 
@@ -308,6 +317,9 @@ HLT
 ### Multiplication
 r3 is the register result. Here: x = 5, y = 13, x * y = 65
 ```asm
+# switch off interrupts
+PST switch_interrupt
+
 define x 5
 define y 13
 
@@ -335,6 +347,9 @@ HLT
 In this example I dive into each port (except those used for interrupts, check the example with interrupts to get the examples) and use these ports using the appropriate instruction (PLD or PST). 
 This is a fairly simple but complete example which shows all the available ports.
 ```asm
+# switch off interrupts
+PST switch_interrupt
+
 # set screen pixel color to white
 LDI r1 255
 PST pixel_color [r1:r1:r1]

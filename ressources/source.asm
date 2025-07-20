@@ -1,3 +1,6 @@
+# switch off interrupts
+PST switch_interrupt
+
 # set screen pixel color to white
 LDI r1 255
 PST pixel_color [r1:r1:r1]
