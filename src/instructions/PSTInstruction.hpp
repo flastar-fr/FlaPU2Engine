@@ -83,6 +83,7 @@ public:
             }
             case PortType::CLEAR_PIXEL: {
                 ports.screen.clearPixel();
+                break;
             }
             case PortType::CLEAR_RECT: {
                 ports.screen.clearRectangle();
