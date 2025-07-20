@@ -2,7 +2,6 @@
 #define MEMORYCELL_HPP
 #include <cstdint>
 #include <iostream>
-#include <ostream>
 
 
 inline uint8_t ROR(uint8_t operand, const int i) {
