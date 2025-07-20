@@ -83,7 +83,10 @@ public:
         }
     }
 
-    [[nodiscard]] bool getIsScreenEmpty() const { return is_screen_empty; }
+    [[nodiscard]] bool getIsScreenEmpty() const {
+        volatile bool tmp = is_screen_empty; // fix CLion complaining about an always true value
+        return tmp;
+    }
 
 private:
     Vector2<uint16_t> pos1;
