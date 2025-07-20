@@ -12,6 +12,13 @@ You can find my [ISA](https://docs.google.com/spreadsheets/d/1aE8e7TodV6_dxUF-Ub
     2. [Definitions](#definitions)
     3. [Labels](#labels)
     4. [Ports](#ports)
+       1. [Text display](#text-display)
+       2. [Number display](#number-display)
+       3. [Screen](#screen)
+       4. [Random device](#random-device)
+       5. [Keyboard input](#keyboard-input)
+       6. [Periodic interrupt timer](#periodic-interrupt-timer)
+       7. [Interrupts controler](#interrupts-controler)
     5. [Interrupts](#interrupts)
     6. [Extra information](#extra-information)
 3. [Features](#features)
@@ -93,7 +100,7 @@ Here is the list of all available ports name :
    - keyboard_input
 6. Periodic interrupt timer
    - input_timer_ms
-7. Interrupts controles
+7. Interrupts controler
    - switch_interrupt
    - get_interrupt_state
 Note : this order also represents the order where it is left in the vector. That means that the id of the first name in the list is ``p0``, next is ``p1`` and so on to ``p17``.
@@ -103,6 +110,39 @@ To interract with ports you have to use the ``PLD`` and ``PST`` instructions. Th
 For ports that only needs to be triggered you can just pass no register with ``PST`` instruction, and it will be triggered. Even if you pass a register that has a value of 0 it will be triggered (might change later).
 
 You can check the complete example on ports [here](#example-using-all-ports)
+
+#### Text display
+This display can show a total of 20 characters. 
+First when you write a char it is written in a buffer that you can print later. 
+When you clear all chars they are just cleared in the buffer, you will need to print the chars to update the display.
+
+#### Number display
+This display displays a 16-bits number. Like the text display it has a buffer which you right your number in and that you can clear and print.
+
+#### Screen
+By default, the size of this screen is : 1280x720
+This screen has 4 diferent 16-bits coordinates : x1, y1, x2, y2.
+The point (x1, y1) is used to draw / clear a pixel or as the top left corner for a rectangle. 
+The second point (x2, y2) is only used for the second bottom right corner for a rectangle. 
+When you draw or clear something it is only in the buffer, you have to print to update the display. 
+A pixel for now (will change later) is just a boolean with false as black and true as white.
+
+#### Random device
+This device is used to easily generate a random value. 
+You can select a range but by default it is : 0, 255 (the minimum and the maximum).
+
+#### Keyboard input
+This keyboard is a queue of keycodes that is push and pop at each key pressed. 
+Each keycodes can be found in the [config file](src/config_hardware.hpp) in the enum. 
+If no key has been pressed and the queue is empty while you want to read a key, it returns a null keycode. 
+Detectable keys are manually set in the [gui config file](src/gui/config_gui.hpp) in an unordered map.
+
+#### Periodic interrupt timer
+This device is used only to control the timer between each timer interrupt. 
+It takes a 16-bits number as parameter.
+
+#### Interrupts controler
+This device is used to control the activation of interrupts.
 
 ### Interrupts
 The interrupt system is very simple. The engine has an Interrupt Vector Table (IVT) of 255 interrupts (so the max amount of interrupts) and each index correspond to an address for the ISR. 
