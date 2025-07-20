@@ -137,8 +137,10 @@ void display_debug_windows(EngineRunner& engine_runner) {
 }
 
 void render_main_window_content(Screen& screen) {
+    // ReSharper disable once CppDFAConstantConditions
     if (screen.getIsScreenEmpty()) return;
 
+    // ReSharper disable once CppDFAUnreachableCode
     const auto& screen_pixels = screen.getDisplayedScreen();
     const auto screen_size = screen.getScreenSize();
     const size_t width = screen_size.x;
