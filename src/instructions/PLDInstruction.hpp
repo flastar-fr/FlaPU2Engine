@@ -37,6 +37,13 @@ public:
                 registers[register_result] = keycode_id;
                 break;
             }
+            case PortType::GET_INTERRUPT_STATE: {
+                const uint8_t are_interrupts_enabled = engine.getInterruptEnabled();
+                const uint8_t register_result = operands[1].value;
+
+                registers[register_result] = are_interrupts_enabled;
+                break;
+            }
             default: {
                 std::cerr << "Invalid port " + std::to_string(operands[0].value) + " for reading" << std::endl;
                 throw std::invalid_argument("Invalid port " + std::to_string(operands[0].value) + " for reading");

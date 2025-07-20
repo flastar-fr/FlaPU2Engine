@@ -107,6 +107,10 @@ public:
                 engine.setPeriodicTimerDuration((high_value << AMOUNT_BITS_PER_CELL) + low_value);
                 break;
             }
+            case PortType::SWITCH_INTERRUPT: {
+                engine.setInterruptionEnabledState(!engine.getInterruptEnabled());
+                break;
+            }
             default: {
                 std::cerr << "Invalid port " + std::to_string(operands[0].value) + " for writting" << std::endl;
                 throw std::invalid_argument("Invalid port " + std::to_string(operands[0].value) + " for writting");
@@ -123,6 +127,7 @@ public:
                 if (operands.size() != amount_operands) return false;
                 return operands[1].value_type == ValueType::REGISTER_VALUE;
             }
+            case PortType::SWITCH_INTERRUPT:
             case PortType::DRAW_PIXEL:
             case PortType::DRAW_RECT:
             case PortType::CLEAR_PIXEL:

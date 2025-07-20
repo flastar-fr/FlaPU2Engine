@@ -1,6 +1,7 @@
 IST 0 .timer_isr
 IST 1 .set_2_isr
 IST 2 .set_3_isr
+IST 3 .set_4_isr
 LDI r5 1
 LDI r6 244
 PST input_timer_ms [r5:r6]
@@ -9,9 +10,20 @@ LDI r6 0
 
 INT 2
 INT 1
+
+PST switch_interrupt
+PLD get_interrupt_state r3
+CMP r3 r0
+BRH != .end
+INT 3
+PST switch_interrupt
+
+LDI r1 0
 .start
     JMP .start
-HLT
+
+.end
+    HLT
 
 .timer_isr
     INC r1
@@ -23,6 +35,10 @@ HLT
 
 .set_3_isr
     CAL .write_hello_world
+    IRT
+
+.set_4_isr
+    LDI r2 4
     IRT
 
 .write_hello_world

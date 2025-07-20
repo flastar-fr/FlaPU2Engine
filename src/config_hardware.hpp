@@ -47,7 +47,9 @@ enum class PortType {
     ADD_RNG_RANGE,
     RANDOM_NB,
     KEYBOARD_INPUT,
-    INPUT_TIMER_MS
+    INPUT_TIMER_MS,
+    SWITCH_INTERRUPT,
+    GET_INTERRUPT_STATE
 };
 
 enum class Keycode {

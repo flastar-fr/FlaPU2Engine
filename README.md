@@ -93,6 +93,9 @@ Here is the list of all available ports name :
    - keyboard_input
 6. Periodic interrupt timer
    - input_timer_ms
+7. Interrupts controles
+   - switch_interrupt
+   - get_interrupt_state
 Note : this order also represents the order where it is left in the vector. That means that the id of the first name in the list is ``p0``, next is ``p1`` and so on to ``p17``.
 
 To interract with ports you have to use the ``PLD`` and ``PST`` instructions. The first one loads the value of a port into a register, the second one stores the value of a register into a port.
@@ -282,7 +285,8 @@ HLT
 ```
 
 ### Example using all ports
-In this example I dive into each port and use these ports using the appropriate instruction (PLD or PST). This is a fairly simple but complete example which shows all the available ports.
+In this example I dive into each port (except those used for interrupts, check the example with interrupts to get the examples) and use these ports using the appropriate instruction (PLD or PST). 
+This is a fairly simple but complete example which shows all the available ports.
 ```asm
 # write "HELLO WORLD!"
 LDI r1 'H'
@@ -430,11 +434,14 @@ HLT
 ### Complete example with interrupts
 This example first set the ISR of each interrupt. After that it modifies the default duration for the timer (1000ms -> 500ms). It then triggers the interrupts 2 and 1, the first one displays 'Hello World!' in the text display and the second one displays 666. 
 During this process the timer interrupt might be good to be triggered but is not triggered because interrupts can't be triggered during another interrupt. 
-After the 2 interrupts are executed the timer interrupt can be executed during the infinite loop to increment r1 each time the interrupt is triggered.
+Because trigerring the third interrupt it switches off (on -> off) the interrupts, and it checks if the interrupt state is true or false (purly for the demonstration, it is not needed). 
+So the interrupt get triggered but because the state is off it is not executed. It then switches back the interrupt state to on (off -> on).
+After the 2 interrupts are executed and the third triggered, the timer interrupt can be executed during the infinite loop to increment r1 each time the interrupt is triggered.
 ```asm
 IST 0 .timer_isr
 IST 1 .set_2_isr
 IST 2 .set_3_isr
+IST 3 .set_4_isr
 LDI r5 1
 LDI r6 244
 PST input_timer_ms [r5:r6]
@@ -443,9 +450,20 @@ LDI r6 0
 
 INT 2
 INT 1
+
+PST switch_interrupt
+PLD get_interrupt_state r3
+CMP r3 r0
+BRH != .end
+INT 3
+PST switch_interrupt
+
+LDI r1 0
 .start
     JMP .start
-HLT
+
+.end
+    HLT
 
 .timer_isr
     INC r1
@@ -457,6 +475,10 @@ HLT
 
 .set_3_isr
     CAL .write_hello_world
+    IRT
+
+.set_4_isr
+    LDI r2 4
     IRT
 
 .write_hello_world

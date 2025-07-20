@@ -28,7 +28,7 @@ public:
     [[nodiscard]] std::array<bool, 4> getFlagStates() const { return flag_states; }
     [[nodiscard]] Ports& getPorts() { return ports; }
     [[nodiscard]] InterruptVectorTable& getInterruptVectorTable() { return ivt; }
-    [[nodiscard]] bool getInterruptionEnabled() const { return interruption_enabled; }
+    [[nodiscard]] bool getInterruptEnabled() const { return interruption_enabled; }
 
     void verifyFlags(const uint8_t operand1, const uint8_t operand2) {
         setFlagsStates({operand1 == operand2, operand1 != operand2, operand1 >= operand2, operand1 < operand2});

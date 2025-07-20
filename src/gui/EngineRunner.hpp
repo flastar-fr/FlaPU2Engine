@@ -16,7 +16,7 @@ public:
     [[nodiscard]] long long getAmountExecutedInstructions() const { return amount_executed_instructions; }
 
     void executeNextInstruction() {
-        if (engine.getInterruptionEnabled()) engine.checkPeriodicInterrupt();
+        if (engine.getInterruptEnabled()) engine.checkPeriodicInterrupt();
         const auto& instruction = instructions[engine.getProgramCounter()];
         registerInstruction(instruction);
         instruction->execute(engine);
