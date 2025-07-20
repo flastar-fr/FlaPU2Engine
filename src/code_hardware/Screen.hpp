@@ -10,7 +10,8 @@ constexpr auto BLACK_PIXEL = Pixel(0, 0, 0);
 class Screen {
 public:
     explicit Screen(const Vector2<uint16_t> screen_size) : pos1(Vector2<uint16_t>(0, 0)), pos2(Vector2<uint16_t>(0, 0)),
-                                                           screen_size(screen_size), current_pixel_color(Pixel(0, 0, 0)) {
+                                                           screen_size(screen_size),
+                                                           current_pixel_color(Pixel(0, 0, 0)) {
         screen_buffer.resize(screen_size.x * screen_size.y, Pixel(0, 0, 0));
         displayed_screen.resize(screen_size.x * screen_size.y, Pixel(0, 0, 0));
     }

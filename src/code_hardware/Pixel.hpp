@@ -7,7 +7,8 @@ struct Pixel {
     uint8_t red;
     uint8_t green;
     uint8_t blue;
+
     bool operator==(const Pixel& pixel) const {
-        return red ==  pixel.red && green == pixel.green && blue == pixel.blue;
+        return red == pixel.red && green == pixel.green && blue == pixel.blue;
     }
 };

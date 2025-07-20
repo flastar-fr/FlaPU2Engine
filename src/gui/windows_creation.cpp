@@ -148,7 +148,8 @@ void render_main_window_content(Screen& screen) {
         for (size_t x = 0; x < width; ++x, ++index) {
             const Pixel pixel = screen_pixels[index];
             if (pixel == BLACK_PIXEL) continue;
-            draw_pixel(ImVec2(static_cast<float>(x), static_cast<float>(y)), IM_COL32(pixel.red, pixel.green, pixel.blue, 255));
+            draw_pixel(ImVec2(static_cast<float>(x), static_cast<float>(y)),
+                       IM_COL32(pixel.red, pixel.green, pixel.blue, 255));
         }
     }
 }
