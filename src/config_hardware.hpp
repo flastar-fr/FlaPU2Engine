@@ -38,6 +38,7 @@ enum class PortType {
     ADD_Y1,
     ADD_X2,
     ADD_Y2,
+    PIXEL_COLOR,
     DRAW_PIXEL,
     DRAW_RECT,
     CLEAR_PIXEL,

@@ -1,77 +1,151 @@
-IST 0 .timer_isr
-IST 1 .set_2_isr
-IST 2 .set_3_isr
-IST 3 .set_4_isr
-LDI r5 1
-LDI r6 244
-PST input_timer_ms [r5:r6]
-LDI r5 0
-LDI r6 0
+# set screen pixel color to white
+LDI r1 255
+PST pixel_color [r1:r1:r1]
 
-INT 2
-INT 1
+# write "HELLO WORLD!"
+LDI r1 'H'
+LDI r2 'E'
+LDI r3 'L'
+LDI r4 'L'
+LDI r5 'O'
+LDI r6 ' '
+LDI r7 'W'
+LDI r8 'O'
+LDI r9 'R'
+LDI r10 'L'
+LDI r11 'D'
+LDI r12 '!'
+PST write_char [r1]
+PST write_char [r2]
+PST write_char [r3]
+PST write_char [r4]
+PST write_char [r5]
+PST write_char [r6]
+PST write_char [r7]
+PST write_char [r8]
+PST write_char [r9]
+PST write_char [r10]
+PST write_char [r11]
+PST write_char [r12]
+PST print_chars
 
-PST switch_interrupt
-PLD get_interrupt_state r3
-CMP r3 r0
-BRH != .end
-INT 3
-PST switch_interrupt
+# write "666"
+LDI r13 2
+LDI r14 154
+PST write_number [r13:r14]
+PST print_number
 
-LDI r1 0
-.start
-    JMP .start
+# draw pixel
+LDI r1 50
+PST pixel1_x [r0:r1]
+PST pixel1_y [r0:r1]
+PST draw_pixel
+PST print_screen
 
-.end
-    HLT
+# draw rectangle
+LDI r1 80
+PST pixel1_x [r0:r1]
+PST pixel1_y [r0:r1]
+LDI r2 1
+LDI r3 244
+PST pixel2_x [r2:r3]
+PST pixel2_y [r2:r3]
+PST draw_rect
+PST print_screen
+PST clear_rect
+PST print_screen
+PST clear_screen
+PST print_screen
 
-.timer_isr
-    INC r1
-    IRT
+# randomly place 5 random colored rectangles
+LDI r3 5
+LDI r4 255
+PST rng_range [r0:r4]
+.start_rects
+    PLD random_nb r1
+    PLD random_nb r2
+    PST pixel1_x [r0:r1]
+    PST pixel1_y [r0:r1]
+    PST pixel2_x [r0:r2]
+    PST pixel2_y [r0:r2]
+    PST pixel_color [r1:r2:r1]
+    PST draw_rect
+    PST print_screen
+    PST clear_screen
+    DEC r3
+    CMP r3 r0
+    BRH != .start_rects
 
-.set_2_isr
-    CAL .say_666
-    IRT
+PST clear_screen
+PST print_screen
 
-.set_3_isr
-    CAL .write_hello_world
-    IRT
+# draw rectangle following the pressed arrows
+LDI r1 10
+LDI r2 40
+LDI r3 45
+LDI r4 70
+LDI r5 75
+LDI r6 105
+LDI r7 135
+LDI r9 35 # UP
+LDI r10 36 # DOWN
+LDI r11 37 # LEFT
+LDI r12 38 # RIGHT
+LDI r13 255 # color
+.rects.start
+    PLD keyboard_input r8
+    CMP r8 r9
+    BRH = .rects.up
+    CMP r8 r10
+    BRH = .rects.down
+    CMP r8 r11
+    BRH = .rects.left
+    CMP r8 r12
+    BRH = .rects.right
+    JMP .rects.start
 
-.set_4_isr
-    LDI r2 4
-    IRT
+HLT
 
-.write_hello_world
-    LDI r1 'H'
-    LDI r2 'E'
-    LDI r3 'L'
-    LDI r4 'L'
-    LDI r5 'O'
-    LDI r6 ' '
-    LDI r7 'W'
-    LDI r8 'O'
-    LDI r9 'R'
-    LDI r10 'L'
-    LDI r11 'D'
-    LDI r12 '!'
-    PST write_char [r1]
-    PST write_char [r2]
-    PST write_char [r3]
-    PST write_char [r4]
-    PST write_char [r5]
-    PST write_char [r6]
-    PST write_char [r7]
-    PST write_char [r8]
-    PST write_char [r9]
-    PST write_char [r10]
-    PST write_char [r11]
-    PST write_char [r12]
-    PST print_chars
-    RET
+.rects.up
+    PST pixel_color [r13:r0:r0]
+    PST pixel1_x [r0:r5]
+    PST pixel1_y [r0:r1]
+    PST pixel2_x [r0:r6]
+    PST pixel2_y [r0:r2]
+    PST clear_screen
+    PST draw_rect
+    PST print_screen
+    JMP .rects.start
 
-.say_666
-    LDI r13 2
-    LDI r14 154
-    PST write_number [r13:r14]
-    PST print_number
-    RET
+.rects.down
+    PST pixel_color [r13:r13:r13]
+    PST pixel1_x [r0:r5]
+    PST pixel1_y [r0:r3]
+    PST pixel2_x [r0:r6]
+    PST pixel2_y [r0:r5]
+    PST clear_screen
+    PST draw_rect
+    PST print_screen
+    JMP .rects.start
+
+.rects.left
+    PST pixel_color [r0:r0:r13]
+    PST pixel1_x [r0:r2]
+    PST pixel1_y [r0:r3]
+    PST pixel2_x [r0:r4]
+    PST pixel2_y [r0:r5]
+    PST clear_screen
+    PST draw_rect
+    PST print_screen
+    JMP .rects.start
+
+.rects.right
+    PST pixel_color [r0:r13:r0]
+    PST pixel1_x [r0:r6]
+    PST pixel1_y [r0:r3]
+    PST pixel2_x [r0:r7]
+    PST pixel2_y [r0:r5]
+    PST clear_screen
+    PST draw_rect
+    PST print_screen
+    JMP .rects.start

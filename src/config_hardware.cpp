@@ -105,6 +105,7 @@ std::vector<std::string> PORTS_MAP_LABELS = {
     "pixel1_y",
     "pixel2_x",
     "pixel2_y",
+    "pixel_color",
     "draw_pixel",
     "draw_rect",
     "clear_pixel",
@@ -122,7 +123,7 @@ std::vector<std::string> PORTS_MAP_LABELS = {
 std::vector<PortType> PORTS_TYPES = {
     PortType::WRITE_CHAR, PortType::CLEAR_CHARS, PortType::PRINT_CHARS,
     PortType::WRITE_NUMBER, PortType::CLEAR_NUMBER, PortType::PRINT_NUMBER,
-    PortType::ADD_X1, PortType::ADD_Y1, PortType::ADD_X2, PortType::ADD_Y2, PortType::DRAW_PIXEL, PortType::DRAW_RECT,
+    PortType::ADD_X1, PortType::ADD_Y1, PortType::ADD_X2, PortType::ADD_Y2, PortType::PIXEL_COLOR, PortType::DRAW_PIXEL, PortType::DRAW_RECT,
     PortType::CLEAR_PIXEL, PortType::CLEAR_RECT, PortType::CLEAR_SCREEN, PortType::PRINT_SCREEN,
     PortType::ADD_RNG_RANGE, PortType::RANDOM_NB, PortType::KEYBOARD_INPUT,
     PortType::INPUT_TIMER_MS, PortType::SWITCH_INTERRUPT, PortType::GET_INTERRUPT_STATE

@@ -69,7 +69,7 @@ Take a look at the [examples](#examples) for a better understanding.
 
 ### Ports
 Ports can be accessed via their name or their id. The id looks close to register id but instead of starting with an ``r`` it starts with a ``p`` so for example : ``p0``, ``p1``, ``p2``.
-There are 18 ports so the last port is p17.
+There are 23 ports so the last port is p22.
 
 Ports names are evaluated at preprocessing to be replaced by a port id.
 
@@ -87,6 +87,7 @@ Here is the list of all available ports name :
    - pixel1_y
    - pixel2_x
    - pixel2_y
+   - pixel_color
    - draw_pixel
    - draw_rect
    - clear_pixel
@@ -125,7 +126,8 @@ This screen has 4 diferent 16-bits coordinates : x1, y1, x2, y2.
 The point (x1, y1) is used to draw / clear a pixel or as the top left corner for a rectangle. 
 The second point (x2, y2) is only used for the second bottom right corner for a rectangle. 
 When you draw or clear something it is only in the buffer, you have to print to update the display. 
-A pixel for now (will change later) is just a boolean with false as black and true as white.
+A pixel is caracterized as an RGB color so it needs red, blue and green to exist. 
+By default, the color used to draw is black so you have to change it before drawing.
 
 #### Random device
 This device is used to easily generate a random value. 
@@ -328,6 +330,10 @@ HLT
 In this example I dive into each port (except those used for interrupts, check the example with interrupts to get the examples) and use these ports using the appropriate instruction (PLD or PST). 
 This is a fairly simple but complete example which shows all the available ports.
 ```asm
+# set screen pixel color to white
+LDI r1 255
+PST pixel_color [r1:r1:r1]
+
 # write "HELLO WORLD!"
 LDI r1 'H'
 LDI r2 'E'
@@ -383,7 +389,7 @@ PST print_screen
 PST clear_screen
 PST print_screen
 
-# randomly place 5 rectangles
+# randomly place 5 random colored rectangles
 LDI r3 5
 LDI r4 255
 PST rng_range [r0:r4]
@@ -394,6 +400,7 @@ PST rng_range [r0:r4]
     PST pixel1_y [r0:r1]
     PST pixel2_x [r0:r2]
     PST pixel2_y [r0:r2]
+    PST pixel_color [r1:r2:r1]
     PST draw_rect
     PST print_screen
     PST clear_screen
@@ -416,6 +423,7 @@ LDI r9 35 # UP
 LDI r10 36 # DOWN
 LDI r11 37 # LEFT
 LDI r12 38 # RIGHT
+LDI r13 255 # color
 .rects.start
     PLD keyboard_input r8
     CMP r8 r9
@@ -431,6 +439,7 @@ LDI r12 38 # RIGHT
 HLT
 
 .rects.up
+    PST pixel_color [r13:r0:r0]
     PST pixel1_x [r0:r5]
     PST pixel1_y [r0:r1]
     PST pixel2_x [r0:r6]
@@ -441,6 +450,7 @@ HLT
     JMP .rects.start
 
 .rects.down
+    PST pixel_color [r13:r13:r13]
     PST pixel1_x [r0:r5]
     PST pixel1_y [r0:r3]
     PST pixel2_x [r0:r6]
@@ -451,6 +461,7 @@ HLT
     JMP .rects.start
 
 .rects.left
+    PST pixel_color [r0:r0:r13]
     PST pixel1_x [r0:r2]
     PST pixel1_y [r0:r3]
     PST pixel2_x [r0:r4]
@@ -461,6 +472,7 @@ HLT
     JMP .rects.start
 
 .rects.right
+    PST pixel_color [r0:r13:r0]
     PST pixel1_x [r0:r6]
     PST pixel1_y [r0:r3]
     PST pixel2_x [r0:r7]

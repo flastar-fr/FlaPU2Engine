@@ -112,6 +112,13 @@ public:
                 engine.setInterruptionEnabledState(!engine.getInterruptEnabled());
                 break;
             }
+            case PortType::PIXEL_COLOR: {
+                const uint8_t red_value = registers[operands[1].value].getValue();
+                const uint8_t green_value = registers[operands[2].value].getValue();
+                const uint8_t blue_value = registers[operands[3].value].getValue();
+                ports.screen.addColor(red_value, green_value, blue_value);
+                break;
+            }
             default: {
                 std::cerr << "Invalid port " + std::to_string(operands[0].value) + " for writting" << std::endl;
                 throw std::invalid_argument("Invalid port " + std::to_string(operands[0].value) + " for writting");
@@ -151,6 +158,13 @@ public:
                                    operands.end(),
                                    [](const auto& operand) { return operand.value_type == ValueType::REGISTER_VALUE; });
             }
+            case PortType::PIXEL_COLOR: {
+                if (operands.size() != amount_operands + 2) return false;
+                return std::all_of(operands.begin() + 1,
+                                   operands.end(),
+                                   [](const auto& operand) { return operand.value_type == ValueType::REGISTER_VALUE; });
+            }
+
             default: return false;
         }
     }
