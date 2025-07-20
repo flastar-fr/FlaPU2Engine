@@ -95,7 +95,7 @@ private:
     Memory memory;
     size_t program_counter;
     std::array<bool, 4> flag_states;
-    bool interruption_enabled = true;
+    bool interruption_enabled = false;
     std::stack<size_t> stack_addresses;
     Ports ports;
     InterruptVectorTable ivt;

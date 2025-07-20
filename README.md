@@ -224,9 +224,6 @@ I could just use the format : ``.<function>`` if I wanted to. As long as it star
 ### Fibonacci
 r1 is the register result of the program. Here: x = 13, F_x = 233
 ```asm
-# switch off interrupts
-PST switch_interrupt
-
 define x 13
 
 LDI r2 x
@@ -255,9 +252,6 @@ HLT
 ### Division
 r3 is the register result. Here: x = 13, y = 5, x/y = 2
 ```asm
-# switch off interrupts
-PST switch_interrupt
-
 define x 13
 define y 5
 
@@ -287,9 +281,6 @@ HLT
 ### Modulo
 r3 is the register result. Here: x = 13, y = 5, x % y = 3
 ```asm
-# switch off interrupts
-PST switch_interrupt
-
 define x 13
 define y 5
 
@@ -317,9 +308,6 @@ HLT
 ### Multiplication
 r3 is the register result. Here: x = 5, y = 13, x * y = 65
 ```asm
-# switch off interrupts
-PST switch_interrupt
-
 define x 5
 define y 13
 
@@ -347,9 +335,6 @@ HLT
 In this example I dive into each port (except those used for interrupts, check the example with interrupts to get the examples) and use these ports using the appropriate instruction (PLD or PST). 
 This is a fairly simple but complete example which shows all the available ports.
 ```asm
-# switch off interrupts
-PST switch_interrupt
-
 # set screen pixel color to white
 LDI r1 255
 PST pixel_color [r1:r1:r1]
@@ -504,12 +489,16 @@ HLT
 ```
 
 ### Complete example with interrupts
-This example first set the ISR of each interrupt. After that it modifies the default duration for the timer (1000ms -> 500ms). It then triggers the interrupts 2 and 1, the first one displays 'Hello World!' in the text display and the second one displays 666. 
+This example enables interrupts and set the ISR of each interrupt. After that it modifies the default duration for the timer (1000ms -> 500ms). It then triggers the interrupts 2 and 1, the first one displays 'Hello World!' in the text display and the second one displays 666. 
 During this process the timer interrupt might be good to be triggered but is not triggered because interrupts can't be triggered during another interrupt. 
 Because trigerring the third interrupt it switches off (on -> off) the interrupts, and it checks if the interrupt state is true or false (purly for the demonstration, it is not needed). 
 So the interrupt get triggered but because the state is off it is not executed. It then switches back the interrupt state to on (off -> on).
 After the 2 interrupts are executed and the third triggered, the timer interrupt can be executed during the infinite loop to increment r1 each time the interrupt is triggered.
 ```asm
+# switch on interrupts
+PST switch_interrupt
+
+# config ISRs
 IST 0 .timer_isr
 IST 1 .set_2_isr
 IST 2 .set_3_isr
@@ -520,6 +509,7 @@ PST input_timer_ms [r5:r6]
 LDI r5 0
 LDI r6 0
 
+# execute
 INT 2
 INT 1
 
@@ -530,6 +520,7 @@ BRH != .end
 INT 3
 PST switch_interrupt
 
+# mainloop
 LDI r1 0
 .start
     JMP .start
