@@ -8,6 +8,7 @@ public:
         name = "RET";
         amount_operands = 0;
     }
+
     RETInstruction(): RETInstruction(std::vector<Token>()) {};
 
     ~RETInstruction() override = default;

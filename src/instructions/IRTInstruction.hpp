@@ -8,6 +8,7 @@ public:
         name = "IRT";
         amount_operands = 0;
     }
+
     IRTInstruction(): IRTInstruction(std::vector<Token>()) {};
 
     ~IRTInstruction() override = default;

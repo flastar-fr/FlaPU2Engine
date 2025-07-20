@@ -19,7 +19,7 @@ public:
     }
 
     [[nodiscard]] std::string tostring() const;
-    friend std::ostream& operator<<(std::ostream & lhs, const Instruction& rhs);
+    friend std::ostream& operator<<(std::ostream& lhs, const Instruction& rhs);
 
 protected:
     std::string name;

@@ -9,6 +9,7 @@ public:
         name = "MOV";
         amount_operands = 2;
     }
+
     MOVPseudoInstruction(): MOVPseudoInstruction(std::vector<Token>()) {};
 
     ~MOVPseudoInstruction() override = default;
@@ -30,8 +31,8 @@ public:
         return std::all_of(
             operands.begin(),
             operands.end(),
-            [](const auto& operand) {return operand.value_type == ValueType::REGISTER;}
-            );
+            [](const auto& operand) { return operand.value_type == ValueType::REGISTER; }
+        );
     }
 };
 

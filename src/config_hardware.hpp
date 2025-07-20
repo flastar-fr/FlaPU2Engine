@@ -95,10 +95,11 @@ enum class Keycode {
     SPACE = 39,
 };
 
-std::ostream& operator<<(std::ostream & lhs, ValueType rhs);
+std::ostream& operator<<(std::ostream& lhs, ValueType rhs);
 std::string to_string(ValueType value_type);
 
-extern std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const std::vector<Token>&)>> instruction_factories;
+extern std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const std::vector<Token>&)>>
+instruction_factories;
 constexpr size_t MAX_AMOUNT_INSTRUCTIONS = 1024;
 constexpr uint16_t DEFAULT_SIZE_MEMORY = 65535;
 constexpr size_t MAX_STACK_MEMORY = 16;

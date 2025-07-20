@@ -100,6 +100,6 @@ private:
     Ports ports;
     InterruptVectorTable ivt;
     std::chrono::time_point<std::chrono::steady_clock> start_period;
-    int periodic_timer_duration_ms= DEFAULT_PERIODIC_TIMER_DURATION_MS;
+    int periodic_timer_duration_ms = DEFAULT_PERIODIC_TIMER_DURATION_MS;
 };
 #endif //ENGINE_HPP

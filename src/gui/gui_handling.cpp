@@ -72,13 +72,14 @@ void handle_frame_creation() {
 }
 
 void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_color, EngineRunner& engine_runner) {
-    const auto &engineStatus = engine_runner.getEngineStatus();
+    const auto& engineStatus = engine_runner.getEngineStatus();
 
     handle_frame_creation();
 
     handle_keyboard_inputs(engine_runner.getEngine());
 
-    const bool engine_running = !engine_runner.isProgramFinished() && engineStatus.running_status == EngineRunningStatus::RUNNING;
+    const bool engine_running = !engine_runner.isProgramFinished() && engineStatus.running_status ==
+        EngineRunningStatus::RUNNING;
     if (engine_running) execute_instructions(engine_runner);
 
     if constexpr (SHOW_DEBUG) display_debug_windows(engine_runner);

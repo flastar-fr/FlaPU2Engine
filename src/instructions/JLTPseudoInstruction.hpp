@@ -9,6 +9,7 @@ public:
         name = "JLT";
         amount_operands = 1;
     }
+
     JLTPseudoInstruction(): JLTPseudoInstruction(std::vector<Token>()) {};
 
     ~JLTPseudoInstruction() override = default;
@@ -30,8 +31,8 @@ public:
         return std::all_of(
             operands.begin(),
             operands.end(),
-            [](const auto& operand) {return operand.value_type == ValueType::IMMEDIATE_VALUE;}
-            );
+            [](const auto& operand) { return operand.value_type == ValueType::IMMEDIATE_VALUE; }
+        );
     }
 };
 

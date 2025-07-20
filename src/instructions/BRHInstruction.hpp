@@ -10,6 +10,7 @@ public:
         name = "BRH";
         amount_operands = 2;
     }
+
     BRHInstruction(): BRHInstruction(std::vector<Token>()) {}
 
     ~BRHInstruction() override = default;

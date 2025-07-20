@@ -10,6 +10,7 @@ public:
         name = "INT";
         amount_operands = 1;
     }
+
     INTInstruction(): INTInstruction(std::vector<Token>()) {};
 
     ~INTInstruction() override = default;

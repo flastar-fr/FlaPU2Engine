@@ -8,6 +8,7 @@ public:
         name = "LOD";
         amount_operands = 3;
     }
+
     LODInstruction(): LODInstruction(std::vector<Token>()) {};
 
     ~LODInstruction() override = default;
@@ -22,9 +23,11 @@ public:
 
         if (isRegsAndOffset()) {
             executeIsRegsAndOffset(registers, memory);
-        } else if (isRegAndImmediate()) {
+        }
+        else if (isRegAndImmediate()) {
             executeIsRegAndImmediate(registers, memory);
-        } else if (isAddressesRegValuesHighLow()) {
+        }
+        else if (isAddressesRegValuesHighLow()) {
             executeIsAddressesRegValuesHighLow(registers, memory);
         }
     }

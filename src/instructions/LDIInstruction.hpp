@@ -8,6 +8,7 @@ public:
         name = "LDI";
         amount_operands = 2;
     }
+
     LDIInstruction(): LDIInstruction(std::vector<Token>()) {};
 
     ~LDIInstruction() override = default;

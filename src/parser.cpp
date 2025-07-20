@@ -65,7 +65,8 @@ std::vector<Token> extract_operands(const std::string& line) {
         if (current_char != ' ' || is_quote_closed) {
             operand += current_char;
             is_quote_closed = current_char == '\'';
-        } else {
+        }
+        else {
             const ValueType token_type = determine_operand_type(operand);
             const uint8_t token_value = determine_operand_value(operand, token_type);
             auto token = Token(token_value, token_type);
@@ -111,16 +112,16 @@ uint8_t determine_operand_value(const std::string& operand, const ValueType& typ
             return static_cast<uint8_t>(std::stoi(value_part));
         }
         case ValueType::REGISTER_VALUE: {
-          const std::string value_part = operand.substr(2, operand.size() - 2);
-          return static_cast<uint8_t>(std::stoi(value_part));
+            const std::string value_part = operand.substr(2, operand.size() - 2);
+            return static_cast<uint8_t>(std::stoi(value_part));
         }
         case ValueType::FLAG: {
-           const auto finded = std::find(AVAILABLE_FLAGS.begin(), AVAILABLE_FLAGS.end(), operand);
-           if (AVAILABLE_FLAGS.end() == finded) {
-               std::cerr << "Unrecognized flag: " << operand << std::endl;
-               throw std::runtime_error("Unrecognized flag: " + operand);
-           }
-           return std::distance(AVAILABLE_FLAGS.begin(), finded);
+            const auto finded = std::find(AVAILABLE_FLAGS.begin(), AVAILABLE_FLAGS.end(), operand);
+            if (AVAILABLE_FLAGS.end() == finded) {
+                std::cerr << "Unrecognized flag: " << operand << std::endl;
+                throw std::runtime_error("Unrecognized flag: " + operand);
+            }
+            return std::distance(AVAILABLE_FLAGS.begin(), finded);
         }
         case ValueType::PORT: {
             const std::string value_part = operand.substr(1);

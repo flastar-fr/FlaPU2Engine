@@ -9,6 +9,7 @@ public:
         name = "JGE";
         amount_operands = 1;
     }
+
     JGEPseudoInstruction(): JGEPseudoInstruction(std::vector<Token>()) {};
 
     ~JGEPseudoInstruction() override = default;
@@ -30,8 +31,8 @@ public:
         return std::all_of(
             operands.begin(),
             operands.end(),
-            [](const auto& operand) {return operand.value_type == ValueType::IMMEDIATE_VALUE;}
-            );
+            [](const auto& operand) { return operand.value_type == ValueType::IMMEDIATE_VALUE; }
+        );
     }
 };
 

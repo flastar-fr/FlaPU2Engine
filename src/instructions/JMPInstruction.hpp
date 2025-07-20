@@ -9,6 +9,7 @@ public:
         name = "JMP";
         amount_operands = 1;
     }
+
     JMPInstruction(): JMPInstruction(std::vector<Token>()) {}
 
     ~JMPInstruction() override = default;

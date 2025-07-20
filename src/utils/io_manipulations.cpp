@@ -12,7 +12,8 @@ bool read_file(const std::string& file_path, std::vector<std::string>& result) {
             result.push_back(line);
         }
         file.close();
-    } else {
+    }
+    else {
         std::cerr << "Cannot open file!" << std::endl;
         return false;
     }

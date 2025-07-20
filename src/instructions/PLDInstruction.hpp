@@ -8,6 +8,7 @@ public:
         name = "PLD";
         amount_operands = 3;
     }
+
     PLDInstruction(): PLDInstruction(std::vector<Token>()) {};
 
     ~PLDInstruction() override = default;

@@ -8,6 +8,7 @@ public:
         name = "STR";
         amount_operands = 3;
     }
+
     STRInstruction(): STRInstruction(std::vector<Token>()) {};
 
     ~STRInstruction() override = default;

@@ -14,7 +14,7 @@ struct Token {
     uint8_t value;
     ValueType value_type;
 
-    friend std::ostream& operator<<(std::ostream & lhs, const Token & t) {
+    friend std::ostream& operator<<(std::ostream& lhs, const Token& t) {
         lhs << to_string(t);
         return lhs;
     }

@@ -39,14 +39,17 @@ std::string extract_label(std::string& line) {
 std::pair<std::string, std::string> extract_definition(const std::string& line) {
     const auto splitted_line = split(line, " ");
     if (splitted_line.size() != DEFINITION_SIZE_FORMAT) {
-        std::cerr << "Wrong definition format, should follow : define <definition name> <definition value>" << std::endl;
+        std::cerr << "Wrong definition format, should follow : define <definition name> <definition value>" <<
+            std::endl;
         throw std::invalid_argument("Wrong definition format");
     }
 
     return {splitted_line[1], splitted_line[2]};
 }
 
-std::vector<std::string> extract_labels_and_find_next_line(std::string& trimmed_line, const std::vector<std::string>& lines, size_t& current_line) {
+std::vector<std::string> extract_labels_and_find_next_line(std::string& trimmed_line,
+                                                           const std::vector<std::string>& lines,
+                                                           size_t& current_line) {
     std::vector<std::string> labels_to_add = {};
     auto label = extract_label(trimmed_line);
     labels_to_add.push_back(label);
@@ -55,7 +58,8 @@ std::vector<std::string> extract_labels_and_find_next_line(std::string& trimmed_
             ++current_line;
             trimmed_line = trim(lines[current_line]);
             remove_comments(trimmed_line);
-        } else {
+        }
+        else {
             label = extract_label(trimmed_line);
             labels_to_add.push_back(label);
         }
@@ -79,7 +83,8 @@ void merge_labels(std::string& trimmed_line, const std::vector<std::string>& lin
 
 std::string get_repetition_sequence(const std::string& str) {
     std::string new_str = str;
-    const bool are_register_values = new_str[0] == LEFT_REGISTER_VALUE_CHAR && new_str[new_str.size() - 1] == RIGHT_REGISTER_VALUE_CHAR;
+    const bool are_register_values = new_str[0] == LEFT_REGISTER_VALUE_CHAR && new_str[new_str.size() - 1] ==
+        RIGHT_REGISTER_VALUE_CHAR;
     auto splitted_str = split(new_str, std::string{PATTERN_REPETITION_CHAR});
 
     if (are_register_values) {
@@ -150,7 +155,8 @@ void Preprocessor::findDefinition() {
         if (first_chars == DEFINITION_KEY_WORD) {
             auto [definition, value] = extract_definition(line);
             labels_n_definitions[definition] = value;
-        } else {
+        }
+        else {
             new_lines.push_back(line);
         }
     }
@@ -160,7 +166,7 @@ void Preprocessor::findDefinition() {
 
 void Preprocessor::findLabels() {
     size_t amount_line = 0;
-    for (auto& line: lines) {
+    for (auto& line : lines) {
         auto trimed_line = trim(line);
 
         while (trimed_line[0] == FIRST_LABEL_CHAR) {

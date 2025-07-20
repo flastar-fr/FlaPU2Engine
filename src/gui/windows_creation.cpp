@@ -5,7 +5,7 @@
 #include "config_gui.hpp"
 #include "helper_functions.hpp"
 
-void display_registers(const Registers &registers) {
+void display_registers(const Registers& registers) {
     ImGui::Begin("Registers");
     ImGui::Text("Registers: ");
 
@@ -18,7 +18,7 @@ void display_registers(const Registers &registers) {
     ImGui::End();
 }
 
-void display_memory(Memory &memory) {
+void display_memory(Memory& memory) {
     ImGui::Begin("Memory");
     ImGui::Text("Memory: ");
 
@@ -31,11 +31,12 @@ void display_memory(Memory &memory) {
     ImGui::End();
 }
 
-void display_instruction_executed_trace(EngineRunner &engine_runner) {
+void display_instruction_executed_trace(EngineRunner& engine_runner) {
     const auto& instructions_execution_trace = engine_runner.getInstructionsExecutionTrace();
 
     ImGui::Begin("Instruction Trace");
-    ImGui::Text("Amount executed instructions: %lld, FPS: %f", engine_runner.getAmountExecutedInstructions(), ImGui::GetIO().Framerate);
+    ImGui::Text("Amount executed instructions: %lld, FPS: %f", engine_runner.getAmountExecutedInstructions(),
+                ImGui::GetIO().Framerate);
     ImGui::Text("Instruction Trace: ");
 
     for (size_t i = 0; i < instructions_execution_trace.size() && i <= MAX_INSTRUCTION_TO_DISPLAY; ++i) {
@@ -64,7 +65,7 @@ void create_flags_table(const Engine& engine) {
     ImGui::EndTable();
 }
 
-void display_flags_n_pc(const Engine &engine) {
+void display_flags_n_pc(const Engine& engine) {
     ImGui::Begin("Flags and Program Counter");
     ImGui::Text("Flags: ");
     ImGui::SameLine();
@@ -77,7 +78,7 @@ void display_flags_n_pc(const Engine &engine) {
     ImGui::End();
 }
 
-void create_buttons_controllers(EngineStatus &engineStatus) {
+void create_buttons_controllers(EngineStatus& engineStatus) {
     if (ImGui::Button("Play")) {
         if (engineStatus.running_status == EngineRunningStatus::PAUSED) {
             engineStatus.running_status = EngineRunningStatus::RUNNING;
@@ -97,7 +98,7 @@ void create_buttons_controllers(EngineStatus &engineStatus) {
     }
 }
 
-void display_controls(EngineRunner &engine_runner) {
+void display_controls(EngineRunner& engine_runner) {
     ImGui::Begin("Controls");
     ImGui::Text("Controls: ");
 
@@ -117,17 +118,17 @@ void display_controls(EngineRunner &engine_runner) {
     ImGui::End();
 }
 
-void display_text_n_number(Engine &engine) {
+void display_text_n_number(Engine& engine) {
     ImGui::Begin("Text and Number");
     ImGui::Text("Text: %s", engine.getPorts().text_display.getDisplayedText().c_str());
     ImGui::Text("Number: %d", engine.getPorts().number_display.getDisplayedNumber());
     ImGui::End();
 }
 
-void display_debug_windows(EngineRunner &engine_runner) {
-    const auto &registers = engine_runner.getEngine().getRegisters();
-    auto &memory = engine_runner.getEngine().getMemory();
-    const auto &engine = engine_runner.getEngine();
+void display_debug_windows(EngineRunner& engine_runner) {
+    const auto& registers = engine_runner.getEngine().getRegisters();
+    auto& memory = engine_runner.getEngine().getMemory();
+    const auto& engine = engine_runner.getEngine();
 
     display_registers(registers);
     display_memory(memory);

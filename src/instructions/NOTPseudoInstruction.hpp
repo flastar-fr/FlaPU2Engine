@@ -9,6 +9,7 @@ public:
         name = "NOT";
         amount_operands = 2;
     }
+
     NOTPseudoInstruction(): NOTPseudoInstruction(std::vector<Token>()) {};
 
     ~NOTPseudoInstruction() override = default;
@@ -30,8 +31,8 @@ public:
         return std::all_of(
             operands.begin(),
             operands.end(),
-            [](const auto& operand) {return operand.value_type == ValueType::REGISTER;}
-            );
+            [](const auto& operand) { return operand.value_type == ValueType::REGISTER; }
+        );
     }
 };
 

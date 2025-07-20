@@ -9,6 +9,7 @@ public:
         name = "JEQ";
         amount_operands = 1;
     }
+
     JEQPseudoInstruction(): JEQPseudoInstruction(std::vector<Token>()) {};
 
     ~JEQPseudoInstruction() override = default;
@@ -30,8 +31,8 @@ public:
         return std::all_of(
             operands.begin(),
             operands.end(),
-            [](const auto& operand) {return operand.value_type == ValueType::IMMEDIATE_VALUE;}
-            );
+            [](const auto& operand) { return operand.value_type == ValueType::IMMEDIATE_VALUE; }
+        );
     }
 };
 

@@ -8,6 +8,7 @@ public:
         name = "ADI";
         amount_operands = 2;
     }
+
     ADIInstruction(): ADIInstruction(std::vector<Token>()) {};
 
     ~ADIInstruction() override = default;
@@ -19,7 +20,9 @@ public:
 
         Registers& registers = engine.getRegisters();
         const bool first_is_register = operands[0].value_type == ValueType::REGISTER;
-        const uint8_t register_to_add_to = first_is_register ? operands[0].value : registers[operands[0].value].getValue();
+        const uint8_t register_to_add_to = first_is_register
+                                               ? operands[0].value
+                                               : registers[operands[0].value].getValue();
         const uint8_t immediate_value_to_add = operands[1].value;
 
         if (register_to_add_to >= registers.size()) return;

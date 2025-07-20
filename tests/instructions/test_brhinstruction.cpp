@@ -3,8 +3,7 @@
 
 #include "common.hpp"
 
-TEST(BrhInstructionTest, DefaultConstructorNoOperands)
-{
+TEST(BrhInstructionTest, DefaultConstructorNoOperands) {
     const auto brh = BRHInstruction();
 
     EXPECT_EQ(false, brh.isCorrect());

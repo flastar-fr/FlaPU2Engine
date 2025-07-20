@@ -6,7 +6,8 @@
 
 class Screen {
 public:
-    explicit Screen(const Vector2<uint16_t> screen_size) : pos1(Vector2<uint16_t>(0, 0)), pos2(Vector2<uint16_t>(0, 0)), screen_size(screen_size) {
+    explicit Screen(const Vector2<uint16_t> screen_size) : pos1(Vector2<uint16_t>(0, 0)), pos2(Vector2<uint16_t>(0, 0)),
+                                                           screen_size(screen_size) {
         screen_buffer.resize(screen_size.x * screen_size.y, false);
         displayed_screen.resize(screen_size.x * screen_size.y, false);
     }
@@ -44,7 +45,7 @@ public:
     }
 
     void clearScreen() {
-        for (auto &&pixel : screen_buffer) {
+        for (auto&& pixel : screen_buffer) {
             pixel = false;
         }
     }
@@ -61,7 +62,8 @@ public:
 
     [[nodiscard]] Vector2<uint16_t>& getScreenSize() { return screen_size; }
 
-    void changePixelRectangle(const Vector2<uint16_t> pos1_rect, const Vector2<uint16_t> pos2_rect, const bool value_to_assign) {
+    void changePixelRectangle(const Vector2<uint16_t> pos1_rect, const Vector2<uint16_t> pos2_rect,
+                              const bool value_to_assign) {
         for (uint16_t x = pos1_rect.x; x <= pos2_rect.x; ++x) {
             for (uint16_t y = pos1_rect.y; y <= pos2_rect.y; ++y) {
                 screen_buffer[getPixelIndexFrom2D(x, y)] = value_to_assign;

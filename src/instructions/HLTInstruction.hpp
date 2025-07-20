@@ -8,6 +8,7 @@ public:
         name = "HLT";
         amount_operands = 0;
     }
+
     HLTInstruction(): HLTInstruction(std::vector<Token>()) {};
 
     ~HLTInstruction() override = default;

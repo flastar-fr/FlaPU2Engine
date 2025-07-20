@@ -8,6 +8,7 @@ public:
         name = "CAL";
         amount_operands = 1;
     }
+
     CALInstruction(): CALInstruction(std::vector<Token>()) {}
 
     ~CALInstruction() override = default;

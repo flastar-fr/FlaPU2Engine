@@ -10,6 +10,7 @@ public:
         name = "IST";
         amount_operands = 2;
     }
+
     ISTInstruction(): ISTInstruction(std::vector<Token>()) {};
 
     ~ISTInstruction() override = default;
@@ -29,7 +30,8 @@ public:
     [[nodiscard]] bool isCorrect() const override {
         if (operands.size() != amount_operands) return false;
 
-        return operands[0].value_type == ValueType::IMMEDIATE_VALUE && operands[1].value_type == ValueType::IMMEDIATE_VALUE;
+        return operands[0].value_type == ValueType::IMMEDIATE_VALUE && operands[1].value_type ==
+            ValueType::IMMEDIATE_VALUE;
     }
 };
 

@@ -2,21 +2,21 @@
 #include <algorithm>
 #include <vector>
 
-std::string ltrim(const std::string &s) {
+std::string ltrim(const std::string& s) {
     auto start = std::find_if(s.begin(), s.end(), [](const unsigned char ch) {
         return !std::isspace(ch);
     });
     return {start, s.end()};
 }
 
-std::string rtrim(const std::string &s) {
+std::string rtrim(const std::string& s) {
     auto end = std::find_if(s.rbegin(), s.rend(), [](const unsigned char ch) {
         return !std::isspace(ch);
     }).base();
     return {s.begin(), end};
 }
 
-std::string trim(const std::string &s) {
+std::string trim(const std::string& s) {
     return rtrim(ltrim(s));
 }
 
@@ -44,7 +44,8 @@ void replace_token(std::string& str, const std::string& from, const std::string&
         if (token == from) {
             new_str += to;
             new_str += DELIMITER;
-        } else {
+        }
+        else {
             new_str += token;
             new_str += DELIMITER;
         }

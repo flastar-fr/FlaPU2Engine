@@ -23,12 +23,12 @@ public:
     MemoryCell(): value(0) {};
     virtual ~MemoryCell() = default;
 
-    virtual MemoryCell & operator=(const uint8_t operand) {
+    virtual MemoryCell& operator=(const uint8_t operand) {
         this->value = operand;
         return *this;
     }
 
-    virtual MemoryCell & operator=(const MemoryCell& operand) = default;
+    virtual MemoryCell& operator=(const MemoryCell& operand) = default;
 
     virtual MemoryCell& operator++() {
         ++value;
@@ -50,12 +50,12 @@ public:
         return *this;
     }
 
-    virtual MemoryCell & operator+=(const uint8_t operand) {
+    virtual MemoryCell& operator+=(const uint8_t operand) {
         this->value = static_cast<uint8_t>(this->value + operand);
         return *this;
     }
 
-    virtual MemoryCell & operator-=(const uint8_t operand) {
+    virtual MemoryCell& operator-=(const uint8_t operand) {
         this->value = static_cast<uint8_t>(this->value - operand);
         return *this;
     }
@@ -72,12 +72,12 @@ public:
         return temp;
     }
 
-    virtual MemoryCell & operator+=(const MemoryCell& operand) {
+    virtual MemoryCell& operator+=(const MemoryCell& operand) {
         this->value = static_cast<uint8_t>(this->value + operand.value);
         return *this;
     }
 
-    virtual MemoryCell & operator-=(const MemoryCell& operand) {
+    virtual MemoryCell& operator-=(const MemoryCell& operand) {
         this->value = static_cast<uint8_t>(this->value - operand.value);
         return *this;
     }
@@ -124,6 +124,7 @@ public:
     virtual MemoryCell operator|(const MemoryCell& operand) {
         return MemoryCell(this->value | operand.value);
     }
+
     virtual MemoryCell operator^(const MemoryCell& operand) {
         return MemoryCell(this->value ^ operand.value);
     }
@@ -148,7 +149,7 @@ public:
         return !(*this == operand);
     }
 
-    friend std::ostream& operator<<(std::ostream & lhs, const MemoryCell & m) {
+    friend std::ostream& operator<<(std::ostream& lhs, const MemoryCell& m) {
         lhs << static_cast<int>(m.value);
         return lhs;
     }
@@ -165,7 +166,7 @@ public:
         return false;
     }
 
-    [[nodiscard]] uint8_t getValue() const noexcept {return value;}
+    [[nodiscard]] uint8_t getValue() const noexcept { return value; }
 
 protected:
     uint8_t value;

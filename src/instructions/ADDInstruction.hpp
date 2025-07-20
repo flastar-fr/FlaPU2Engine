@@ -11,6 +11,7 @@ public:
         name = "ADD";
         amount_operands = 3;
     }
+
     ADDInstruction(): ADDInstruction(std::vector<Token>()) {};
 
     ~ADDInstruction() override = default;
@@ -34,8 +35,8 @@ public:
         return std::all_of(
             operands.begin(),
             operands.end(),
-            [](const auto& operand) {return operand.value_type == ValueType::REGISTER;}
-            );
+            [](const auto& operand) { return operand.value_type == ValueType::REGISTER; }
+        );
     }
 };
 

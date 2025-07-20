@@ -40,7 +40,7 @@
 
 #include "Token.hpp"
 
-std::ostream& operator<<(std::ostream & lhs, const ValueType rhs) {
+std::ostream& operator<<(std::ostream& lhs, const ValueType rhs) {
     lhs << to_string(rhs);
     return lhs;
 }
@@ -48,7 +48,7 @@ std::ostream& operator<<(std::ostream & lhs, const ValueType rhs) {
 std::string to_string(const ValueType value_type) {
     switch (value_type) {
         case ValueType::IMMEDIATE_VALUE: return "IMMEDIATE_VALUE";
-        case ValueType::REGISTER: return"REGISTER";
+        case ValueType::REGISTER: return "REGISTER";
         case ValueType::REGISTER_VALUE: return "REGISTER_VALUE";
         case ValueType::FLAG: return "FLAG";
         case ValueType::PORT: return "PORT";
@@ -56,7 +56,8 @@ std::string to_string(const ValueType value_type) {
     return "???";
 }
 
-std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const std::vector<Token>&)>> instruction_factories = {
+std::unordered_map<std::string, std::function<std::shared_ptr<Instruction>(const std::vector<Token>&)>>
+instruction_factories = {
     {"NOP", [](const std::vector<Token>& operands) { return std::make_shared<NOPInstruction>(operands); }},
     {"ADD", [](const std::vector<Token>& operands) { return std::make_shared<ADDInstruction>(operands); }},
     {"SUB", [](const std::vector<Token>& operands) { return std::make_shared<SUBInstruction>(operands); }},
@@ -118,14 +119,18 @@ std::vector<std::string> PORTS_MAP_LABELS = {
     "get_interrupt_state"
 };
 
-std::vector<PortType> PORTS_TYPES = {PortType::WRITE_CHAR, PortType::CLEAR_CHARS, PortType::PRINT_CHARS,
+std::vector<PortType> PORTS_TYPES = {
+    PortType::WRITE_CHAR, PortType::CLEAR_CHARS, PortType::PRINT_CHARS,
     PortType::WRITE_NUMBER, PortType::CLEAR_NUMBER, PortType::PRINT_NUMBER,
-    PortType::ADD_X1, PortType::ADD_Y1, PortType::ADD_X2, PortType::ADD_Y2, PortType::DRAW_PIXEL, PortType::DRAW_RECT, PortType::CLEAR_PIXEL, PortType::CLEAR_RECT, PortType::CLEAR_SCREEN, PortType::PRINT_SCREEN,
+    PortType::ADD_X1, PortType::ADD_Y1, PortType::ADD_X2, PortType::ADD_Y2, PortType::DRAW_PIXEL, PortType::DRAW_RECT,
+    PortType::CLEAR_PIXEL, PortType::CLEAR_RECT, PortType::CLEAR_SCREEN, PortType::PRINT_SCREEN,
     PortType::ADD_RNG_RANGE, PortType::RANDOM_NB, PortType::KEYBOARD_INPUT,
     PortType::INPUT_TIMER_MS, PortType::SWITCH_INTERRUPT, PortType::GET_INTERRUPT_STATE
 };
 
-std::vector<char> CHARS_MAPPING = {'0', '1', '2', '3', '4', '5', '6', '7', '9',
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+std::vector<char> CHARS_MAPPING = {
+    '0', '1', '2', '3', '4', '5', '6', '7', '9',
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+    'X', 'Y', 'Z',
     ' ', '!', '?'
 };

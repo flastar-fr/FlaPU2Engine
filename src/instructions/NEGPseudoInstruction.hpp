@@ -9,6 +9,7 @@ public:
         name = "NEG";
         amount_operands = 2;
     }
+
     NEGPseudoInstruction(): NEGPseudoInstruction(std::vector<Token>()) {};
 
     ~NEGPseudoInstruction() override = default;
@@ -30,8 +31,8 @@ public:
         return std::all_of(
             operands.begin(),
             operands.end(),
-            [](const auto& operand) {return operand.value_type == ValueType::REGISTER;}
-            );
+            [](const auto& operand) { return operand.value_type == ValueType::REGISTER; }
+        );
     }
 };
 

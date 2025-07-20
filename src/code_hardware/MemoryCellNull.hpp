@@ -37,7 +37,7 @@ public:
         return *this;
     }
 
-    MemoryCellNull & operator-=(uint8_t operand) override {
+    MemoryCellNull& operator-=(uint8_t operand) override {
         return *this;
     }
 
@@ -49,11 +49,11 @@ public:
         return *this;
     }
 
-    MemoryCellNull & operator+=(const MemoryCell&) override {
+    MemoryCellNull& operator+=(const MemoryCell&) override {
         return *this;
     }
 
-    MemoryCellNull & operator-=(const MemoryCell&) override {
+    MemoryCellNull& operator-=(const MemoryCell&) override {
         return *this;
     }
 

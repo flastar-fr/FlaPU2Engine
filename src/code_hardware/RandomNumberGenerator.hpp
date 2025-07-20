@@ -22,4 +22,3 @@ private:
     uint8_t high_value = 255;
     std::mt19937 gen;
 };
-

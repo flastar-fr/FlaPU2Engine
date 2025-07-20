@@ -7,6 +7,7 @@ public:
         name = "PST";
         amount_operands = 2;
     }
+
     PSTInstruction(): PSTInstruction(std::vector<Token>()) {};
 
     ~PSTInstruction() override = default;
@@ -146,9 +147,9 @@ public:
             case PortType::ADD_Y2:
             case PortType::WRITE_NUMBER: {
                 if (operands.size() != amount_operands + 1) return false;
-                return std::all_of( operands.begin() + 1,
-                    operands.end(),
-                    [](const auto& operand) {return operand.value_type == ValueType::REGISTER_VALUE;});
+                return std::all_of(operands.begin() + 1,
+                                   operands.end(),
+                                   [](const auto& operand) { return operand.value_type == ValueType::REGISTER_VALUE; });
             }
             default: return false;
         }

@@ -14,7 +14,7 @@ bool Instruction::isCorrect() const { return false; }
     return desc;
 }
 
-std::ostream& operator<<(std::ostream & lhs, const Instruction& rhs) {
+std::ostream& operator<<(std::ostream& lhs, const Instruction& rhs) {
     lhs << rhs.tostring();
     return lhs;
 }

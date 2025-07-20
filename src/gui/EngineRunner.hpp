@@ -8,7 +8,8 @@
 
 class EngineRunner {
 public:
-    EngineRunner(Engine engine, std::vector<std::shared_ptr<Instruction>> instructions) : engine(std::move(engine)), instructions(std::move(instructions)), engine_status({}) {}
+    EngineRunner(Engine engine, std::vector<std::shared_ptr<Instruction>> instructions) : engine(std::move(engine)),
+        instructions(std::move(instructions)), engine_status({}) {}
 
     [[nodiscard]] Engine& getEngine() { return engine; }
     [[nodiscard]] EngineStatus& getEngineStatus() { return engine_status; }

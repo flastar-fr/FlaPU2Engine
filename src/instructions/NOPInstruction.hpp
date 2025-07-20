@@ -8,6 +8,7 @@ public:
         name = "NOP";
         amount_operands = 0;
     }
+
     NOPInstruction(): NOPInstruction(std::vector<Token>()) {};
 
     ~NOPInstruction() override = default;
