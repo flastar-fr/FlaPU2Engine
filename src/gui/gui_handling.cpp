@@ -3,7 +3,7 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-#include "../config/config_gui.hpp"
+#include "config/config_gui.hpp"
 
 static void glfw_error_callback(const int error, const char* description) {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
@@ -70,18 +70,19 @@ void handle_frame_creation() {
     ImGui::NewFrame();
 }
 
-void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_color, EngineRunner& engine_runner, const json& json_file) {
-    const auto& engineStatus = engine_runner.getEngineStatus();
+void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_color, EngineRunner& engine_runner,
+                    const json& json_file) {
+    const auto& engine_status = engine_runner.getEngineStatus();
 
     handle_frame_creation();
 
     handle_keyboard_inputs(engine_runner.getEngine());
 
-    const bool engine_running = !engine_runner.isProgramFinished() && engineStatus.running_status ==
+    const bool engine_running = !engine_runner.isProgramFinished() && engine_status.running_status ==
         EngineRunningStatus::RUNNING;
     if (engine_running) execute_instructions(engine_runner);
 
-    if constexpr (SHOW_DEBUG) display_debug_windows(engine_runner);
+    if (engine_status.show_debug) display_debug_windows(engine_runner);
 
     display_controls(engine_runner, json_file);
     display_text_n_number(engine_runner.getEngine());

@@ -103,6 +103,12 @@ void create_buttons_controllers(EngineRunner& engine_runner, const json& json_fi
     if (ImGui::Button("Change")) {
         ask_to_change_executed_file_path(engine_runner, json_file);
     }
+
+    ImGui::SameLine();
+
+    if (ImGui::Button("Debug")) {
+        switch_debug_mode(engine_status);
+    }
 }
 
 void display_controls(EngineRunner& engine_runner, const json& json_file) {
@@ -121,7 +127,7 @@ void display_controls(EngineRunner& engine_runner, const json& json_file) {
     ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
     ImGui::Text("Executed : %lld", engine_runner.getAmountExecutedInstructions());
 
-    ImGui::SetWindowSize(ImVec2(210, 155));
+    ImGui::SetWindowSize(ImVec2(260, 155));
     ImGui::End();
 }
 
@@ -144,10 +150,8 @@ void display_debug_windows(EngineRunner& engine_runner) {
 }
 
 void render_main_window_content(Screen& screen) {
-    // ReSharper disable once CppDFAConstantConditions
     if (screen.getIsScreenEmpty()) return;
 
-    // ReSharper disable once CppDFAUnreachableCode
     const auto& screen_pixels = screen.getDisplayedScreen();
     const auto screen_size = screen.getScreenSize();
     const size_t width = screen_size.x;

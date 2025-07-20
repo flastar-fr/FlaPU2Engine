@@ -15,3 +15,7 @@ void ask_to_change_executed_file_path(EngineRunner& engine_runner, const json& j
         change_executed_file(new_source_path, engine_runner, json_file);
     }
 }
+
+void switch_debug_mode(EngineStatus& engine_status) {
+    engine_status.show_debug = !engine_status.show_debug;
+}

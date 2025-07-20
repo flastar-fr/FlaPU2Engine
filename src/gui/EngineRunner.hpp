@@ -9,9 +9,12 @@
 class EngineRunner {
 public:
     EngineRunner(Engine engine, std::vector<std::shared_ptr<Instruction>> instructions, const int op_per_second,
-                 const std::string& source_path) : engine(std::move(engine)),
-                                                   instructions(std::move(instructions)),
-                                                   engine_status(EngineStatus(op_per_second, source_path)) {}
+                 const std::string& source_path, const bool show_debug) : engine(std::move(engine)),
+                                                                          instructions(std::move(instructions)),
+                                                                          engine_status(
+                                                                              EngineStatus(
+                                                                                  op_per_second, source_path,
+                                                                                  show_debug)) {}
 
     [[nodiscard]] Engine& getEngine() { return engine; }
     [[nodiscard]] EngineStatus& getEngineStatus() { return engine_status; }
@@ -37,7 +40,7 @@ public:
     void registerInstruction(const std::shared_ptr<Instruction>& instruction) {
         ++amount_executed_instructions;
 
-        if constexpr (!SHOW_DEBUG) return;
+        if (!engine_status.show_debug) return;
         instructions_execution_trace.push_front(instruction);
 
         if (instructions_execution_trace.size() > MAX_INSTRUCTION_TO_DISPLAY) {

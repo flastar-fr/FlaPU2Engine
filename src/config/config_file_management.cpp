@@ -17,7 +17,8 @@ void create_default_json_file(const std::string& config_file_name) {
 
     const json default_json = {
         {SOURCE_PATH_KEY, selected_path},
-        {CLOCK_SPEED_KEY, 10}
+        {CLOCK_SPEED_KEY, 10},
+        {SHOW_DEBUG_KEY, false}
     };
 
     if (auto file = std::ofstream(config_file_name)) {
@@ -36,9 +37,10 @@ json open_config_file(const std::string& config_file_name) {
     return open_json_file(config_file_name);
 }
 
-void save_config_file(const std::string& config_file_name, EngineRunner& engine_runner, json json_file) {
-    json_file[CLOCK_SPEED_KEY] = engine_runner.getEngineStatus().op_per_second;
-    json_file[SOURCE_PATH_KEY] = json_file[SOURCE_PATH_KEY];
+void save_config_file(const std::string& config_file_name, EngineStatus& engine_status, json json_file) {
+    json_file[CLOCK_SPEED_KEY] = engine_status.op_per_second;
+    json_file[SOURCE_PATH_KEY] = engine_status.current_file_path;
+    json_file[SHOW_DEBUG_KEY] = engine_status.show_debug;
 
     auto file = std::ofstream(config_file_name);
     if (!file) {
@@ -52,5 +54,5 @@ void save_config_file(const std::string& config_file_name, EngineRunner& engine_
 void change_executed_file(const std::string& new_source_path, EngineRunner& engine_runner, const json& json_file) {
     const auto instructions = get_instructions(new_source_path);
     engine_runner.changeExecutedProgram(instructions, new_source_path);
-    save_config_file(JSON_CONFIG_PATH, engine_runner, json_file);
+    save_config_file(JSON_CONFIG_PATH, engine_runner.getEngineStatus(), json_file);
 }

@@ -3,8 +3,6 @@
 #include "config_hardware.hpp"
 #include <imgui.h>
 
-#define SHOW_DEBUG true
-
 constexpr long MAX_SPEED_EXECUTION = 100000000;
 constexpr int MAX_INSTRUCTION_TO_DISPLAY = 100;
 
