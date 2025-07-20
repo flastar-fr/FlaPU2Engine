@@ -30,10 +30,12 @@ public:
 
     void drawPixel() {
         screen_buffer[getPixelIndexFrom2D(pos1.x, pos1.y)] = true;
+        is_buffer_empty = false;
     }
 
     void drawRectangle() {
         changePixelRectangle(pos1, pos2, true);
+        is_buffer_empty = false;
     }
 
     void clearPixel() {
@@ -48,10 +50,12 @@ public:
         for (auto&& pixel : screen_buffer) {
             pixel = false;
         }
+        is_buffer_empty = true;
     }
 
     void pushBuffer() {
         displayed_screen = screen_buffer;
+        is_screen_empty = is_buffer_empty;
     }
 
     [[nodiscard]] std::vector<uint8_t>& getDisplayedScreen() { return displayed_screen; }
@@ -71,6 +75,8 @@ public:
         }
     }
 
+    [[nodiscard]] bool getIsScreenEmpty() const { return is_screen_empty; }
+
 private:
     Vector2<uint16_t> pos1;
     Vector2<uint16_t> pos2;
@@ -78,4 +84,7 @@ private:
 
     std::vector<uint8_t> screen_buffer;
     std::vector<uint8_t> displayed_screen;
+
+    bool is_buffer_empty = true;
+    bool is_screen_empty = true;
 };
