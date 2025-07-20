@@ -2,7 +2,7 @@
 #define MEMORY_HPP
 #include <vector>
 
-#include "config_hardware.hpp"
+#include "../config/config_hardware.hpp"
 #include "MemoryCell.hpp"
 
 class Memory {

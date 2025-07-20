@@ -6,7 +6,8 @@ You can find my [ISA](https://docs.google.com/spreadsheets/d/1aE8e7TodV6_dxUF-Ub
 
 ## Summary
 1. [Getting started](#getting-started)
-   1. [Compile](#compile)
+   1. [Dependencies](#dependencies)
+   2. [Compile](#compile)
 2. [How to program ?](#how-to-program-)
     1. [Null register](#null-register)
     2. [Definitions](#definitions)
@@ -34,12 +35,16 @@ You can find my [ISA](https://docs.google.com/spreadsheets/d/1aE8e7TodV6_dxUF-Ub
 The build tool this project uses is xmake, and it also needs for the unit tests the gtest library (if you are interested in tests, otherwise you can remove the "tests" part from the [xmake.lua](xmake.lua)).
 This project is written using the C++ 17 convention.
 
-For now the only way to tell to the program which file you want to execute is by modifying the hard coded file name in the main file and making sure the file is in the ressource source folder at compilation.
-To see the result, you have to look at the values displayed after the program execution, which represent the values of the 6 first registers.
+### Dependencies
+This project uses :
+1. [ImGUI](https://github.com/ocornut/imgui)
+2. [nlohmann_json](https://github.com/nlohmann/json?tab=readme-ov-file#integration)
+3. [tinyfiledialogs](https://github.com/jfolker/tinyfiledialogs)
+4. [gtest](https://github.com/google/googletest) (tests only)
 
 ### Compile
 To compile and launch the main program you have to have xmake installed and launch the ``xmake run FlaPU2Engine`` command. 
-This command will start downloading ImGui and all dependencies and then compile to execute.
+This command will start downloading dependencies and then compile to execute.
 Same for the unit tests and launch ``xmake run tests``. Same as before, it will download this time the gtest package. 
 All this configuration can be found in [the xmake.lua file](xmake.lua).
 
@@ -135,9 +140,9 @@ You can select a range but by default it is : 0, 255 (the minimum and the maximu
 
 #### Keyboard input
 This keyboard is a queue of keycodes that is push and pop at each key pressed. 
-Each keycodes can be found in the [config file](src/config_hardware.hpp) in the enum. 
+Each keycodes can be found in the [config file](src/config/config_hardware.hpp) in the enum. 
 If no key has been pressed and the queue is empty while you want to read a key, it returns a null keycode. 
-Detectable keys are manually set in the [gui config file](src/gui/config_gui.hpp) in an unordered map.
+Detectable keys are manually set in the [gui config file](src/config/config_gui.hpp) in an unordered map.
 
 #### Periodic interrupt timer
 This device is used only to control the timer between each timer interrupt. 
@@ -165,8 +170,8 @@ I ugely recommend you to check out [my example](#complete-example-with-interrupt
 Comments are only singleline and start with a ``#``.
 
 All the configurations are available in .hpp or .cpp files. 
-The config files for the engine are [src/config_hardware.hpp](src/config_hardware.hpp) and [src/config_hardware.cpp](src/config_hardware.cpp). 
-The config file for the GUI is [src/gui/config_gui.hpp](src/gui/config_gui.hpp). 
+The config files for the engine are [src/config_hardware.hpp](src/config/config_hardware.hpp) and [src/config_hardware.cpp](src/config/config_hardware.cpp). 
+The config file for the GUI is [src/gui/config_gui.hpp](src/config/config_gui.hpp). 
 I do not recommend you to remove some datas from these files, but you can change the default values, add new instructions, new chars, etc... But already existing values (mainly in enums) could result in compilation error.
 
 ## Features

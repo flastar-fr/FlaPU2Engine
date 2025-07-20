@@ -4,7 +4,7 @@
 #include <chrono>
 #include <stack>
 
-#include "config_hardware.hpp"
+#include "../config/config_hardware.hpp"
 #include "InterruptVectorTable.hpp"
 #include "Memory.hpp"
 #include "Ports.hpp"

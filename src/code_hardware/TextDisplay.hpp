@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-#include "config_hardware.hpp"
+#include "../config/config_hardware.hpp"
 
 class TextDisplay {
 public:

@@ -1,11 +1,11 @@
-#include "Preprocessor.hpp"
+#include "main_components/Preprocessor.hpp"
 
 #include <iostream>
 #include <stdexcept>
 
 #include "utils/string_manipulations.hpp"
 
-#include "config_hardware.hpp"
+#include "../config/config_hardware.hpp"
 
 constexpr size_t DEFINITION_SIZE_FORMAT = 3;
 

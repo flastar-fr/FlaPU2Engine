@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "config_hardware.hpp"
+#include "../config/config_hardware.hpp"
 #include "Pixel.hpp"
 #include "utils/Vector2.hpp"
 

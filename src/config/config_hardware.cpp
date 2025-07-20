@@ -38,7 +38,7 @@
 #include "instructions/JGEPseudoInstruction.hpp"
 #include "instructions/JLTPseudoInstruction.hpp"
 
-#include "Token.hpp"
+#include "../main_components/Token.hpp"
 
 std::ostream& operator<<(std::ostream& lhs, const ValueType rhs) {
     lhs << to_string(rhs);

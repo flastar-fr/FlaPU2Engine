@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "instructions/Instruction.hpp"
+#include "../instructions/Instruction.hpp"
 
 
 std::shared_ptr<Instruction> parse_line(const std::string& line);

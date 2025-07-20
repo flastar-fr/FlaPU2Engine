@@ -1,6 +1,8 @@
 add_rules("mode.debug", "mode.release")
 set_languages("c++17")
 
+add_requires("nlohmann_json 3.12")
+add_requires("tinyfiledialogs")
 add_requires("gtest 1.16", {configs = {main = false}, system = false})
 add_requires("imgui docking", {alias = "imgui-docking", configs = {glfw_opengl3 = true}})
 
@@ -9,7 +11,7 @@ add_includedirs("src", {public = true})
 target("FlaPU2Engine")
     set_kind("binary")
     add_files("src/**.cpp")
-    add_packages("imgui-docking")
+    add_packages("nlohmann_json", "imgui-docking", "tinyfiledialogs")
     after_build(function (target)
         os.cp("ressources/", path.join(target:targetdir(), "."))
     end)

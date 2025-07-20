@@ -1,8 +1,11 @@
-#ifndef IO_MANIPULATIONS_HPP
-#define IO_MANIPULATIONS_HPP
+#pragma once
 #include <string>
 #include <vector>
 
-bool read_file(const std::string& file_path, std::vector<std::string>& result);
+#include <nlohmann/json.hpp>
 
-#endif //IO_MANIPULATIONS_HPP
+using json = nlohmann::json;
+
+bool read_file(const std::string& file_path, std::vector<std::string>& result);
+std::string open_file_dialog();
+json open_json_file(const std::string& config_file_name);

@@ -4,8 +4,8 @@
 
 #include <algorithm>
 
-#include "utils/string_manipulations.hpp"
-#include "utils/string_verifications.hpp"
+#include "../utils/string_manipulations.hpp"
+#include "../utils/string_verifications.hpp"
 
 
 std::shared_ptr<Instruction> parse_line(const std::string& line) {

@@ -2,7 +2,7 @@
 #define INSTRUCTION_HPP
 #include <vector>
 
-#include "Token.hpp"
+#include "../main_components/Token.hpp"
 #include "code_hardware/Engine.hpp"
 
 class Instruction {

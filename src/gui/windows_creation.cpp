@@ -2,8 +2,7 @@
 
 #include <imgui.h>
 
-#include "config_gui.hpp"
-#include "helper_functions.hpp"
+#include "../config/config_gui.hpp"
 
 void display_registers(const Registers& registers) {
     ImGui::Begin("Registers");
@@ -78,33 +77,41 @@ void display_flags_n_pc(const Engine& engine) {
     ImGui::End();
 }
 
-void create_buttons_controllers(EngineStatus& engineStatus) {
+void create_buttons_controllers(EngineRunner& engine_runner, const json& json_file) {
+    EngineStatus& engine_status = engine_runner.getEngineStatus();
+
     if (ImGui::Button("Play")) {
-        if (engineStatus.running_status == EngineRunningStatus::PAUSED) {
-            engineStatus.running_status = EngineRunningStatus::RUNNING;
+        if (engine_status.running_status == EngineRunningStatus::PAUSED) {
+            engine_status.running_status = EngineRunningStatus::RUNNING;
         }
     }
 
     ImGui::SameLine();
 
     if (ImGui::Button("Pause")) {
-        engineStatus.running_status = EngineRunningStatus::PAUSED;
+        engine_status.running_status = EngineRunningStatus::PAUSED;
     }
 
     ImGui::SameLine();
 
     if (ImGui::Button("Stop")) {
-        engineStatus.running_status = EngineRunningStatus::STOPPED;
+        engine_status.running_status = EngineRunningStatus::STOPPED;
+    }
+
+    ImGui::SameLine();
+
+    if (ImGui::Button("Change")) {
+        ask_to_change_executed_file_path(engine_runner, json_file);
     }
 }
 
-void display_controls(EngineRunner& engine_runner) {
+void display_controls(EngineRunner& engine_runner, const json& json_file) {
     ImGui::Begin("Controls");
     ImGui::Text("Controls: ");
 
     EngineStatus& engine_status = engine_runner.getEngineStatus();
 
-    create_buttons_controllers(engine_status);
+    create_buttons_controllers(engine_runner, json_file);
 
     ImGui::Text("Operation /seconds:");
     ImGui::SliderInt("##Slider", &engine_status.op_per_second, 0, MAX_SPEED_EXECUTION);
@@ -114,7 +121,7 @@ void display_controls(EngineRunner& engine_runner) {
     ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
     ImGui::Text("Executed : %lld", engine_runner.getAmountExecutedInstructions());
 
-    ImGui::SetWindowSize(ImVec2(165, 155));
+    ImGui::SetWindowSize(ImVec2(210, 155));
     ImGui::End();
 }
 

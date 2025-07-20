@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "Token.hpp"
+#include "../src/main_components/Token.hpp"
 
 extern uint8_t ALTERNATIVE_TEST_VALUE;
 extern uint8_t NULL_VALUE;

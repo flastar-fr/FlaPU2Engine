@@ -1,31 +1,21 @@
-#include "parser.hpp"
-#include <string>
-
-#include "Preprocessor.hpp"
+#include "main_components/pre_data_extraction.hpp"
+#include "config/config_file_management.hpp"
+#include "config/main_config.hpp"
 #include "gui/gui_handling.hpp"
-#include "utils/io_manipulations.hpp"
+
+void start_engine() {
+    auto json_file = open_config_file(JSON_CONFIG_PATH);
+
+    const auto instructions = get_instructions(json_file[SOURCE_PATH_KEY]);
+
+    auto engine_runner = EngineRunner(Engine(), instructions, json_file[CLOCK_SPEED_KEY], json_file[SOURCE_PATH_KEY]);
+    create_window(engine_runner, json_file);
+
+    save_config_file(JSON_CONFIG_PATH, engine_runner, json_file);
+}
 
 int main() {
-    std::vector<std::string> result;
-
-
-    if (const bool is_open = read_file("ressources/source.asm", result); !is_open) {
-        return 1;
-    }
-
-    auto preprocessor = Preprocessor(result);
-    result = preprocessor.preprocess();
-
-    std::vector<std::shared_ptr<Instruction>> instructions;
-    instructions.reserve(MAX_AMOUNT_INSTRUCTIONS);
-    if (const bool all_corrects = parse_lines(instructions, result); !all_corrects) {
-        return 2;
-    }
-
-    fill_empty(instructions, MAX_AMOUNT_INSTRUCTIONS);
-
-    auto engineRunner = EngineRunner(Engine(), instructions);
-    create_window(engineRunner);
+    start_engine();
 
     return 0;
 }

@@ -3,8 +3,7 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-#include "config_gui.hpp"
-#include "windows_creation.hpp"
+#include "../config/config_gui.hpp"
 
 static void glfw_error_callback(const int error, const char* description) {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
@@ -71,7 +70,7 @@ void handle_frame_creation() {
     ImGui::NewFrame();
 }
 
-void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_color, EngineRunner& engine_runner) {
+void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_color, EngineRunner& engine_runner, const json& json_file) {
     const auto& engineStatus = engine_runner.getEngineStatus();
 
     handle_frame_creation();
@@ -84,7 +83,7 @@ void loop_iteration(GLFWwindow* window, const ImGuiIO& io, const ImVec4 clear_co
 
     if constexpr (SHOW_DEBUG) display_debug_windows(engine_runner);
 
-    display_controls(engine_runner);
+    display_controls(engine_runner, json_file);
     display_text_n_number(engine_runner.getEngine());
 
     render_main_window_content(engine_runner.getEngine().getPorts().screen);
@@ -148,21 +147,21 @@ bool start_window(GLFWwindow*& window, ImGuiIO& io, int& exit_code) {
     return false;
 }
 
-void execute_loop(GLFWwindow* window, const ImGuiIO& io, EngineRunner& engine_runner) {
+void execute_loop(GLFWwindow* window, const ImGuiIO& io, EngineRunner& engine_runner, const json& json_file) {
     constexpr auto clear_color = ImVec4(0.f, 0.f, 0.f, 1.f);
 
     while (!glfwWindowShouldClose(window)) {
-        loop_iteration(window, io, clear_color, engine_runner);
+        loop_iteration(window, io, clear_color, engine_runner, json_file);
     }
 }
 
-int create_window(EngineRunner& engine_runner) {
+int create_window(EngineRunner& engine_runner, const json& json_file) {
     GLFWwindow* window;
     ImGuiIO io;
 
     if (int exit_code; start_window(window, io, exit_code)) return exit_code;
 
-    execute_loop(window, io, engine_runner);
+    execute_loop(window, io, engine_runner, json_file);
 
     clean_window(window);
 
