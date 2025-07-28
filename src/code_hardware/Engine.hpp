@@ -17,7 +17,7 @@ public:
         : register_amount(DEFAULT_SIZE_REGISTERS), memory_amount(memoryAmount), registers(Registers()),
           memory(Memory(memoryAmount)), program_counter(0), flag_states({false, false, false, false}),
           ports(Ports(SCREEN_SIZE)), ivt(amountInterrupts) {
-        start_period = std::chrono::high_resolution_clock::now();
+        start_period = std::chrono::steady_clock::now();
     }
 
     Engine() : Engine(DEFAULT_SIZE_MEMORY, AMOUNT_INTERRUPTS) {}
@@ -74,11 +74,11 @@ public:
     }
 
     void checkPeriodicInterrupt() {
-        const auto now = std::chrono::high_resolution_clock::now();
+        const auto now = std::chrono::steady_clock::now();
         const auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - start_period);
 
         if (duration.count() >= periodic_timer_duration_ms) {
-            start_period = std::chrono::high_resolution_clock::now();
+            start_period = std::chrono::steady_clock::now();
 
             triggerInterrupt(PERIODIC_INTERRUPT_CODE, true);
         }
@@ -99,7 +99,7 @@ private:
     std::stack<size_t> stack_addresses;
     Ports ports;
     InterruptVectorTable ivt;
-    std::chrono::time_point<std::chrono::steady_clock> start_period;
+    std::chrono::steady_clock::time_point start_period;
     int periodic_timer_duration_ms = DEFAULT_PERIODIC_TIMER_DURATION_MS;
 };
 #endif //ENGINE_HPP

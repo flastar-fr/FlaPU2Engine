@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <functional>
 #include <array>
+#include <cmath>
 #include <cstdint>
 
 #include "utils/Vector2.hpp"
